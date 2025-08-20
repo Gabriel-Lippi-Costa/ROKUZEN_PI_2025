@@ -6,7 +6,7 @@
 O ROKUZEN é um sistema web para visualização em tempo real dos postos de atendimento das unidades de massagem terapêutica do Grupo RKZ.
 O objetivo é otimizar o atendimento presencial, facilitar a gestão da recepção e melhorar a experiência dos clientes.
 
-✅ Funcionalidades
+✅ <strong>Funcionalidades:</strong>
 
 👥 Login por perfil (recepção e terapeuta)
 
@@ -22,7 +22,7 @@ O objetivo é otimizar o atendimento presencial, facilitar a gestão da recepç�
 
 📱 Modo tablet/kiosk para clientes escolherem serviços e visualizarem disponibilidade
 
-🔐 Requisitos de Uso
+🔐 <strong>Requisitos de Uso:</strong>
 
 Interface responsiva (desktop e tablet)
 
@@ -30,6 +30,6 @@ Design limpo e intuitivo
 
 Atualização em tempo real da disponibilidade
 
-🚀 Futuro
+🚀 <strong>Futuro:</strong>
 
 Programa de fidelidade e cashback integrado
