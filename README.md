@@ -3,7 +3,7 @@
 🌿 ROKUZEN – Sistema Web de Atendimento <br>
 📘 Sobre o Projeto
 
-O ROKUZEN é um sistema web para visualização em tempo real dos postos de atendimento das unidades de massagem terapêutica do Grupo RKZ.
+O ROKUZEN precisa de um sistema web para visualização em tempo real dos postos de atendimento das unidades de massagem terapêutica do Grupo RKZ.
 O objetivo é otimizar o atendimento presencial, facilitar a gestão da recepção e melhorar a experiência dos clientes.
 
 ✅ <strong>Funcionalidades:</strong>
