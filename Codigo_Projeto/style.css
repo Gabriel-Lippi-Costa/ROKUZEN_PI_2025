@@ -30,10 +30,12 @@ header .parte-de-cima img {
 
 header .funcoes-usuario .mobile-menu i {
     font-size: 1.4em;
+    cursor: pointer;
 }
 
 header .funcoes-usuario .login-cadastro i {
     font-size: 1.4em;
+    cursor: pointer;
 }
 
 header .opcoes-menu {
@@ -62,5 +64,9 @@ header .barra-pesquisa i {
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
+    cursor: pointer;
+}
+
+.banner-rokuzen img{
+    width: 100%;
 }
