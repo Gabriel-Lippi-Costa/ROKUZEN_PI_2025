@@ -7,24 +7,60 @@ header {
     display: grid;
     justify-content: center;
     padding: 20px 40px;
+    gap: 10px;
+    background-color: #404040b4;
 }
 
-header .parte-cima {
+header .parte-de-cima {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
-header .parte-cima .funcoes {
+header .parte-de-cima .funcoes-usuario {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-header .parte-cima img {
+header .parte-de-cima img {
     width: 200px;
+}
+
+header .funcoes-usuario .mobile-menu i {
+    font-size: 1.4em;
+}
+
+header .funcoes-usuario .login-cadastro i {
+    font-size: 1.4em;
 }
 
 header .opcoes-menu {
     display: none;
+}
+
+header .barra-pesquisa {
+    margin: 0 auto;
+    position: relative;
+}
+
+header .barra-pesquisa input[type="text"] {
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+header .barra-pesquisa input::placeholder {
+    letter-spacing: 2px;
+    padding: 5px;
+    font-size: 0.9em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header .barra-pesquisa i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
