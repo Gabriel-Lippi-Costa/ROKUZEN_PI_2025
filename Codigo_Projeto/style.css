@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: grid;
+    justify-content: center;
+    padding: 20px 40px;
+}
+
+header .parte-cima {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .parte-cima .funcoes {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+header .parte-cima img {
+    width: 200px;
+}
+
+header .opcoes-menu {
+    display: none;
+}
