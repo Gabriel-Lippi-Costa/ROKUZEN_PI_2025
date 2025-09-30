@@ -114,7 +114,7 @@ header nav .parte-do-meio ul li {
 header nav .parte-do-meio ul li a {
     color: white;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 500;
     padding: 8px 15px;
     border-radius: 5px;
@@ -127,8 +127,77 @@ header nav .parte-do-meio ul li a:hover {
     color: #A8BE7C;
 } 
 
+.banner img{
+    width: 100%;
+}
+
+.secao-promocoes {
+    margin: 30px 0; 
+    padding: 0 15px; 
+}
+
+.secao-promocoes h2 { 
+    color: #596b24; 
+    text-align: center;
+    font-size: 2em; 
+    margin-bottom: 20px; 
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.carrosel-section {
+    max-width: 900px; 
+    margin: 0 auto; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    border-radius: 8px;
+    overflow: hidden; 
+}
+
+.carrosel-section .carousel-item img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover; 
+}
+
+
+.carousel-caption {
+    background-color: #404040c4; 
+    padding: 10px 15px;
+    border-radius: 5px;
+    bottom: 0; 
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+}
+
+.carousel-caption h5 {
+    color: white;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.carousel-caption p {
+    color: #A8BE7C; 
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+@media (min-width: 768px) {
+    .carrosel-section .carousel-item img {
+        height: 450px; 
+    }
+}
+
 @media (max-width: 1024px) {
-    /* Exibe os botões de Login e Menu no mobile */
     header nav .parte-do-meio .login-btn,
     header nav .parte-do-meio .menu-btn {
         display: block; 
