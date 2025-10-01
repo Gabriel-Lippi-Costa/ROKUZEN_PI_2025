@@ -1,0 +1,197 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #404040c4;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.logo img {
+    width: 200px;
+}
+
+.parte-do-meio .login-btn,
+.parte-do-meio .menu-btn,
+.parte-do-meio ul .close-btn-li {
+    display: none; 
+}
+
+.login-btn, .menu-btn {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.login-btn a, .menu-btn i {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.login-btn a:hover {
+    transform: scale(1.3);
+    color: #A8BE7C; 
+}
+
+.menu-btn i:hover {
+    transform: scale(1.3);
+    color: #A8BE7C; 
+}
+
+.parte-do-meio {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.parte-de-baixo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.barra-de-pesquisa {
+    position: relative;
+    display: inline-block;
+}
+
+.barra-de-pesquisa input[type="text"] {
+    padding: 10px 40px 10px 15px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    width: 250px;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: width 0.3s ease-in-out;
+}
+
+.barra-de-pesquisa input[type="text"]:focus {
+    width: 300px;
+}
+
+.barra-de-pesquisa i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.barra-de-pesquisa i:hover {
+    color: #A8BE7C;
+}
+
+.parte-do-meio ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.parte-do-meio ul li {
+    margin: 0 5px;
+}
+
+.parte-do-meio ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.parte-do-meio ul li a.active, 
+.parte-do-meio ul li a:hover {
+    color: #A8BE7C;
+} 
+
+.banner img{
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .parte-do-meio .login-btn,
+    .parte-do-meio .menu-btn {
+        display: block; 
+    }
+    
+    .parte-do-meio {
+        gap: 50px;
+    }
+
+    .parte-do-meio ul {
+        position: fixed;
+        top: 0; 
+        left: 0;
+        background-color: #404040f0;
+        height: 100vh;
+        width: 100%;
+        text-align: center;
+        flex-direction: column; 
+        justify-content: flex-start;
+        align-items: center;
+        z-index: 9999; 
+        padding-top: 80px; 
+        visibility: hidden; 
+        opacity: 0;
+        transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s;
+        transform: translateX(100%); 
+    }
+    
+    
+    .parte-do-meio ul.open {
+        visibility: visible;
+        opacity: 1; 
+        display: flex; 
+        transform: translateX(0); 
+    }
+
+    .parte-do-meio ul li {
+        width: 100%;
+        margin: 15px 0; 
+    }
+    .parte-do-meio ul li a {
+        display: block; 
+        padding: 12px 15px;
+    }
+
+    .parte-do-meio ul .close-btn-li {
+        display: block; 
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        width: auto; 
+        margin: 0;
+    }
+
+    .parte-do-meio ul .close-btn {
+        font-size: 32px;
+        color: white;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .parte-do-meio ul .close-btn:hover {
+        color: #A8BE7C;
+    }
+}
