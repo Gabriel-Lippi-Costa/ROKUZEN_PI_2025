@@ -21,17 +21,11 @@ header nav .parte-de-cima .logo {
 }
 
 header nav .logo img {
-    width: 200px;
-}
-
-header nav .parte-do-meio .login-btn,
-header nav .parte-do-meio .menu-btn,
-header nav .parte-do-meio ul .close-btn-li {
-    display: none; 
+    width: 300px;
 }
 
 header nav .login-btn, header nav .menu-btn {
-    font-size: 28px;
+    font-size: 36px;
     cursor: pointer;
 }
 
@@ -76,7 +70,8 @@ header nav .parte-de-baixo .barra-de-pesquisa input[type="text"] {
     border: none;
     border-radius: 20px;
     outline: none;
-    width: 250px;
+    width: 270px;
+    height: 50px;
     font-size: 14px;
     background: #fff;
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
@@ -95,6 +90,7 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     color: #555;
     cursor: pointer;
     transition: color 0.3s;
+    font-size: 28px;
 }
 
 header nav .parte-de-baixo .barra-de-pesquisa i:hover {
