@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #e9eaee;
-}
-
 header {
   background-color: #404040c4;
   width: 100%;
@@ -141,188 +137,6 @@ header nav .parte-do-meio ul li a {
 header nav .parte-do-meio ul li a.active,
 header nav .parte-do-meio ul li a:hover {
   color: #a8be7c;
-}
-
-.banner-mobile img {
-  width: 100%;
-}
-
-.banner-desktop img {
-  display: none;
-}
-
-.secao-promocoes {
-  margin: 30px 0;
-  padding: 0 15px;
-}
-
-.secao-promocoes h2 {
-  color: #596b24;
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.carousel-wrapper {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.cards {
-  display: flex;
-  gap: 30px;
-  padding: 20px;
-  transition: transform 0.4s ease-in-out;
-}
-
-.cards .card {
-  min-width: 350px;
-  flex-shrink: 0;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px, rgba(0, 0, 0, 0.05) 0px 4px 6px;
-  transition: transform 0.2s;
-  cursor: pointer;
-}
-
-.cards .card:hover {
-  transform: translateY(-5px);
-  box-shadow: rgba(43, 82, 114, 0.2) 0px 15px 40px;
-}
-
-.cards .card img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.cards .card .tipo-massagem {
-  font-size: 1.5em;
-  text-align: center;
-  font-weight: 600;
-  color: #333;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-.cards .card .preco {
-  font-size: 1.3em;
-  text-align: center;
-  font-weight: 700;
-  color: red;
-}
-
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  border: none;
-  font-size: 2.5rem;
-  color: #333;
-  padding: 0 10px;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
-  transition: background-color 0.3s;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
-}
-
-.nav-button:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.prev-button {
-  left: 10px;
-}
-
-.next-button {
-  right: 10px;
-}
-
-.secao-servicos {
-  margin: 30px 0;
-  padding: 0 15px;
-}
-
-.secao-servicos h2 {
-  color: #596b24;
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.roda-pe {
-  background-color: #5a5a5a;
-  color: white;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 10px;
-  gap: 15px;
-}
-
-.roda-pe .info-rokuzen {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  text-align: center;
-}
-
-.roda-pe .info-rokuzen p a {
-  text-decoration: none;
-  font-size: 18px;
-  color: white;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.roda-pe .info-rokuzen p a:hover {
-  color: #c9c9c9;
-}
-
-.roda-pe .redes-sociais {
-  display: flex;
-  gap: 15px;
-}
-
-.roda-pe .redes-sociais button {
-  padding: 10px;
-  background-color: transparent;
-  border: none;
-}
-
-.roda-pe .redes-sociais button a {
-  color: white;
-  font-size: 24px;
-  transition: color 0.3s;
-}
-
-.roda-pe .redes-sociais button a:hover {
-  color: #c9c9c9;
-}
-
-.roda-pe .direito-de-imagem {
-  text-align: center;
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-@media (min-width: 768px) {
-  .carrosel-section .carousel-item img {
-    height: 450px;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -460,14 +274,6 @@ header nav .parte-do-meio ul li a:hover {
     padding-bottom: 30px;
   }
 
-  .secao-promocoes h2 {
-    font-size: 2.7em;
-  }
-
-  .secao-servicos h2 {
-    font-size: 2.7em;
-  }
-
   header nav .parte-de-baixo .barra-de-pesquisa input[type="text"] {
     width: 350px;
     height: 60px;
@@ -480,21 +286,5 @@ header nav .parte-do-meio ul li a:hover {
 
   header nav .parte-de-baixo .barra-de-pesquisa i {
     font-size: 32px;
-  }
-
-  .roda-pe .info-rokuzen p a {
-    font-size: 28px;
-  }
-
-  .roda-pe .redes-sociais button a {
-    color: white;
-    font-size: 32px;
-    transition: color 0.3s;
-  }
-
-  .roda-pe .direito-de-imagem {
-    text-align: center;
-    font-size: 28px;
-    opacity: 0.8;
   }
 }
