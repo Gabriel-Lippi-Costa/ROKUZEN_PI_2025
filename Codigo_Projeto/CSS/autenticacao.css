@@ -1,7 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+}
+
+body {
+  background-color: #e9eaee;
 }
 
 header {
@@ -137,6 +143,77 @@ header nav .parte-do-meio ul li a {
 header nav .parte-do-meio ul li a.active,
 header nav .parte-do-meio ul li a:hover {
   color: #a8be7c;
+}
+
+.escolha-autenticacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0px;
+}
+
+.escolha-autenticacao button {
+  padding: 10px;
+  width: 170px;
+  border: 1px solid black;
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.escolha-autenticacao .login-btn button {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: rgba(128, 128, 128, 0.5);
+}
+
+.escolha-autenticacao .cadastro-btn button {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.conteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.conteiner .informacoes-usuario {
+  padding: 20px;
+  background-color: #aeaeaf81;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+
+.conteiner .informacoes-usuario .informacoes-cadastro form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.conteiner .informacoes-usuario .informacoes-cadastro form label {
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 420;
+  font-style: normal;
+}
+
+.conteiner .informacoes-usuario .informacoes-cadastro form input {
+  width: 300px;
+  height: 35px;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background-color: #f9fff4;
+}
+
+.conteiner .informacoes-usuario .informacoes-cadastro form input:focus {
+  border: 3px solid #9db668;
+  outline: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 1024px) {
