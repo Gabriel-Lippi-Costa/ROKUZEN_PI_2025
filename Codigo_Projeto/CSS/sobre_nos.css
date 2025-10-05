@@ -130,31 +130,51 @@ header nav .parte-do-meio ul li a:hover {
     color: #A8BE7C;
 }
 
+.secao-sobre-nos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.secao-sobre-nos img {
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+}
+
 .secao-sobre-nos h1 {
     color: #404040;
     font-family: 'Libre Baskerville', serif;
-    font-size: 43px;
+    font-size: 29px;
     font-weight: bold;
     text-align: center;
-    padding: 25px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    line-height: 2;
 }
 
 .principal {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2px;
 }
 
 .principal img {
-    width: 200px;
+    width: 150px;
     height: auto;
 }
 
 p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18px;
+    font-size: 14px;
+    padding: 1px;
+    margin: 25px;  
+    text-indent: 25px; 
+    line-height: 1.2; 
+    hyphens: auto;   
 }
+
 
 .roda-pe {
     background-color: #5a5a5a;
