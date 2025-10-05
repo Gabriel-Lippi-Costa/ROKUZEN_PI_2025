@@ -87,23 +87,38 @@
                     <input type="text" name="sobrenome" id="sobrenome">
 
                     <label for="#">Gênero</label>
-
+                    <select name="genero" id="genero">
+                        <option value="">Selecione</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="feminino">Outro</option>
+                    </select>
 
                     <label for="#">Data de Nascimento</label>
+                    <input type="date" name="data-nascimento" id="data-nascimento">
+                    
 
                     <label for="#">CPF</label>
+                    <input type="text" name="cpf" id="cpf">
 
                     <label for="#">Telefone</label>
+                    <input type="tel" name="telefone" id="telefone">
 
                     <label for="#">Estado</label>
+                    <select name="estado" id="estado">
+                        <option value="">Selecione</option>
+                    </select>
 
                     <label for="#">Cidade</label>
+                    <select name="cidade" id="cidade">
+                        <option value="">Selecione o estado primeiro</option>
+                    </select>
 
                     <label for="#">Endereço</label>
                     <input type="text" name="endereco" id="endereco">
 
                     <label for="#">Complemento</label>
-                    <label for="#">complemento</label>
+                    <input type="text" name="complemento" id="complemento">
 
                     <label for="#">E-mail</label>
                     <input type="email" name="e-mail" id="e-mail">
@@ -114,6 +129,10 @@
                     <label for="#">Confirmar senha</label>
                     <input type="password" name="confirmar-password" id="confirmar-password">
 
+                    <button type="submit">
+                        Registrar
+                    </button>
+
                 </form>
             </section>
             <section class="informacoes-login">
@@ -121,6 +140,25 @@
         </section>
     </section>
 
+    <footer class="roda-pe">
+        <section class="info-rokuzen">
+            <p><a href="#">Contato</a></p>
+            <p><a href="#">Unidade</a></p>
+            <p><a href="#">Sobre nós</a></p>
+        </section>
+
+        <section class="redes-sociais">
+            <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-instagram"></i></a></button>
+            <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-facebook"></i></a></button>
+            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i class="bi bi-envelope"></i></a></button>
+        </section>
+
+        <section class="direito-de-imagem">
+            <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
+        </section>
+    </footer>
+
+    <script src="../JS/cidades-estados-ibge.js"></script>
     <script src="../JS/menu-home-page.js"></script>
 </body>
 

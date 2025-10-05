@@ -80,7 +80,7 @@ header nav .parte-de-baixo .barra-de-pesquisa input[type="text"] {
     border-radius: 20px;
     outline: none;
     width: 250px;
-    font-size: 14px;
+    font-size: 20px;
     background: #fff;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     transition: width 0.3s ease-in-out;
