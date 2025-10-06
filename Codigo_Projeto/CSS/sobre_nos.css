@@ -287,29 +287,6 @@ header nav .parte-do-meio ul li a:hover {
   margin-top: 10px;
 }
 
-.principal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2px;
-}
-
-.principal img {
-  width: 150px;
-  height: auto;
-}
-
-p {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 14px;
-  padding: 1px;
-  margin: 25px;
-  text-indent: 25px;
-  line-height: 1.4;
-  hyphens: auto;
-}
-
-
 .roda-pe {
   background-color: #5a5a5a;
   color: white;
