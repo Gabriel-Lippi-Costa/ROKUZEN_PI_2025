@@ -143,12 +143,10 @@ header nav .parte-do-meio ul li a:hover {
   color: #a8be7c;
 }
 
-
-.secao-promocoes {
+.secao-profissionais {
   margin: 30px 0;
   padding: 0 15px;
 }
-
 
 .carousel-wrapper {
   position: relative;
@@ -160,12 +158,13 @@ header nav .parte-do-meio ul li a:hover {
 .cards {
   display: flex;
   gap: 30px;
-  padding: 20px;
+  padding: 60px;
   transition: transform 0.4s ease-in-out;
 }
 
 .cards .card {
-  min-width: 350px;
+  min-width: 320px;
+  max-width: 350px;
   flex-shrink: 0;
   background-color: #ffffff;
   padding: 20px;
@@ -186,7 +185,7 @@ header nav .parte-do-meio ul li a:hover {
   border-radius: 10px;
 }
 
-.cards .card .tipo-massagem {
+.cards .card .nome-profissional {
   font-size: 1.5em;
   text-align: center;
   font-weight: 600;
@@ -195,12 +194,6 @@ header nav .parte-do-meio ul li a:hover {
   margin-bottom: 5px;
 }
 
-.cards .card .preco {
-  font-size: 1.3em;
-  text-align: center;
-  font-weight: 700;
-  color: red;
-}
 
 .nav-button {
   position: absolute;
@@ -233,7 +226,6 @@ header nav .parte-do-meio ul li a:hover {
 .next-button {
   right: 10px;
 }
-
 
 .roda-pe {
   background-color: #5a5a5a;
@@ -299,7 +291,6 @@ header nav .parte-do-meio ul li a:hover {
 }
 
 @media (max-width: 1024px) {
-
   header nav .parte-do-meio .login-btn,
   header nav .parte-do-meio .menu-btn {
     display: block;
@@ -438,10 +429,6 @@ header nav .parte-do-meio ul li a:hover {
     font-size: 2.7em;
   }
 
-  .secao-servicos h2 {
-    font-size: 2.7em;
-  }
-
   header nav .parte-de-baixo .barra-de-pesquisa input[type="text"] {
     width: 350px;
     height: 60px;
@@ -493,36 +480,46 @@ header nav .parte-do-meio ul li a:hover {
   }
 }
 
-  /* parte verde de cima8 */
+/* parte verde de cima */
 
-  
-
-.secao-sobre-nos {
+.secao-profissionais {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap; 
   margin: 0;
   padding: 60px 20px;
   background-color: #9db668;
   gap: 20px;
 }
 
-.secao-sobre-nos img.icone {
-  width: 70px;
-  height: 70px;
-  vertical-align: middle;
+.secao-profissionais img.icone {
+  width: clamp(50px, 10vw, 70px);
+  height: auto;
+  z-index: 1; 
 }
 
-.secao-sobre-nos h1 {
+.secao-profissionais h1 {
   color: #404040;
   font-family: "Libre Baskerville", serif;
-  font-size: 50px;
+  font-size: clamp(28px, 6vw, 50px);
   font-weight: bold;
-  text-align: center;
   letter-spacing: 1px;
-  line-height: 2;
-  margin-left: -55px;
+  line-height: 1.3;
   margin-top: 10px;
+  position: relative;
+  transform: translateX(-55px); /* aqui para mudar sobreposicao !zion!*/
+  z-index: 2; 
 }
 
-  
+
+@media (max-width: 600px) {
+  .secao-sobre-nos {
+    flex-wrap: nowrap;
+  }
+
+  .secao-profissionais h1 {
+    transform: translateX(-45px); 
+    font-size: clamp(22px, 7vw, 40px);
+  }
+}
