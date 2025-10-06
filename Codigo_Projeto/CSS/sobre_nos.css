@@ -367,3 +367,35 @@ p {
   font-size: 14px;
   opacity: 0.8;
 }
+
+
+/* teste */
+.imagem-texto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.imagem-texto img {
+  width: 300px;
+  height: auto;
+}
+
+.imagem-texto .texto {
+  max-width: 600px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  padding: 25px;
+}
+.imagem-texto .texto p {
+  margin: 8px 0 ;
+  padding: 0 ;
+  text-indent: 5 ;
+  font-size: 15px;
+
+}
