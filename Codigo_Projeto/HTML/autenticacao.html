@@ -121,13 +121,13 @@
                     <input type="text" name="complemento" id="complemento">
 
                     <label for="#">E-mail</label>
-                    <input type="email" name="e-mail" id="e-mail">
+                    <input type="email" name="email-cadastro" id="email-cadastro">
 
                     <label for="#">Senha</label>
-                    <input type="password" name="password" id="password">
+                    <input type="password" name="password-cadastro" id="password-cadastro">
 
                     <label for="#">Confirmar senha</label>
-                    <input type="password" name="confirmar-password" id="confirmar-password">
+                    <input type="password" name="confirmar-password-cadastro" id="confirmar-password-cadastro">
 
                     <button type="submit">
                         Registrar
@@ -135,8 +135,21 @@
 
                 </form>
             </section>
+
             <section class="informacoes-login">
+                <form action="#" method="post">
+                    <label for="#">E-mail</label>
+                    <input type="email" name="email-login" id="email-login">
+
+                    <label for="#">Senha</label>
+                    <input type="password" name="senha-login" id="senha-login">
+
+                    <button type="submit">
+                        Acessar
+                    </button>
+                </form>
             </section>
+            
         </section>
     </section>
 
@@ -158,6 +171,8 @@
         </section>
     </footer>
 
+
+    <script src="../JS/escolha-autenticacao.js"></script>
     <script src="../JS/cidades-estados-ibge.js"></script>
     <script src="../JS/menu-home-page.js"></script>
 </body>
