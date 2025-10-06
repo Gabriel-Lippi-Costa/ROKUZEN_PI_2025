@@ -262,6 +262,7 @@ header nav .parte-do-meio ul li a:hover {
   text-transform: uppercase;
   font-weight: 700;
 }
+
 .roda-pe {
   background-color: #5a5a5a;
   color: white;
@@ -326,6 +327,7 @@ header nav .parte-do-meio ul li a:hover {
 }
 
 @media (max-width: 1024px) {
+
   header nav .parte-do-meio .login-btn,
   header nav .parte-do-meio .menu-btn {
     display: block;
@@ -499,3 +501,22 @@ header nav .parte-do-meio ul li a:hover {
   }
 }
 
+.carousel-wrapper .cards {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-wrapper .cards .card {
+  scroll-snap-align: start;
+}
+
+.carousel-wrapper .nav-button {
+  z-index: 20;
+}
+
+@media (max-width: 480px) {
+  .carousel-wrapper .cards .card {
+    min-width: 85vw;
+  }
+}
