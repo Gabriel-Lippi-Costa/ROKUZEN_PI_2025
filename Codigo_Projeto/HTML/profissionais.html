@@ -1,150 +1,198 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/profissionais.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <title>Rokuzen</title>
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rokuzen — Profissionais</title>
 
+  
+  <link rel="stylesheet" href="../CSS/profissionais.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+  
+  <meta name="description" content="Conheça os profissionais da Rokuzen." />
+</head>
 <body>
 
-    <header>
-        <nav>
+  <header>
+    <nav aria-label="Primária do site">
+      <section class="parte-de-cima">
+        <section class="logo">
+          <a href="index.html" aria-label="Ir para a página inicial">
+            <img src="../assets/Logo/logo-rokuzen.png" alt="Rokuzen" width="160" height="48" />
+          </a>
+        </section>
+
+        <a href="autenticacao.html" class="login-atalho" aria-label="Fazer login">
+          <i class="bi bi-person" aria-hidden="true"></i>
+        </a>
+
+        <ul class="menu-desktop" role="menubar" aria-label="Menu principal">
+          <li role="none"><a role="menuitem" href="#">Serviços</a></li>
+          <li role="none"><a role="menuitem" href="unidades.html">Unidades</a></li>
+          <li role="none"><a role="menuitem" href="#">Artigos</a></li>
+          <li role="none"><a role="menuitem" href="profissionais.html" aria-current="page">Profissionais</a></li>
+          <li role="none"><a role="menuitem" href="#">Ajuda</a></li>
+          <li role="none"><a role="menuitem" href="sobre-nos.html">Sobre nós</a></li>
+        </ul>
+      </section>
+
+      <section class="parte-do-meio">
+        <section class="login-btn">
+          <a href="autenticacao.html" aria-label="Fazer login">
+            <i class="bi bi-person" aria-hidden="true"></i>
+          </a>
+        </section>
+
+        <section class="menu-btn">
+          <button type="button" class="icon-btn" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false" onclick="menuToggle(this)">
+            <i class="bi bi-list" aria-hidden="true"></i>
+          </button>
+        </section>
+
+        <ul id="menu-mobile" hidden>
+          <li class="close-btn-li">
+            <button type="button" class="close-btn" aria-label="Fechar menu" onclick="menuToggle(this)">
+              <i class="bi bi-x" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li><a href="#">Serviços</a></li>
+          <li><a href="unidades.html">Unidades</a></li>
+          <li><a href="#">Artigos</a></li>
+          <li><a href="profissionais.html" aria-current="page">Profissionais</a></li>
+          <li><a href="#">Ajuda</a></li>
+          <li><a href="sobre-nos.html">Sobre nós</a></li>
+        </ul>
+      </section>
+
+      <section class="parte-de-baixo">
+        <form class="barra-de-pesquisa" role="search" aria-label="Pesquisar profissionais" action="profissionais.html" method="get">
+          <label class="sr-only" for="q">Pesquisar</label>
+          <input id="q" name="q" type="search" placeholder="Pesquisar" />
+          <button type="submit" aria-label="Buscar">
+            <i class="bi bi-search" aria-hidden="true"></i>
+          </button>
+        </form>
+      </section>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="secao-profissionais" aria-labelledby="titulo-profissionais">
+      <img src="../assets/Logo/logo-titulos.png" alt="" class="icone" loading="lazy" decoding="async" />
+      <h1 id="titulo-profissionais">PROFISSIONAIS</h1>
+    </section>
+
+    <section class="secao-promocoes" aria-label="Lista de profissionais">
+      <div class="carousel-wrapper">
+        <button class="nav-button prev-button" type="button" aria-label="Anterior">❮</button>
+
+        <section class="cards" role="list" aria-live="polite">
+          <section class="card" role="listitem">
             <section class="parte-de-cima">
-                <section class="logo">
-                    <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
-                </section>
-
-                <a href="autenticacao.html"><i class="bi bi-person"></i></a>
-
-                <ul class="menu-desktop">
-                    <li><a href="#">Serviços</a></li>
-                    <li><a href="unidades.html">Unidades</a></li>
-                    <li><a href="#">Artigos</a></li>
-                    <li><a href="profissionais.html">Profissionais</a></li>
-                    <li><a href="#">Ajuda</a></li>
-                    <li><a href="sobre-nos.html">Sobre nós</a></li>
-                </ul>
+              <img src="../assets/Profissionais/foto-nao-disponivel-masculino-rokuzen.jpeg"
+                   alt="Brunno — profissional da Rokuzen"
+                   loading="lazy" decoding="async" />
             </section>
-
-            <section class="parte-do-meio">
-                <section class="login-btn">
-                    <a href="autenticacao.html"><i class="bi bi-person"></i></a>
-                </section>
-
-                <section class="menu-btn">
-                    <i class="bi bi-list" onclick="menuToggle()"></i>
-                </section>
-
-                <ul>
-                    <li class="close-btn-li">
-                        <i class="bi bi-x close-btn" onclick="menuToggle()"></i>
-                    </li>
-                    <li><a href="#">Serviços</a></li>
-                    <li><a href="unidades.html">Unidades</a></li>
-                    <li><a href="#">Artigos</a></li>
-                    <li><a href="#">Profissionais</a></li>
-                    <li><a href="#">Ajuda</a></li>
-                    <li><a href="sobre-nos.html">Sobre nós</a></li>
-                </ul>
-            </section>
-
             <section class="parte-de-baixo">
-                <section class="barra-de-pesquisa">
-                    <input type="text" placeholder="Pesquisar">
-                    <i class="bi bi-search"></i>
-                </section>
+              <p class="nome-profissional">Brunno</p>
             </section>
-        </nav>
-    </header>
+          </section>
 
+          <section class="card" role="listitem">
+            <section class="parte-de-cima">
+              <img src="../assets/Profissionais/imagem-generica.png"
+                   alt="Adriana — profissional da Rokuzen"
+                   loading="lazy" decoding="async" />
+            </section>
+            <section class="parte-de-baixo">
+              <p class="nome-profissional">Adriana</p>
+            </section>
+          </section>
 
-    <section class="secao-profissionais">
-        <img src="../assets/Logo/logo-titulos.png" alt="" class="icone" loading="lazy" decoding="async">
-        <h1>PROFISSIONAIS</h1>
+          <section class="card" role="listitem">
+            <section class="parte-de-cima">
+              <img src="../assets/Profissionais/eric-rokuzen.jpeg"
+                   alt="Eric — profissional da Rokuzen"
+                   loading="lazy" decoding="async" />
+            </section>
+            <section class="parte-de-baixo">
+              <p class="nome-profissional">Eric</p>
+            </section>
+          </section>
+
+          <section class="card" role="listitem">
+            <section class="parte-de-cima">
+              <img src="../assets/Profissionais/imagem-generica.png"
+                   alt="Suzy — profissional da Rokuzen"
+                   loading="lazy" decoding="async" />
+            </section>
+            <section class="parte-de-baixo">
+              <p class="nome-profissional">Suzy</p>
+            </section>
+          </section>
+
+          <section class="card" role="listitem">
+            <section class="parte-de-cima">
+              <img src="../assets/Profissionais/imagem-generica.png"
+                   alt="Marcelo — profissional da Rokuzen"
+                   loading="lazy" decoding="async" />
+            </section>
+            <section class="parte-de-baixo">
+              <p class="nome-profissional">Marcelo</p>
+            </section>
+          </section>
+        </section>
+
+        <button class="nav-button next-button" type="button" aria-label="Próximo">❯</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="roda-pe">
+    <section class="info-rokuzen" aria-label="Links institucionais">
+      <p><a href="#">Contato</a></p>
+      <p><a href="unidades.html">Unidades</a></p>
+      <p><a href="sobre-nos.html">Sobre nós</a></p>
     </section>
 
-    <section class="secao-promocoes">
-        <div class="carousel-wrapper">
-            <button class="nav-button prev-button">❮</button>
-
-            <section class="cards">
-                <section class="card">
-                    <section class="parte-de-cima">
-                        <img src="../assets/Profissionais/foto-nao-disponivel-masculino-rokuzen.jpeg"
-                            alt="Foto do profissional Brunno">
-                    </section>
-                    <section class="parte-de-baixo">
-                        <p class="nome-profissional">Brunno</p>
-                    </section>
-                </section>
-
-                <section class="card">
-                    <section class="parte-de-cima">
-                        <img src="../assets/Profissionais/imagem-generica.png" alt="Foto do profissional ...">
-                    </section>
-                    <section class="parte-de-baixo">
-                        <p class="nome-profissional">Adriana</p>
-                    </section>
-                </section>
-
-                <section class="card">
-                    <section class="parte-de-cima">
-                        <img src="../assets/Profissionais/eric-rokuzen.jpeg" alt="Foto do profissional Eric">
-                    </section>
-                    <section class="parte-de-baixo">
-                        <p class="nome-profissional">Eric</p>
-                    </section>
-                </section>
-
-                <section class="card">
-                    <section class="parte-de-cima">
-                        <img src="../assets/Profissionais/imagem-generica.png" alt="Foto do profissional ...">
-                    </section>
-                    <section class="parte-de-baixo">
-                        <p class="nome-profissional">Suzy</p>
-                    </section>
-                </section>
-
-                <section class="card">
-                    <section class="parte-de-cima">
-                        <img src="../assets/Profissionais/imagem-generica.png" alt="Foto do profissional...">
-                    </section>
-                    <section class="parte-de-baixo">
-                        <p class="nome-profissional">Marcelo</p>
-                    </section>
-            </section>
-
-            <button class="nav-button next-button">❯</button>
-        </div>
+    <section class="redes-sociais" aria-label="Redes sociais">
+      <a class="btn-icon" href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="noopener noreferrer" title="Instagram">
+        <i class="bi bi-instagram" aria-hidden="true"></i><span class="sr-only">Instagram</span>
+      </a>
+      <a class="btn-icon" href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="noopener noreferrer" title="Facebook">
+        <i class="bi bi-facebook" aria-hidden="true"></i><span class="sr-only">Facebook</span>
+      </a>
+      <a class="btn-icon" href="mailto:contato@rokuzen.com.br" title="Enviar e-mail">
+        <i class="bi bi-envelope" aria-hidden="true"></i><span class="sr-only">E-mail</span>
+      </a>
     </section>
 
-    <footer class="roda-pe">
-        <section class="info-rokuzen">
-            <p><a href="#">Contato</a></p>
-            <p><a href="unidades.html">Unidade</a></p>
-            <p><a href="sobre-nos.html">Sobre nós</a></p>
-        </section>
+    <section class="direito-de-imagem">
+      <p><i class="bi bi-c-circle" aria-hidden="true"></i> 2025 Rokuzen — Todos os direitos reservados.</p>
+    </section>
+  </footer>
 
-        <section class="redes-sociais">
-            <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i
-                        class="bi bi-instagram"></i></a></button>
-            <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i
-                        class="bi bi-facebook"></i></a></button>
-            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
-                        class="bi bi-envelope"></i></a></button>
-        </section>
+  
+  <script src="../JS/carrosel.js" defer></script>
+  <script src="../JS/menu-home-page.js" defer></script>
 
-        <section class="direito-de-imagem">
-            <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
-        </section>
-    </footer>
-
-    <script src="../JS/carrosel.js"></script>
-    <script src="../JS/menu-home-page.js"></script>
+  <script>
+    
+    function menuToggle(btn) {
+      const menu = document.getElementById('menu-mobile');
+      const isHidden = menu.hasAttribute('hidden');
+      if (isHidden) {
+        menu.removeAttribute('hidden');
+        // encontra o botão "abrir" para atualizar aria-expanded
+        const openBtn = document.querySelector('.menu-btn button');
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.setAttribute('hidden', '');
+        const openBtn = document.querySelector('.menu-btn button');
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  </script>
 </body>
-
 </html>
