@@ -528,7 +528,9 @@ header nav .parte-do-meio ul li a:hover {
 }
 
 .principal img {
-=======
+  width: 300px;
+  height: auto;
+  }
 
 /* teste */
 .imagem-texto {
@@ -540,13 +542,6 @@ header nav .parte-do-meio ul li a:hover {
   flex-wrap: wrap;
 }
 
-.imagem-texto img {
->>>>>>> 0bb6888459c4789203b1acbbed933fc18162f9ba
-  width: 300px;
-  height: auto;
-}
-
-<<<<<<< HEAD
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 14px;
@@ -575,7 +570,6 @@ p {
   background-color: #9db668;
   gap: 20px;
 }
-=======
 .imagem-texto .texto {
   max-width: 600px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -591,4 +585,3 @@ p {
   font-size: 15px;
 
 }
->>>>>>> 0bb6888459c4789203b1acbbed933fc18162f9ba
