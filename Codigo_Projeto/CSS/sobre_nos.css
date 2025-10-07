@@ -288,7 +288,6 @@ header nav .parte-do-meio ul li a:hover {
   margin-top: 10px;
 }
 
->>>>>>> 0bb6888459c4789203b1acbbed933fc18162f9ba
 .roda-pe {
   background-color: #5a5a5a;
   color: white;
@@ -322,6 +321,8 @@ header nav .parte-do-meio ul li a:hover {
 .roda-pe .redes-sociais {
   display: flex;
   gap: 15px;
+  justify-content: center;
+  align-items: center;
 }
 
 .roda-pe .redes-sociais button {
@@ -346,7 +347,6 @@ header nav .parte-do-meio ul li a:hover {
   opacity: 0.8;
 }
 
-<<<<<<< HEAD
   header nav .parte-do-meio {
     gap: 50px;
   }
