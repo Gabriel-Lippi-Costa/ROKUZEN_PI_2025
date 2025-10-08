@@ -541,3 +541,44 @@ header nav .parte-do-meio ul li a:hover {
   background-color: #9db668;
   gap: 20px;
 }
+
+.unidades-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 70px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.unidade {
+  text-align: center;
+}
+
+.unidade img {
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.unidade:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 1025px) {
+  #titulo-unidades {
+    font-size: 6vw; 
+  }
+}
+@media (max-width: 1024px) {
+  .unidades-grid {
+    grid-template-columns: 1fr; 
+    padding: 10px;
+  }
+  
+  .unidade img {
+    width: 160px; 
+  }
+}
