@@ -567,11 +567,6 @@ header nav .parte-do-meio ul li a:hover {
   transform: scale(1.1);
 }
 
-@media (max-width: 1025px) {
-  #titulo-unidades {
-    font-size: 6vw; 
-  }
-}
 @media (max-width: 1024px) {
   .unidades-grid {
     grid-template-columns: 1fr; 
@@ -580,5 +575,17 @@ header nav .parte-do-meio ul li a:hover {
   
   .unidade img {
     width: 160px; 
+  }
+}
+
+
+@media (max-width: 600px) {
+  .secao-unidades {
+    flex-wrap: nowrap;
+  }
+
+  .secao-unidades h1 {
+    transform: translateX(-45px); 
+    font-size: clamp(22px, 7vw, 40px);
   }
 }
