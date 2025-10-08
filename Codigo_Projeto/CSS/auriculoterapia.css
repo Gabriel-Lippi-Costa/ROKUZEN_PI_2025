@@ -1,0 +1,572 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #e9eaee;
+  }
+  
+  header {
+    background-color: #404040c4;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  header .parte-de-cima,
+  .parte-do-meio {
+    margin-bottom: 10px;
+  }
+  
+  header nav .parte-de-cima .logo {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  header nav .logo img {
+    width: 300px;
+  }
+  
+  header nav .parte-de-cima .menu-desktop {
+    display: none;
+  }
+  
+  header nav .parte-de-cima i {
+    display: none;
+  }
+  
+  header nav .login-btn,
+  header nav .menu-btn {
+    font-size: 36px;
+    cursor: pointer;
+  }
+  
+  header nav .login-btn a,
+  header nav .menu-btn i {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    transition: color 0.3s, transform 0.2s;
+  }
+  
+  header nav .login-btn a:hover {
+    transform: scale(1.3);
+    color: #a8be7c;
+  }
+  
+  header nav .menu-btn i:hover {
+    transform: scale(1.3);
+    color: #a8be7c;
+  }
+  
+  header nav .parte-do-meio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  header nav .parte-de-baixo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+  
+  header nav .parte-de-baixo .barra-de-pesquisa {
+    position: relative;
+    display: inline-block;
+  }
+  
+  header nav .parte-de-baixo .barra-de-pesquisa input[type="text"] {
+    padding: 10px 40px 10px 15px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    width: 270px;
+    height: 50px;
+    font-size: 20px;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease-in-out;
+  }
+  
+  header nav .parte-de-baixo .barra-de-pesquisa input[type="text"]:focus {
+    width: 300px;
+  }
+  
+  header nav .parte-de-baixo .barra-de-pesquisa i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s;
+    font-size: 28px;
+  }
+  
+  header nav .parte-de-baixo .barra-de-pesquisa i:hover {
+    color: #a8be7c;
+  }
+  
+  header nav .parte-de-baixo .barra-de-pesquisa input::placeholder {
+    font-size: 22px;
+    color: rgba(128, 128, 128, 0.822);
+  }
+  
+  header nav .parte-do-meio ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+  
+  header nav .parte-do-meio ul li {
+    margin: 0 5px;
+  }
+  
+  header nav .parte-do-meio ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+  
+  header nav .parte-do-meio ul li a.active,
+  header nav .parte-do-meio ul li a:hover {
+    color: #a8be7c;
+  }
+  
+  @media (max-width: 1024px) {
+  
+    header nav .parte-do-meio .login-btn,
+    header nav .parte-do-meio .menu-btn {
+      display: block;
+    }
+  
+    header nav .parte-do-meio {
+      gap: 50px;
+    }
+  
+    header nav .parte-do-meio ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #404040f0;
+      height: 100vh;
+      width: 100%;
+      text-align: center;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      z-index: 9999;
+      padding-top: 80px;
+      visibility: hidden;
+      opacity: 0;
+      transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out,
+        visibility 0.4s;
+      transform: translateX(100%);
+    }
+  
+  
+    header nav .parte-do-meio ul.open {
+      visibility: visible;
+      opacity: 1;
+      display: flex;
+      transform: translateX(0);
+    }
+  
+    header nav .parte-do-meio ul li {
+      width: 100%;
+      margin: 15px 0;
+    }
+  
+    header nav .parte-do-meio ul li a {
+      display: block;
+      padding: 12px 15px;
+    }
+  
+    header nav .parte-do-meio ul .close-btn-li {
+      display: block;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+  
+    header nav .parte-do-meio ul .close-btn {
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+  
+    header nav .parte-do-meio ul .close-btn:hover {
+      color: #a8be7c;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    header nav .parte-do-meio {
+      display: none;
+    }
+  
+    header nav .parte-de-cima {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 50px;
+      gap: 15px;
+    }
+  
+    header nav .parte-de-cima i {
+      font-size: 50px;
+      cursor: pointer;
+      color: white;
+      transition: color 0.3s, transform 0.2s;
+    }
+  
+    header nav .parte-de-cima i:hover {
+      transform: scale(1.3);
+      color: #a8be7c;
+    }
+  
+    header nav .parte-de-cima .menu-desktop {
+      display: flex;
+      gap: 40px;
+    }
+  
+    header nav .parte-de-cima .menu-desktop li {
+      list-style: none;
+      font-size: 28px;
+    }
+  
+    header nav .parte-de-cima .menu-desktop li a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+  
+    header nav .parte-de-cima .menu-desktop li a:hover {
+      color: #a8be7c;
+    }
+  }
+  
+  
+  .secao-sobre-nos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 60px 20px;
+    background-color: #9db668;
+    gap: 20px;
+  }
+  
+  .secao-sobre-nos img.icone {
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+  }
+  
+  .secao-sobre-nos h1 {
+    color: #404040;
+    font-family: "Libre Baskerville", serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 2;
+    margin-left: -55px;
+    margin-top: 10px;
+  }
+  
+  .roda-pe {
+    background-color: #5a5a5a;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    gap: 15px;
+  }
+  
+  .roda-pe .info-rokuzen {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+  }
+  
+  .roda-pe .info-rokuzen p a {
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .roda-pe .info-rokuzen p a:hover {
+    color: #c9c9c9;
+  }
+  
+  .roda-pe .redes-sociais {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .roda-pe .redes-sociais button {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .roda-pe .redes-sociais button a {
+    color: white;
+    font-size: 24px;
+    transition: color 0.3s;
+  }
+  
+  .roda-pe .redes-sociais button a:hover {
+    color: #c9c9c9;
+  }
+  
+  .roda-pe .direito-de-imagem {
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  
+    header nav .parte-do-meio {
+      gap: 50px;
+    }
+  
+    header nav .parte-do-meio ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #404040f0;
+      height: 100vh;
+      width: 100%;
+      text-align: center;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      z-index: 9999;
+      padding-top: 80px;
+      visibility: hidden;
+      opacity: 0;
+      transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out,
+        visibility 0.4s;
+      transform: translateX(100%);
+    }
+  
+    header nav .parte-do-meio ul.open {
+      visibility: visible;
+      opacity: 1;
+      display: flex;
+      transform: translateX(0);
+    }
+  
+    header nav .parte-do-meio ul li {
+      width: 100%;
+      margin: 15px 0;
+    }
+  
+    header nav .parte-do-meio ul li a {
+      display: block;
+      padding: 12px 15px;
+    }
+  
+    header nav .parte-do-meio ul .close-btn-li {
+      display: block;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      width: auto;
+      margin: 0;
+    }
+  
+    header nav .parte-do-meio ul .close-btn {
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+  
+    header nav .parte-do-meio ul .close-btn:hover {
+      color: #a8be7c;
+    }
+  
+    header nav .parte-do-meio {
+      display: none;
+    }
+  
+    header nav .parte-de-cima {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 50px;
+      gap: 15px;
+    }
+  
+    header nav .parte-de-cima .logo {
+      display: flex;
+    }
+  
+    header nav .parte-de-cima i {
+      font-size: 50px;
+      cursor: pointer;
+    }
+  
+    header nav .parte-de-cima i {
+      text-decoration: none;
+      color: white;
+      display: inline-block;
+      transition: color 0.3s, transform 0.2s;
+    }
+  
+    header nav .parte-de-cima i:hover {
+      transform: scale(1.3);
+      color: #a8be7c;
+    }
+  
+    header nav .parte-de-cima .menu-desktop {
+      display: flex;
+      gap: 40px;
+    }
+  
+    header nav .parte-de-cima .menu-desktop li {
+      list-style: none;
+      font-size: 28px;
+    }
+  
+    header nav .parte-de-cima .menu-desktop li a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+  
+    header nav .parte-de-cima .menu-desktop li a:hover {
+      color: #a8be7c;
+    }
+  
+    header nav .parte-de-baixo {
+      padding-bottom: 30px;
+    }
+  
+    header nav .parte-de-baixo .barra-de-pesquisa input[type="text"] {
+      width: 350px;
+      height: 60px;
+      transition: width 0.3s ease-in-out;
+    }
+  
+    header nav .parte-de-baixo .barra-de-pesquisa input[type="text"]:focus {
+      width: 380px;
+    }
+  
+    header nav .parte-de-baixo .barra-de-pesquisa i {
+      font-size: 32px;
+    }
+  
+    .roda-pe .info-rokuzen p a {
+      font-size: 28px;
+    }
+  
+    .roda-pe .redes-sociais button a {
+      color: white;
+      font-size: 32px;
+      transition: color 0.3s;
+    }
+  
+    .roda-pe .direito-de-imagem {
+      text-align: center;
+      font-size: 28px;
+      opacity: 0.8;
+    }
+  
+  /* parte do arquivo "auriculoterapia*/
+  .secao-auriculoterapia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .secao-auriculoterapia img {
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+  }
+  
+  .secao-auriculoterapia h1 {
+    color: #404040;
+    font-family: "Libre Baskerville", serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+  
+  /* teste */
+  .imagem-texto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+  }
+  
+  p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    padding: 1px;
+    margin: 25px;
+    text-indent: 25px;
+    line-height: 1.2;
+    hyphens: auto;
+  }
+  
+  .secao-auriculoterapia img.icone {
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+  }
+  .secao-auriculoterapia h1 {
+    margin-left: -55px;
+    margin-top: 10px;
+  }
+  .secao-auriculoterapia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 60px 20px;
+    background-color: #9db668;
+    gap: 20px;
+  }
+  .imagem-texto .texto {
+    max-width: 600px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    padding: 25px;
+  }
+  .imagem-texto .texto p {
+    margin: 8px 0 ;
+    padding: 0 ;
+    text-indent: 5 ;
+    font-size: 15px;
+  
+  }
