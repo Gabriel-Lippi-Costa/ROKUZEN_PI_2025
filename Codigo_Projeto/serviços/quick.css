@@ -258,7 +258,7 @@ header nav .parte-do-meio ul li a:hover {
 }
 
 
-.secao-maca {
+.secao-quick {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,13 +268,13 @@ header nav .parte-do-meio ul li a:hover {
     gap: 20px;
 }
 
-.secao-maca img.icone {
+.secao-quick img.icone {
     width: 70px;
     height: 70px;
     vertical-align: middle;
 }
 
-.secao-maca h1 {
+.secao-quick h1 {
     color: #404040;
     font-family: "Libre Baskerville", serif;
     font-size: 50px;
@@ -493,21 +493,21 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     opacity: 0.8;
 }
 
-/* parte do arquivo "maca*/
-.secao-maca {
+/* parte do arquivo "quick*/
+.secao-quick {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px;
 }
 
-.secao-maca img {
+.secao-quick img {
     width: 26px;
     height: 26px;
     vertical-align: middle;
 }
 
-.secao-maca h1 {
+.secao-quick h1 {
     color: #404040;
     font-family: "Libre Baskerville", serif;
     font-size: 50px;
@@ -542,10 +542,11 @@ p {
 .topicos {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
-    padding: 7px;
+    padding: 5px;
 }
 
 #primeiro-topico {
+    font-size: 14px;
     padding: 10px;
 }
 
@@ -554,21 +555,22 @@ p {
 }
 
 #terceiro-topico {
+    font-size: 14px;
     padding-bottom: 10px;
 }
 
-.secao-maca img.icone {
+.secao-quick img.icone {
     width: 70px;
     height: 70px;
     vertical-align: middle;
 }
 
-.secao-maca h1 {
+.secao-quick h1 {
     margin-left: -55px;
     margin-top: 10px;
 }
 
-.secao-maca {
+.secao-quick {
     display: flex;
     justify-content: center;
     align-items: center;
