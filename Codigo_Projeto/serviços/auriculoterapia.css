@@ -527,17 +527,6 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
   flex-wrap: wrap;
 }
 
-.subtitulos {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
-  padding: 5px;
-}
-
-.topicos {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 14px;
-}
-
 p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 14px;
@@ -545,8 +534,36 @@ p {
   hyphens: auto;
 }
 
-#ultimo-topico {
-  padding-bottom: 12px;
+.subtitulos {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  padding: 6px;
+}
+
+.topicos {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+
+#primeiro-topico {
+  padding: 10px;
+}
+
+#segundo-topico {
+  padding-bottom: 10px;
+}
+
+#terceiro-topico {
+  padding-bottom: 10px;
+}
+
+#quarto-topico {
+  padding-bottom: 10px;
+}
+
+#quinto-topico {
+  padding-bottom: 10px;
 }
 
 .secao-auriculoterapia img.icone {
