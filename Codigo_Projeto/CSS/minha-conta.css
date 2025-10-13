@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.banner-minha-conta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.banner-minha-conta img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.editar-dados {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 30px;
+}
+
+.editar-dados button {
+  font-size: 17px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.editar-dados button {
+  padding: 10px;
+  background-color: #7e0000;
+  color: white;
+  font-weight: 550;
+  border: 1px solid black;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editar-dados button:hover {
+  background-color: white;
+  color: #7e0000;
+  transition: all 0.3s ease;
+}
+
+/* .conteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.conteiner .informacoes-usuario {
+  padding: 20px;
+  background-color: #aeaeaf81;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+
+.conteiner .informacoes-usuario .informacoes form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.conteiner .informacoes-usuario .informacoes form label {
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 420;
+  font-style: normal;
+}
+
+.conteiner .informacoes-usuario .informacoes form input, .conteiner .informacoes-usuario .informacoes form select {
+  font-size: 17px;
+  width: 300px;
+  height: 35px;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background-color: #f9fff4;
+}
+
+.conteiner .informacoes-usuario .informacoes form input:focus {
+  border: 3px solid #9db668;
+  outline: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: all 0.3s ease;
+}
+
+.conteiner .informacoes-usuario .informacoes form select option {
+  font-size: 18px;
+}
+
+.conteiner .informacoes-usuario .informacoes form button {
+  margin-top: 15px;
+  height: 35px;
+  background-color: #7E0000;
+  color: white;
+  font-weight: 550;
+  border: 1px solid black;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.conteiner .informacoes-usuario .informacoes form button:hover {
+  background-color: white;
+  color: #7E0000;
+  transition: all 0.3s ease;
+} */
