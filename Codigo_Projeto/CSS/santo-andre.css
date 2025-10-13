@@ -1,0 +1,178 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.banner-mobile img {
+  width: 100%;
+}
+
+.banner-desktop img {
+  display: none;
+}
+
+
+.unidade {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  gap: 100px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+
+}
+
+.unidade img {
+  width: 400px;
+  height: auto;
+  border-radius: 15px;
+  
+}
+
+.texto {
+  max-width: 380px;  
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.texto .whatsapp-icon {
+    width: 18px;      /* Tamanho padrão */
+    height: auto;     /* Mantém proporção */
+    vertical-align: middle;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .whatsapp-icon {
+        width: 13px;
+    }
+}
+
+@media (max-width: 600px) {
+    .whatsapp-icon {
+        width: 12px;
+    }
+}
+
+
+.nome {
+  font-size: 28px;
+  margin-bottom: 25px;
+  border-bottom: 2px gray solid;
+}
+
+.info p {
+  margin-bottom: 1px;
+}
+
+iframe {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+  border-radius: 15px;
+  margin-top: 25px;
+  border: none;
+}
+
+/* Seção de unidades */
+.secao-unidades {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background-color: #9db668;
+  gap: 20px;
+}
+
+.secao-unidades h1 {
+  color: #404040;
+  font-family: "Libre Baskerville", serif;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+.secao-unidades img.icone {
+  width: 70px;
+  height: 70px;
+}
+
+
+@media (max-width: 1024px) {
+  .banner-mobile img {
+    display: block;
+  }
+
+  .banner-desktop img {
+    display: none;
+  }
+
+  .unidade {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .texto {
+    max-width: 90%;
+    margin-left: 0;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+
+  .secao-unidades h1 {
+    font-size: clamp(28px, 6vw, 50px);
+  }
+}
+
+
+@media (max-width: 600px) {
+  .secao-unidades {
+    flex-direction: column;
+    padding: 40px 15px;
+    gap: 15px;
+  }
+
+  .secao-unidades img.icone {
+    width: 50px;
+    height: 50px;
+  }
+
+  .secao-unidades h1 {
+    font-size: clamp(22px, 7vw, 36px);
+  }
+
+  .unidade img {
+    width: 90%;
+  }
+
+  .texto {
+    font-size: 16px;
+  }
+
+  iframe {
+    height: 180px;
+  }
+}
+
+
+@media (min-width: 1025px) {
+  .banner-mobile img {
+    display: none;
+  }
+
+  .banner-desktop img {
+    display: block;
+    width: 100%;
+  }
+}
+
