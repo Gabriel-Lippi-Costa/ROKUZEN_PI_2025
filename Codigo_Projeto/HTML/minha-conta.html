@@ -67,102 +67,116 @@
     </section>
 
     <section class="editar-dados">
-        <button>
-            Editar dados
+        <button onclick="toggleModal()">
+            <i class="bi bi-pencil-square"></i> Editar dados
         </button>
     </section>
 
-    <!-- <section class="conteiner">
-        <section class="informacoes-usuario">
+    <div class="modal-wrapper" id="modalDados">
+        <section class="conteiner">
+            <h2>Editar Informações</h2>
             <section class="informacoes">
-                <form action="#" method="post">
+                <form id="formDados" onsubmit="salvarDados(event)">
 
-                    <label for="#">Nome</label>
-                    <input type="text" name="nome" id="nome" min="2" max="50" required>
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" minlength="2" maxlength="50" required>
 
-                    <label for="#">Sobrenome</label>
-                    <input type="text" name="sobrenome" id="sobrenome" min="2" max="50" required>
+                    <label for="sobrenome">Sobrenome</label>
+                    <input type="text" name="sobrenome" id="sobrenome" minlength="2" maxlength="50" required>
 
-                    <label for="#">Gênero</label>
-                    <select name="genero" id="genero">
+                    <label for="genero">Gênero</label>
+                    <select name="genero" id="genero" required>
                         <option value="">Selecione</option>
                         <option value="masculino">Masculino</option>
                         <option value="feminino">Feminino</option>
-                        <option value="feminino">Outro</option>
-                    </select required>
+                        <option value="outro">Outro</option>
+                    </select>
 
-                    <label for="#">Data de Nascimento</label>
+                    <label for="data-nascimento">Data de Nascimento</label>
                     <input type="date" name="data-nascimento" id="data-nascimento" required>
 
+                    <label for="cpf">CPF</label>
+                    <input type="text" name="cpf" id="cpf" required oninput="validarCPF(this)"
+                        placeholder="000.000.000-00">
+                    <span id="msgCPF" class="msg-validacao"></span>
 
-                    <label for="#">CPF</label>
-                    <input type="text" name="cpf" id="cpf" required oninput="validarCPF(this)">
-                    <span id="msgCPF"></span>
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" name="telefone" id="telefone" required oninput="validarTelefone(this)"
+                        placeholder="(00) 00000-0000">
+                    <span id="msgTEL" class="msg-validacao"></span>
 
-                    <label for="#">Telefone</label>
-                    <input type="tel" name="telefone" id="telefone" required oninput="validarTelefone(this)">
-                    <span id="msgTEL"></span>
-
-                    <label for="#">Estado</label>
-                    <select name="estado" id="estado">
+                    <label for="estado">Estado</label>
+                    <select name="estado" id="estado" required onchange="carregarCidades()">
                         <option value="">Selecione</option>
-                    </select required>
+                        <option value="SP">São Paulo</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="BA">Bahia</option>
+                    </select>
 
-                    <label for="#">Cidade</label>
-                    <select name="cidade" id="cidade">
+                    <label for="cidade">Cidade</label>
+                    <select name="cidade" id="cidade" required>
                         <option value="">Selecione o estado primeiro</option>
-                    </select required>
+                    </select>
 
-                    <label for="#">Endereço</label>
-                    <input type="text" name="endereco" id="endereco" required min="2" max="100">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" name="endereco" id="endereco" required minlength="2" maxlength="100">
 
-                    <label for="#">Complemento</label>
-                    <input type="text" name="complemento" id="complemento" required min="2" max="100">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" name="complemento" id="complemento" minlength="2" maxlength="100">
 
-                    <label for="#">E-mail</label>
+                    <label for="email-cadastro">E-mail</label>
                     <input type="email" name="email-cadastro" id="email-cadastro" required>
 
-                    <label for="#">Senha</label>
-                    <input type="password" name="password-cadastro" id="password-cadastro" required min="8" max="30">
+                    <label for="password-cadastro">Senha</label>
+                    <input type="password" name="password-cadastro" id="password-cadastro" required minlength="8"
+                        maxlength="30">
 
-                    <label for="#">Confirmar senha</label>
+                    <label for="confirmar-password-cadastro">Confirmar senha</label>
                     <input type="password" name="confirmar-password-cadastro" id="confirmar-password-cadastro" required>
 
-                    <button type="submit">
-                        Registrar
-                    </button>
+                    <div class="form-buttons">
+                        <button type="button" onclick="toggleModal()">
+                            <i class="bi bi-x-circle"></i> Voltar
+                        </button>
+                        <button type="submit">
+                            <i class="bi bi-check-circle"></i> Salvar
+                        </button>
+                    </div>
 
                 </form>
             </section>
-
         </section>
-    </section> -->
+    </div>
 
-    <footer class="roda-pe">
-        <section class="info-rokuzen">
-            <p><a href="#">Contato</a></p>
-            <p><a href="unidades.html">Unidade</a></p>
-            <p><a href="sobre-nos.html">Sobre nós</a></p>
-        </section>
+        <footer class="roda-pe">
+            <section class="info-rokuzen">
+                <p><a href="#">Contato</a></p>
+                <p><a href="unidades.html">Unidade</a></p>
+                <p><a href="sobre-nos.html">Sobre nós</a></p>
+            </section>
 
-        <section class="redes-sociais">
-            <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i
-                        class="bi bi-instagram"></i></a></button>
-            <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i
-                        class="bi bi-facebook"></i></a></button>
-            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
-                        class="bi bi-envelope"></i></a></button>
-        </section>
+            <section class="redes-sociais">
+                <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i
+                            class="bi bi-instagram"></i></a></button>
+                <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i
+                            class="bi bi-facebook"></i></a></button>
+                <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
+                            class="bi bi-envelope"></i></a></button>
+            </section>
 
-        <section class="direito-de-imagem">
-            <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
-        </section>
-    </footer>
+            <section class="direito-de-imagem">
+                <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
+            </section>
+        </footer>
 
-    <script src="../JS/validacao-telefone.js"></script>    
-    <script src="../JS/validacao-cpf.js"></script>
-    <script src="../JS/cidades-estados-ibge.js"></script>
-    <script src="../JS/menu-home-page.js"></script>
+
+        <script src="../JS/janela-dados.js"></script>
+        <script src="../JS/validacao-telefone.js"></script>
+        <script src="../JS/validacao-cpf.js"></script>
+        <script src="../JS/cidades-estados-ibge.js"></script>
+        <script src="../JS/menu-home-page.js"></script>
 </body>
 
 </html>
