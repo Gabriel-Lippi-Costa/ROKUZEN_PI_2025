@@ -97,7 +97,7 @@
 
                     <label for="#">Data de Nascimento</label>
                     <input type="date" name="data-nascimento" id="data-nascimento" required>
-                    
+
 
                     <label for="#">CPF</label>
                     <input type="text" name="cpf" id="cpf" required oninput="validarCPF(this)">
@@ -152,9 +152,16 @@
                     </button>
                 </form>
             </section>
-            
+
         </section>
     </section>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
 
     <footer class="roda-pe">
         <section class="info-rokuzen">
@@ -164,9 +171,12 @@
         </section>
 
         <section class="redes-sociais">
-            <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-instagram"></i></a></button>
-            <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-facebook"></i></a></button>
-            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i class="bi bi-envelope"></i></a></button>
+            <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i
+                        class="bi bi-instagram"></i></a></button>
+            <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i
+                        class="bi bi-facebook"></i></a></button>
+            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
+                        class="bi bi-envelope"></i></a></button>
         </section>
 
         <section class="direito-de-imagem">
@@ -174,7 +184,12 @@
         </section>
     </footer>
 
-    <script src="../JS/validacao-telefone.js"></script>    
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="../JS/validacao-telefone.js"></script>
     <script src="../JS/validacao-cpf.js"></script>
     <script src="../JS/escolha-autenticacao.js"></script>
     <script src="../JS/cidades-estados-ibge.js"></script>

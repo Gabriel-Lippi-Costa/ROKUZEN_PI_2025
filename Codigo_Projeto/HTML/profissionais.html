@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <title>Rokuzen</title>
 </head>
+
 <body>
   <header>
     <nav>
@@ -116,6 +117,12 @@
     </div>
   </section>
 
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
 
   <footer class="roda-pe">
     <section class="info-rokuzen">
@@ -137,6 +144,12 @@
       <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
     </section>
   </footer>
+
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
   <script src="../JS/carrosel.js"></script>
   <script src="../JS/menu-home-page.js"></script>
 </body>
