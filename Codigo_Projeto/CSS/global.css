@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 body {
   background-color: #e9eaee;
 }
@@ -157,10 +159,12 @@ header nav .parte-do-meio ul li a:hover {
 
 .roda-pe .info-rokuzen p a {
   text-decoration: none;
-  font-size: 18px;
   color: white;
-  font-weight: 500;
   transition: color 0.3s;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 550;
+  font-style: normal;
 }
 
 .roda-pe .info-rokuzen p a:hover {
@@ -190,12 +194,14 @@ header nav .parte-do-meio ul li a:hover {
 
 .roda-pe .direito-de-imagem {
   text-align: center;
-  font-size: 14px;
   opacity: 0.8;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 550;
+  font-style: normal;
 }
 
 @media (max-width: 1024px) {
-
   header nav .parte-do-meio .login-btn,
   header nav .parte-do-meio .menu-btn {
     display: block;
@@ -281,7 +287,7 @@ header nav .parte-do-meio ul li a:hover {
   }
 
   header nav .parte-de-cima i {
-    font-size: 50px;
+    font-size: 35px;
     cursor: pointer;
   }
 
@@ -304,7 +310,10 @@ header nav .parte-do-meio ul li a:hover {
 
   header nav .parte-de-cima .menu-desktop li {
     list-style: none;
-    font-size: 28px;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 550;
+    font-style: normal;
   }
 
   header nav .parte-de-cima .menu-desktop li a {
@@ -336,7 +345,10 @@ header nav .parte-do-meio ul li a:hover {
   }
 
   .roda-pe .info-rokuzen p a {
-    font-size: 28px;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 550;
+    font-style: normal;
   }
 
   .roda-pe .redes-sociais button a {
@@ -347,7 +359,14 @@ header nav .parte-do-meio ul li a:hover {
 
   .roda-pe .direito-de-imagem {
     text-align: center;
-    font-size: 28px;
     opacity: 0.8;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 550;
+    font-style: normal;
   }
+
+  .roda-pe .redes-sociais button a {
+  font-size: 20px;
+}
 }
