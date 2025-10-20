@@ -4,55 +4,30 @@
   box-sizing: border-box;
 }
 
-.secao-sobre-nos {
+.banner-sobre-nos {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 60px 20px;
-  background-color: #9db668;
-  gap: 20px;
+  height: 200px; 
+  background-color: #A8BE7C;
+  overflow: hidden;
 }
 
-.secao-sobre-nos img.icone {
-  width: 70px;
-  height: 70px;
-  vertical-align: middle;
-}
-
-.secao-sobre-nos h1 {
+.banner-sobre-nos h1 {
+  font-size: 2.5em;
   color: #404040;
-  font-family: "Libre Baskerville", serif;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 1px;
-  line-height: 2;
-  margin-left: -55px;
-  margin-top: 10px;
+  z-index: 2; 
 }
 
-.secao-sobre-nos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-
-.secao-sobre-nos img {
-  width: 26px;
-  height: 26px;
-  vertical-align: middle;
-}
-
-.secao-sobre-nos h1 {
-  color: #404040;
-  font-family: "Libre Baskerville", serif;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 1px;
-  line-height: 2;
+.banner-sobre-nos img {
+  position: absolute;
+  opacity: 0.3; 
+  width: 300px; 
+  height: auto;
+  z-index: 1;
+  margin-right: 300px;
+  color: black; 
 }
 
 .imagem-texto {
@@ -74,24 +49,6 @@ p {
   hyphens: auto;
 }
 
-.secao-sobre-nos img.icone {
-  width: 70px;
-  height: 70px;
-  vertical-align: middle;
-}
-.secao-sobre-nos h1 {
-  margin-left: -55px;
-  margin-top: 10px;
-}
-.secao-sobre-nos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 60px 20px;
-  background-color: #9db668;
-  gap: 20px;
-}
 .imagem-texto .texto {
   max-width: 600px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -100,6 +57,7 @@ p {
   color: #333;
   padding: 25px;
 }
+
 .imagem-texto .texto p {
   margin: 8px 0 ;
   padding: 0 ;

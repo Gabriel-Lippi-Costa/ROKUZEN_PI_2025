@@ -4,190 +4,30 @@
   box-sizing: border-box;
 }
 
-.banner-mobile img {
-  width: 100%;
-}
-
-.banner-desktop img {
-  display: none;
-}
-
-.secao-promocoes {
-  margin: 30px 0;
-  padding: 0 15px;
-}
-
-.secao-promocoes h2 {
-  color: #596b24;
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.carousel-wrapper {
+.banner-unidades {
   position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+  background-color: #A8BE7C;
   overflow: hidden;
 }
 
-.cards {
-  display: flex;
-  gap: 30px;
-  padding: 20px;
-  transition: transform 0.4s ease-in-out;
-}
-
-.cards .card {
-  min-width: 350px;
-  flex-shrink: 0;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px, rgba(0, 0, 0, 0.05) 0px 4px 6px;
-  transition: transform 0.2s;
-  cursor: pointer;
-}
-
-.cards .card:hover {
-  transform: translateY(-5px);
-  box-shadow: rgba(43, 82, 114, 0.2) 0px 15px 40px;
-}
-
-.cards .card img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.cards .card .tipo-massagem {
-  font-size: 1.5em;
-  text-align: center;
-  font-weight: 600;
-  color: #333;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-.cards .card .preco {
-  font-size: 1.3em;
-  text-align: center;
-  font-weight: 700;
-  color: red;
-}
-
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  border: none;
-  font-size: 2.5rem;
-  color: #333;
-  padding: 0 10px;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
-  transition: background-color 0.3s;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
-}
-
-.nav-button:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.prev-button {
-  left: 10px;
-}
-
-.next-button {
-  right: 10px;
-}
-
-.secao-servicos {
-  margin: 30px 0;
-  padding: 0 15px;
-}
-
-.secao-servicos h2 {
-  color: #596b24;
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-@media (min-width: 768px) {
-  .carrosel-section .carousel-item img {
-    height: 450px;
-  }
-}
-
-@media (min-width: 1025px) {
-  .banner-mobile img {
-    display: none;
-  }
-
-  .banner-desktop img {
-    display: block;
-    width: 100%;
-  }
-
-  .secao-promocoes h2 {
-    font-size: 2.7em;
-  }
-
-  .secao-servicos h2 {
-    font-size: 2.7em;
-  }
-}
-
-.secao-unidades {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-
-.secao-unidades img {
-  width: 26px;
-  height: 26px;
-  vertical-align: middle;
-}
-
-.secao-unidades h1 {
+.banner-unidades h1 {
+  font-size: 2.5em;
   color: #404040;
-  font-family: "Libre Baskerville", serif;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 1px;
-  line-height: 2;
+  z-index: 2; 
 }
-.secao-unidades img.icone {
-  width: 70px;
-  height: 70px;
-  vertical-align: middle;
-}
-.secao-unidades h1 {
-  margin-left: -55px;
-  margin-top: 10px;
-}
-.secao-unidades {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 60px 20px;
-  background-color: #9db668;
-  gap: 20px;
+
+.banner-unidades img {
+  position: absolute;
+  opacity: 0.3; 
+  width: 300px; 
+  height: auto;
+  z-index: 1;
+  margin-right: 300px;
+  color: black; 
 }
 
 .unidades-grid {

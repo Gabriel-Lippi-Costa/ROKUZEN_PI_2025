@@ -4,55 +4,30 @@
     box-sizing: border-box;
 }
 
-.secao-quick {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 60px 20px;
-    background-color: #9db668;
-    gap: 20px;
+.banner-quick {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+  background-color: #A8BE7C;
+  overflow: hidden;
 }
 
-.secao-quick img.icone {
-    width: 70px;
-    height: 70px;
-    vertical-align: middle;
+.banner-quick h1 {
+  font-size: 2.5em;
+  color: #404040;
+  z-index: 2; 
 }
 
-.secao-quick h1 {
-    color: #404040;
-    font-family: "Libre Baskerville", serif;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    letter-spacing: 1px;
-    line-height: 2;
-    margin-left: -55px;
-    margin-top: 10px;
-}
-
-.secao-quick {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-}
-
-.secao-quick img {
-    width: 26px;
-    height: 26px;
-    vertical-align: middle;
-}
-
-.secao-quick h1 {
-    color: #404040;
-    font-family: "Libre Baskerville", serif;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    letter-spacing: 1px;
-    line-height: 2;
+.banner-quick img {
+  position: absolute;
+  opacity: 0.3; 
+  width: 300px; 
+  height: auto;
+  z-index: 1;
+  margin-right: 300px;
+  color: black; 
 }
 
 .imagem-texto {
@@ -94,27 +69,6 @@ p {
 #terceiro-topico {
     font-size: 14px;
     padding-bottom: 10px;
-}
-
-.secao-quick img.icone {
-    width: 70px;
-    height: 70px;
-    vertical-align: middle;
-}
-
-.secao-quick h1 {
-    margin-left: -55px;
-    margin-top: 10px;
-}
-
-.secao-quick {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 60px 20px;
-    background-color: #9db668;
-    gap: 20px;
 }
 
 .imagem-texto .texto {

@@ -8,6 +8,32 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 
+.banner-unidades-especificas {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+  background-color: #A8BE7C;
+  overflow: hidden;
+}
+
+.banner-unidades-especificas h1 {
+  font-size: 1.7em;
+  color: #404040;
+  z-index: 2; 
+}
+
+.banner-unidades-especificas img {
+  position: absolute;
+  opacity: 0.3; 
+  width: 300px; 
+  height: auto;
+  z-index: 1;
+  margin-right: 300px;
+  color: black; 
+}
+
 .banner-mobile img {
   width: 100%;
 }
@@ -82,29 +108,7 @@ iframe {
 }
 
 /* Seção de unidades */
-.secao-unidades {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
-  background-color: #9db668;
-  gap: 20px;
-}
 
-.secao-unidades h1 {
-  color: #404040;
-  font-family: "Libre Baskerville", serif;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 1px;
-  line-height: 2;
-}
-
-.secao-unidades img.icone {
-  width: 70px;
-  height: 70px;
-}
 
 
 @media (max-width: 1024px) {
@@ -131,28 +135,10 @@ iframe {
   iframe {
     max-width: 100%;
   }
-
-  .secao-unidades h1 {
-    font-size: clamp(28px, 6vw, 50px);
-  }
 }
 
 
 @media (max-width: 600px) {
-  .secao-unidades {
-    flex-direction: column;
-    padding: 40px 15px;
-    gap: 15px;
-  }
-
-  .secao-unidades img.icone {
-    width: 50px;
-    height: 50px;
-  }
-
-  .secao-unidades h1 {
-    font-size: clamp(22px, 7vw, 36px);
-  }
 
   .unidade img {
     width: 90%;
