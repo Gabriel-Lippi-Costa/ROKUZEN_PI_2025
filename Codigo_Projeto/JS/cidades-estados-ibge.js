@@ -6,12 +6,12 @@ fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome"
       const option = document.createElement("option");
       option.value = estado.sigla;
       option.textContent = estado.nome;
-      option.dataset.id = estado.id; 
+      option.dataset.id = estado.id;
       estadoSelect.appendChild(option);
     });
   });
 
-document.getElementById("estado").addEventListener("change", function() {
+document.getElementById("estado").addEventListener("change", function () {
   const estadoId = this.options[this.selectedIndex].dataset.id;
   const cidadeSelect = document.getElementById("cidade");
   cidadeSelect.innerHTML = "<option value=''>Carregando...</option>";

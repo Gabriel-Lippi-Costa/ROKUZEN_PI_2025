@@ -1,10 +1,10 @@
 function validarTelefone(input) {
-    let telefone = input.value.replace(/\D/g, ""); 
+    let telefone = input.value.replace(/\D/g, "");
     let msg = document.querySelector("#msgTEL");
 
     if (telefone.length <= 10) {
         input.value = telefone.replace(/(\d{0,2})(\d{0,4})(\d{0,4})/,
-            function(_, p1, p2, p3) {
+            function (_, p1, p2, p3) {
                 let out = "";
                 if (p1) out += "(" + p1;
                 if (p1 && p1.length === 2) out += ") ";
@@ -14,7 +14,7 @@ function validarTelefone(input) {
             });
     } else {
         input.value = telefone.replace(/(\d{0,2})(\d{0,5})(\d{0,4})/,
-            function(_, p1, p2, p3) {
+            function (_, p1, p2, p3) {
                 let out = "";
                 if (p1) out += "(" + p1;
                 if (p1 && p1.length === 2) out += ") ";
