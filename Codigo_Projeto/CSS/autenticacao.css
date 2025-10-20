@@ -63,7 +63,8 @@
   font-style: normal;
 }
 
-.conteiner .informacoes-usuario .informacoes-cadastro form input, .conteiner .informacoes-usuario .informacoes-cadastro form select {
+.conteiner .informacoes-usuario .informacoes-cadastro form input,
+.conteiner .informacoes-usuario .informacoes-cadastro form select {
   font-size: 17px;
   width: 300px;
   height: 35px;
@@ -88,7 +89,7 @@
 .conteiner .informacoes-usuario .informacoes-cadastro form button {
   margin-top: 15px;
   height: 35px;
-  background-color: #7E0000;
+  background-color: #7e0000;
   color: white;
   font-weight: 550;
   border: 1px solid black;
@@ -100,7 +101,7 @@
 
 .conteiner .informacoes-usuario .informacoes-cadastro form button:hover {
   background-color: white;
-  color: #7E0000;
+  color: #7e0000;
   transition: all 0.3s ease;
 }
 
@@ -132,7 +133,7 @@
 .conteiner .informacoes-usuario .informacoes-login form button {
   margin-top: 15px;
   height: 35px;
-  background-color: #7E0000;
+  background-color: #7e0000;
   color: white;
   font-weight: 550;
   border: 1px solid black;
@@ -144,7 +145,7 @@
 
 .conteiner .informacoes-usuario .informacoes-login form button:hover {
   background-color: white;
-  color: #7E0000;
+  color: #7e0000;
   transition: all 0.3s ease;
 }
 
