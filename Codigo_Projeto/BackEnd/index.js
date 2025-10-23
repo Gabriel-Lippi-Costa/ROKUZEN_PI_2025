@@ -44,3 +44,27 @@ app.post('/cadastro', (req, res) => {
 
 app.listen(3000, () => {console.log('server up & running');
 })
+
+app.post('/login', (req, res) => {
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+        return res.status(400).json({ erro: 'Preencha todos os campos!' });
+    }
+
+    const sql = 'SELECT * FROM clientes WHERE email_cliente = ? AND senha_cliente = ?';
+    conexao.query(sql, [email, senha], (erro, resultado) => {
+        if (erro) {
+            console.error('Erro ao consultar usuário: ', erro);
+            return res.status(500).json({ erro: 'Erro ao realizar login' });
+        }
+
+        if (resultado.length === 0) {
+            return res.status(401).json({ erro: 'Email ou senha incorretos!' });
+        }
+
+        const usuario = resultado[0];
+        delete usuario.senha_cliente;
+        res.status(200).json({ mensagem: 'Login realizado com sucesso!', usuario });
+    });
+});
