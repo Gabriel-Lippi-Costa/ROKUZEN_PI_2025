@@ -19,8 +19,11 @@ async function loginUsuario() {
 
         alert(resposta.data.mensagem);
 
-        document.querySelector('#email-login').value = '';
-        document.querySelector('#senha-login').value = '';
+        
+        localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario))
+
+        window.location.href = 'minha-conta.html'
+
     } catch (erro) {
         if (erro.response) {
             alert(erro.response.data.erro);
