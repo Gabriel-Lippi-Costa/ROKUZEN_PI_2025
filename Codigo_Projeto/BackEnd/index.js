@@ -23,6 +23,19 @@ conexao.connect((erro) => {
     console.log('Conectado ao MySQL com sucesso!')
 })
 
+app.get('/usuario/:id', (req, res) => {
+    const { id } = req.params
+    
+    const sql = 'SELECT * FROM clientes WHERE id_cliente = ?'
+
+    conexao.query(sql, [id], (erro, resultado) => {
+        if (erro) return res.status(500).json({erro: 'Erro ao buscar usuário'})
+        if (resultado.length === 0) return res.status(404).json({erro: 'Usuário não encontrado'})
+
+        res.json({usuario: resultado[0]})
+    })
+})
+
 app.post('/cadastro', (req, res) => {
     const {nome, data_nascimento, telefone, email, senha} = req.body;
 
@@ -73,7 +86,6 @@ app.post('/login', (req, res) => {
         }
 
         const usuario = resultado[0];
-        delete usuario.senha_cliente;
         res.status(200).json({ mensagem: 'Login realizado com sucesso!', usuario });
     });
 });
