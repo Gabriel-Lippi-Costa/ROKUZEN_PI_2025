@@ -38,7 +38,16 @@ app.post('/cadastro', (req, res) => {
             return res.status(500).json({erro: 'Erro ao cadastrar usuário'})
         }
 
-        res.status(201).json({mensagem: 'Usuário cadastrado com sucesso!', id: resultado.insertId})
+        res.status(201).json({
+            mensagem: 'Usuário cadastrado com sucesso!', id: resultado.insertId,
+            usuario: {
+                id_cliente: resultado.insertId,
+                nome_cliente: nome,
+                email_cliente: email,
+                telefone_cliente: telefone,
+                data_nascimento: data_nascimento
+            }
+        })
     })
 })
 
