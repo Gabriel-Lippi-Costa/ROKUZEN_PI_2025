@@ -36,6 +36,37 @@ async function preencherCamposUsuario() {
     }
 }
 
+async function atualizarDadosUsuario() {
+    const usuario = JSON.parse(localStorage.getItem('usuario'))
+
+    const id = usuario.id_cliente
+
+    const nome = document.getElementById('nome').value;
+    const data_nascimento = document.getElementById('data-nascimento').value;
+    const telefone = document.getElementById('telefone').value;
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('password').value;
+
+    try {
+        const resp = await axios.patch(`http://localhost:3000/atualizar/${id}`, {
+            nome,
+            data_nascimento,
+            telefone,
+            email,
+            senha
+        });
+
+        localStorage.setItem('usuario', JSON.stringify(resp.data.usuario));
+
+        preencherCamposUsuario();
+
+        alert('Dados atualizados com sucesso!');
+    } catch (err) {
+        console.error(err);
+        alert('Erro ao atualizar os dados do usuário!');
+    }
+}
+
 document.getElementById('modalDados').addEventListener('click', function (e) {
     if (e.target === this) {
         toggleModal();
