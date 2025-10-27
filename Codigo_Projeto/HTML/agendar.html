@@ -70,7 +70,7 @@
 
     <section class="escolher-servico">
 
-        <h2>Selecione Serviço</h2>
+        <h2>Selecione uma Serviço</h2>
 
         <section class="cards">
             <section class="card">
@@ -112,7 +112,7 @@
     </section>
 
     <section class="escolher-unidade">
-        <h2>Selecione Unidade</h2>
+        <h2>Selecione uma Unidade</h2>
 
         <section class="cards">
             <section class="card">
@@ -154,11 +154,34 @@
     </section>
 
     <section class="escolher-duracao">
-        <h2>Selecione Duração</h2>
+        <h2>Selecione uma Duração</h2>
+
+        <label class="group-title">Escolha a duração da massagem</label>
+
+        <div class="duration-group">
+            <input type="radio" id="dur30" name="duracao" value="30" checked>
+            <label class="chip" for="dur30">30 min</label>
+
+            <input type="radio" id="dur45" name="duracao" value="45">
+            <label class="chip" for="dur45">45 min</label>
+
+            <input type="radio" id="dur60" name="duracao" value="60">
+            <label class="chip" for="dur60">60 min</label>
+
+            <input type="radio" id="dur90" name="duracao" value="90">
+            <label class="chip" for="dur90">90 min</label>
+
+            <input type="radio" id="dur120" name="duracao" value="120">
+            <label class="chip" for="dur120">120 min</label>
+        </div>
+
+        <div class="help" id="selecionadoTxt">Selecionado: <strong>30 min</strong></div>
     </section>
 
     <section class="escolher-data">
+        <h2>Selecione uma Data</h2>
 
+        <input type="date" name="data-servico" id="data-servico">
     </section>
 
     <section class="escolher-horario">
@@ -170,6 +193,13 @@
     </section>
     <section></section>
 
+    <script src="../JS/selecionar-duracao.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="../JS/carrosel.js"></script>
+    <script src="../JS/menu-home-page.js"></script>
 </body>
 
 </html>
