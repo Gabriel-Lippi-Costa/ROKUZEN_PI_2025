@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.banner-agendamento {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #a8be7c;
+  overflow: hidden;
+}
+
+.banner-agendamento h1 {
+  font-size: 2.5em;
+  color: #404040;
+  z-index: 2;
+}
+
+.banner-agendamento img {
+  position: absolute;
+  opacity: 0.3;
+  width: 300px;
+  height: auto;
+  z-index: 1;
+}
+
+.escolher-servico, .escolher-unidade {
+  margin: 30px 0;
+  padding: 0 15px;
+}
+
+.escolher-servico h2, .escolher-unidade h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #404040;
+    padding: 15px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px; 
+  padding: 20px;
+}
+
+.cards .card {
+  flex: 1 1 250px; 
+  max-width: 350px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px, rgba(0, 0, 0, 0.05) 0px 4px 6px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.cards .card:hover {
+  transform: translateY(-5px);
+  box-shadow: rgba(43, 82, 114, 0.2) 0px 15px 40px;
+}
+
+.cards .card img {
+  width: 100%; 
+  height: auto; 
+  object-fit: contain; 
+  border-radius: 10px;
+}
+
+.cards .card .tipo-massagem {
+  font-size: 1.3em;
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.cards .card .preco {
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: 700;
+  color: red;
+}
+
+@media (max-width: 1024px) {
+  .cards {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cards .card {
+    max-width: 90%; 
+  }
+
+  .cards .card img {
+    height: auto; 
+  }
+}
