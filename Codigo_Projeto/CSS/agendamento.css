@@ -330,6 +330,10 @@
   }
 }
 
+.etapa-escondida {
+    display: none;
+}
+
 @media (max-width: 1024px) {
   .cards {
     gap: 20px;

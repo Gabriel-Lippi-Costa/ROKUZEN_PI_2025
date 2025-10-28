@@ -111,7 +111,7 @@
         </section>
     </section>
 
-    <section class="escolher-unidade">
+    <section class="escolher-unidade etapa-escondida">
         <h2>Selecione uma Unidade</h2>
 
         <section class="cards">
@@ -153,7 +153,7 @@
         </section>
     </section>
 
-    <section class="escolher-duracao">
+    <section class="escolher-duracao etapa-escondida">
         <h2>Selecione uma Duração</h2>
 
         <label class="group-title">Escolha a duração da massagem</label>
@@ -178,13 +178,13 @@
         <div class="help" id="selecionadoTxt">Selecionado: <strong>30 min</strong></div>
     </section>
 
-    <section class="escolher-data">
+    <section class="escolher-data etapa-escondida">
         <h2>Selecione uma Data</h2>
 
         <input type="date" name="data-servico" id="data-servico">
     </section>
 
-    <section class="escolher-profissional">
+    <section class="escolher-profissional etapa-escondida">
         <h2>Selecione um Profissional</h2>
 
         <section class="cards">
@@ -237,7 +237,7 @@
         </section>
     </section>
 
-    <section class="escolher-horario">
+    <section class="escolher-horario etapa-escondida">
         <h2>Selecione um Horário</h2>
 
         <label class="group-title">Escolha o horário desejado</label>
@@ -264,24 +264,15 @@
         </div>
     </section>
 
-    <section class="confirmar-servico">
+    <section class="confirmar-servico etapa-escondida">
         <button type="button" id="botao-agendar">
             Agendar
         </button>
     </section>
     <section></section>
 
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../JS/selecionar-duracao.js"></script>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
-    <script src="../JS/carrosel.js"></script>
-    <script src="../JS/menu-home-page.js"></script>
-    <script src="../JS/animacao-toque-cards.js"></script>
-    <script src="../JS/seleciona-horario.js"></script>
+    <script src="../JS/axios-agendamento.js"></script>
 </body>
 
 </html>
