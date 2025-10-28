@@ -3,7 +3,6 @@ let idServicoSelecionado = null;
 let idUnidadeSelecionada = null;
 let idProfissionalSelecionado = null;
 
-// Mapeamento de imagens (caso não existam no banco)
 const imagensServicos = {
     'Reflexologia Podal': 'reflexo.jpg',
     'Massagem na Maca': 'maca.jpg',
@@ -26,7 +25,6 @@ const imagensProfissionais = {
     'Marcelo': 'foto-nao-disponivel-masculino-rokuzen.jpeg'
 };
 
-// --- Seletores para as seções ---
 const secaoServico = document.querySelector('.escolher-servico');
 const secaoUnidade = document.querySelector('.escolher-unidade');
 const secaoDuracao = document.querySelector('.escolher-duracao');
@@ -35,7 +33,6 @@ const secaoProfissional = document.querySelector('.escolher-profissional');
 const secaoHorario = document.querySelector('.escolher-horario');
 const secaoConfirmar = document.querySelector('.confirmar-servico');
 
-// --- Array de todas as etapas NA ORDEM CORRETA DO HTML ---
 const todasEtapas = [
     secaoServico,
     secaoUnidade,
@@ -46,9 +43,6 @@ const todasEtapas = [
     secaoConfirmar
 ];
 
-/**
- * Função para mostrar a próxima etapa e esconder as futuras
- */
 function mostrarProximaEtapa(secaoParaMostrar) {
     if (!secaoParaMostrar) return;
 
@@ -57,22 +51,19 @@ function mostrarProximaEtapa(secaoParaMostrar) {
     const indiceAlvo = todasEtapas.indexOf(secaoParaMostrar);
 
     for (let i = indiceAlvo + 1; i < todasEtapas.length; i++) {
-        if(todasEtapas[i]) {
+        if (todasEtapas[i]) {
             todasEtapas[i].classList.add('etapa-escondida');
         }
     }
 }
 
-/**
- * 1️⃣ Carregar serviços
- */
 async function carregarServicos() {
     idServicoSelecionado = null;
     idUnidadeSelecionada = null;
     idProfissionalSelecionado = null;
-    
+
     for (let i = 1; i < todasEtapas.length; i++) {
-        if(todasEtapas[i]) {
+        if (todasEtapas[i]) {
             todasEtapas[i].classList.add('etapa-escondida');
         }
     }
@@ -91,10 +82,9 @@ async function carregarServicos() {
         data.forEach(servico => {
             const card = document.createElement('section');
             card.classList.add('card');
-            
-            // Usa imagem do banco OU do mapeamento
+
             const imagem = servico.imagem_servico || imagensServicos[servico.nome_servico] || 'default.jpg';
-            
+
             card.innerHTML = `
                 <section class="parte-de-cima">
                     <img src="../assets/Serviços/${imagem}" alt="${servico.nome_servico}">
@@ -117,9 +107,6 @@ async function carregarServicos() {
     }
 }
 
-/**
- * 2️⃣ Carregar unidades
- */
 async function carregarUnidades() {
     try {
         const { data } = await axios.get(`${baseURL}/unidades`);
@@ -129,9 +116,9 @@ async function carregarUnidades() {
         data.forEach(unidade => {
             const card = document.createElement('section');
             card.classList.add('card');
-            
+
             const imagem = unidade.imagem_unidade || imagensUnidades[unidade.nome_unidade] || 'default.jpg';
-            
+
             card.innerHTML = `
                 <section class="parte-de-cima">
                     <img src="../assets/Unidades/${imagem}" alt="${unidade.nome_unidade}">
@@ -152,9 +139,6 @@ async function carregarUnidades() {
     }
 }
 
-/**
- * 3️⃣ Carregar profissionais
- */
 async function carregarProfissionais(idUnidade, idServico) {
     const containerHorario = document.querySelector('.escolher-horario .duration-group');
     if (containerHorario) containerHorario.innerHTML = '';
@@ -175,9 +159,9 @@ async function carregarProfissionais(idUnidade, idServico) {
         data.forEach(prof => {
             const card = document.createElement('section');
             card.classList.add('card');
-            
+
             const imagem = prof.imagem_colaborador || imagensProfissionais[prof.nome_colaborador] || 'foto-nao-disponivel-masculino-rokuzen.jpeg';
-            
+
             card.innerHTML = `
                 <section class="parte-de-cima">
                     <img src="../assets/Profissionais/${imagem}" alt="${prof.nome_colaborador}">
@@ -199,9 +183,6 @@ async function carregarProfissionais(idUnidade, idServico) {
     }
 }
 
-/**
- * 4️⃣ Carregar horários disponíveis
- */
 async function carregarHorarios(dataSelecionada) {
     if (!idProfissionalSelecionado || !idUnidadeSelecionada) {
         return alert('Selecione um profissional e unidade!');
@@ -240,10 +221,6 @@ async function carregarHorarios(dataSelecionada) {
         container.innerHTML = error.response?.data?.erro || 'Erro ao buscar horários.';
     }
 }
-
-// ======================================================
-// FLUXO DE SELEÇÃO
-// ======================================================
 
 function selecionarServico(idServico) {
     idServicoSelecionado = idServico;
@@ -327,5 +304,4 @@ document.getElementById('botao-agendar').addEventListener('click', async () => {
     }
 });
 
-// Inicialização
 carregarServicos();
