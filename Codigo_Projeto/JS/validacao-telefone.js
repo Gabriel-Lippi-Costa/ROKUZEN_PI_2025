@@ -4,7 +4,6 @@ function validarTelefone(input) {
 
     if (telefone.length > 0) {
         if (telefone.length <= 10) {
-            // telefone fixo ou celular antigo sem 9
             input.value = telefone.replace(/(\d{0,2})(\d{0,4})(\d{0,4})/, function(_, p1, p2, p3) {
                 let out = "";
                 if (p1) out += "(" + p1;
@@ -14,7 +13,6 @@ function validarTelefone(input) {
                 return out;
             });
         } else if (telefone.length === 11) {
-            // celular novo com 9 dígitos
             input.value = telefone.replace(/(\d{0,2})(\d{0,5})(\d{0,4})/, function(_, p1, p2, p3) {
                 let out = "";
                 if (p1) out += "(" + p1;
@@ -29,7 +27,6 @@ function validarTelefone(input) {
             return;
         }
 
-        // validação
         if (telefone.length === 10 || telefone.length === 11) {
             msg.textContent = "✅ Telefone válido";
             msg.style.color = "green";

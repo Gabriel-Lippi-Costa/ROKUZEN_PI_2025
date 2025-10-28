@@ -1,4 +1,3 @@
-// Atualiza texto de horário selecionado
 const radiosHorario = document.querySelectorAll('input[name="horario"]');
 const selecionadoHorarioTxt = document.getElementById('selecionadoHorarioTxt');
 

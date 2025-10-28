@@ -125,5 +125,33 @@ app.patch('/atualizar/:id', (req, res) => {
     });
 });
 
+app.post('/agendamento', (req, res) => {
+    const { id_cliente, servico, unidade, duracao, data, profissional, horario } = req.body;
+
+    if (!id_cliente || !servico || !unidade || !duracao || !data || !profissional || !horario) {
+        return res.status(400).json({ erro: 'Selecione todos os campos necessários para o agendamento!' });
+    }
+
+    const sql = `
+        INSERT INTO agendamentos 
+        (id_cliente, id_servico, id_unidade, id_colaborador, data_agendamento, duracao)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    const dataHora = `${data} ${horario}:00`; 
+    const duracaoTime = `${duracao}:00`;
+
+    const values = [id_cliente, servico, unidade, profissional, dataHora, duracaoTime];
+
+    conexao.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Erro ao confirmar agendamento:', err);
+            return res.status(500).json({ erro: 'Erro ao agendar massagem!' });
+        }
+
+        res.status(201).json({ mensagem: 'Agendamento realizado com sucesso!', id_agendamento: result.insertId });
+    });
+});
+
 app.listen(3000, () => {console.log('server up & running');
 })
