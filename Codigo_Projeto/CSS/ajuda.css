@@ -1,0 +1,194 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #e9eaee;
+    overflow-x: hidden;
+}
+.banner-ajuda {
+    position: relative;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 200px;
+    background-color: #a8be7c;
+    overflow: hidden;
+    padding-left: 120px; 
+}
+
+.banner-ajuda h1 {
+    font-size: 2.4rem;
+    color: #404040;
+    z-index: 2;
+    letter-spacing: 1px;
+    position: relative;
+    left: -45px; 
+}
+
+.banner-ajuda img {
+    position: absolute;
+    opacity: 0.25;
+    width: 320px;
+    height: auto;
+    z-index: 1;
+    margin-right: 300px;
+}
+.faq-wrapper {
+    max-width: 980px;
+    margin: 30px auto 40px;
+    padding: 0 16px;
+}
+.faq-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 10px 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    margin-bottom: 22px;
+}
+.faq-search i {
+    font-size: 20px;
+    color: #404040;
+}
+.faq-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+}
+.faq-search #faqClear {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    color: #7a7a7a;
+}
+.faq-group {
+    margin-bottom: 26px;
+}
+.faq-group h2 {
+    font-size: 1.25rem;
+    color: #404040;
+    margin: 16px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.faq-item {
+    border-radius: 12px;
+    background: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+.faq-item summary span {
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+.faq-item summary i {
+    color: #888;
+    transition: transform .25s ease;
+}
+.faq-item[open] summary i {
+    transform: rotate(180deg);
+}
+.faq-item .answer {
+    padding: 0 16px 14px 16px;
+    color: #444;
+    line-height: 1.55;
+    font-size: 15px;
+}
+.faq-item .answer a {
+    color: #2d6a4f;
+    text-decoration: underline;
+}
+.faq-cta {
+    margin-top: 24px;
+    background: #f7f8fa;
+    border: 1px solid #e6e8ec;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+}
+.faq-cta h3 {
+    margin: 0 0 8px;
+    color: #333;
+}
+.faq-cta p {
+    margin: 0 0 12px;
+    color: #555;
+}
+.faq-cta .cta-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.faq-cta .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    background: #a8be7c;
+    color: #2b2b2b;
+    font-weight: 600;
+}
+.faq-cta .btn-cta.outline {
+    background: transparent;
+    border: 2px solid #a8be7c;
+    color: #2b2b2b;
+}
+@media (max-width: 768px) {
+    .banner-ajuda {
+        height: 170px;
+    }
+    .banner-ajuda h1 {
+        font-size: 2rem;
+    }
+    .banner-ajuda img {
+        width: 280px;
+        margin-right: 240px;
+    }
+}
+body.ajuda-page {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+body.ajuda-page::-webkit-scrollbar {
+    display: none;
+}
+html, body { height: 100%; }
+.ajuda-page .faq-wrapper { min-height: calc(100vh - 200px - 60px); }
+.ajuda-page .roda-pe {
+    padding: 20px 10px !important;
+    gap: 15px !important;
+}
+.ajuda-page .roda-pe p { margin: 0 !important; }
+.ajuda-page .roda-pe .direito-de-imagem p { margin: 0 !important; }
+.ajuda-page .roda-pe .info-rokuzen { gap: 25px !important; }
+.ajuda-page .roda-pe .redes-sociais { gap: 15px !important; }
+.ajuda-page .roda-pe .redes-sociais button { padding: 10px !important; }
+.ajuda-page .roda-pe .redes-sociais a { font-size: 24px !important; }
+.ajuda-page .faq-cta { margin-bottom: 0 !important; }
+.ajuda-page .faq-wrapper { padding-bottom: 0 !important; }
