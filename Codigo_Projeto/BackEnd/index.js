@@ -265,28 +265,29 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     const idCliente = req.params.id
 
     const sql = `
-        SELECT
-            A.id_agendamento,
-            A.data_agendamento,
-            A.duracao,
-            S.nome_servico,
-            C.nome_colaborador,
-            C.imagem_colaborador,
-            SP.valor -- <<<<< VALOR REAL OBTIDO VIA JOIN
-        FROM
-            agendamentos A
-        JOIN
-            servicos S ON A.id_servico = S.id_servico
-        JOIN
-            colaboradores C ON A.id_colaborador = C.id_colaborador
-        JOIN 
-            servicos_precos SP ON A.id_servico = SP.id_servico AND A.duracao = SP.duracao -- NOVO JOIN
-        WHERE
-            A.id_cliente = ?
-            AND (A.status_agendamento = 'pendente' OR A.status_agendamento = 'confirmado')
-            AND A.data_agendamento >= NOW() 
-        ORDER BY
-            A.data_agendamento ASC;
+            SELECT
+        A.id_agendamento,
+        A.data_agendamento,
+        A.duracao,
+        S.nome_servico,
+        C.nome_colaborador,
+        C.imagem_colaborador,
+        SP.valor
+    FROM
+        agendamentos A
+    JOIN
+        servicos S ON A.id_servico = S.id_servico
+    JOIN
+        colaboradores C ON A.id_colaborador = C.id_colaborador
+    LEFT JOIN 
+        servicos_precos SP ON A.id_servico = SP.id_servico
+    WHERE
+        A.id_cliente = ?
+        AND (A.status_agendamento = 'pendente' OR A.status_agendamento = 'confirmado')
+        AND DATE(A.data_agendamento) >= CURDATE()
+    ORDER BY
+        A.data_agendamento ASC;
+
     `
 
     conexao.query(sql, [idCliente], (erro, resultados) => {
@@ -297,9 +298,9 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
 
         const agendamentosFormatados = resultados.map(ag => {
             const valorFormatado = ag.valor
-                ? `R$ ${ag.valor.toFixed(2).replace('.', ',')}` 
+                ? `R$ ${ag.valor.toFixed(2).replace('.', ',')}`
                 : 'R$ 0,00';
-            
+
             return {
                 id_agendamento: ag.id_agendamento,
                 data_agendamento: ag.data_agendamento,
