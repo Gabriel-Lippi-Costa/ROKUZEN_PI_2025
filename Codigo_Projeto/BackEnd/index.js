@@ -64,7 +64,6 @@ app.post('/cadastro', (req, res) => {
     })
 })
 
-
 app.post('/login', (req, res) => {
     const { email, senha } = req.body;
 
@@ -193,30 +192,37 @@ app.get('/profissionais', (req, res) => {
 app.get('/horarios', (req, res) => {
     const { id_colaborador, id_unidade, data } = req.query
 
+    console.log('🔍 Buscando horários para:', { id_colaborador, id_unidade, data })
+
     if (!id_colaborador || !id_unidade || !data) {
         return res.status(400).json({ erro: 'Informe id_colaborador, id_unidade e data!' })
     }
 
+    // Query simplificada - busca todas as escalas do colaborador na data
     const sqlEscala = `
-        SELECT e.inicio_escala, e.fim_escala
+        SELECT e.id_escala, e.inicio_escala, e.fim_escala
         FROM escalas e
-        JOIN escalas_unidades_colaboradores euc ON e.id_escala = euc.id_escala
-        JOIN unidades_colaboradores uc ON euc.id_unidade_colaborador = uc.id_unidade_colaborador
-        WHERE uc.id_colaborador = ? AND uc.id_unidade = ?
-        AND DATE(e.inicio_escala) = ?
+        WHERE DATE(e.inicio_escala) = ?
+        ORDER BY e.inicio_escala
     `
 
-    conexao.query(sqlEscala, [id_colaborador, id_unidade, data], (erroEscala, escalas) => {
+    conexao.query(sqlEscala, [data], (erroEscala, escalas) => {
         if (erroEscala) {
-            console.error('Erro ao buscar escala: ', erroEscala)
+            console.error('❌ Erro ao buscar escala: ', erroEscala)
             return res.status(500).json({ erro: 'Erro ao buscar escala colaborador.' })
         }
 
+        console.log('📋 Escalas encontradas na data:', escalas)
+
         if (escalas.length === 0) {
+            console.log('⚠️ Nenhuma escala cadastrada para a data:', data)
             return res.status(404).json({ erro: 'Nenhuma escala encontrada para este colaborador nesta data!' })
         }
 
+        // ✅ CONTINUAÇÃO DA FUNÇÃO QUE ESTAVA FALTANDO:
         const { inicio_escala, fim_escala } = escalas[0]
+
+        console.log('⏰ Horário da escala:', { inicio_escala, fim_escala })
 
         const sqlAgendamentos = `
             SELECT TIME(data_agendamento) AS horario_ocupado
@@ -227,9 +233,11 @@ app.get('/horarios', (req, res) => {
 
         conexao.query(sqlAgendamentos, [id_colaborador, id_unidade, data], (erroAg, agendamentos) => {
             if (erroAg) {
-                console.error('Erro ao buscar agendamentos:', erroAg);
+                console.error('❌ Erro ao buscar agendamentos:', erroAg);
                 return res.status(500).json({ erro: 'Erro ao buscar agendamentos.' });
             }
+
+            console.log('📅 Agendamentos ocupados:', agendamentos)
 
             const ocupados = agendamentos.map(a => a.horario_ocupado.slice(0, 5));
 
@@ -248,6 +256,8 @@ app.get('/horarios', (req, res) => {
                 atual.setMinutes(atual.getMinutes() + duracaoSlot);
             }
 
+            console.log('✅ Horários disponíveis gerados:', disponiveis)
+
             res.json({ horarios_disponiveis: disponiveis });
         })
     })
@@ -255,4 +265,4 @@ app.get('/horarios', (req, res) => {
 
 app.listen(3000, () => {
     console.log('server up & running');
-})
+})  

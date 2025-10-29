@@ -204,7 +204,7 @@ async function carregarHorarios(dataSelecionada) {
                 input.name = 'horario';
                 input.id = `hora-${hora.replace(':', '')}`;
                 input.value = hora;
-
+                
                 const label = document.createElement('label');
                 label.classList.add('chip');
                 label.setAttribute('for', input.id);
@@ -213,6 +213,8 @@ async function carregarHorarios(dataSelecionada) {
                 container.appendChild(input);
                 container.appendChild(label);
             });
+            
+            document.getElementById('selecionadoHorarioTxt').innerHTML = `Selecione um horário acima`;
         } else {
             container.innerHTML = 'Nenhum horário disponível para esta data.';
         }
