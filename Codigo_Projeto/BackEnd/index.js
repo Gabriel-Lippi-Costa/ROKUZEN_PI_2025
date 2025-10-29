@@ -198,7 +198,6 @@ app.get('/horarios', (req, res) => {
         return res.status(400).json({ erro: 'Informe id_colaborador, id_unidade e data!' })
     }
 
-    // Query simplificada - busca todas as escalas do colaborador na data
     const sqlEscala = `
         SELECT e.id_escala, e.inicio_escala, e.fim_escala
         FROM escalas e
@@ -219,7 +218,6 @@ app.get('/horarios', (req, res) => {
             return res.status(404).json({ erro: 'Nenhuma escala encontrada para este colaborador nesta data!' })
         }
 
-        // ✅ CONTINUAÇÃO DA FUNÇÃO QUE ESTAVA FALTANDO:
         const { inicio_escala, fim_escala } = escalas[0]
 
         console.log('⏰ Horário da escala:', { inicio_escala, fim_escala })
@@ -260,6 +258,60 @@ app.get('/horarios', (req, res) => {
 
             res.json({ horarios_disponiveis: disponiveis });
         })
+    })
+})
+
+app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
+    const idCliente = req.params.id
+
+    const sql = `
+        SELECT
+            A.id_agendamento,
+            A.data_agendamento,
+            A.duracao,
+            S.nome_servico,
+            C.nome_colaborador,
+            C.imagem_colaborador,
+            SP.valor -- <<<<< VALOR REAL OBTIDO VIA JOIN
+        FROM
+            agendamentos A
+        JOIN
+            servicos S ON A.id_servico = S.id_servico
+        JOIN
+            colaboradores C ON A.id_colaborador = C.id_colaborador
+        JOIN 
+            servicos_precos SP ON A.id_servico = SP.id_servico AND A.duracao = SP.duracao -- NOVO JOIN
+        WHERE
+            A.id_cliente = ?
+            AND (A.status_agendamento = 'pendente' OR A.status_agendamento = 'confirmado')
+            AND A.data_agendamento >= NOW() 
+        ORDER BY
+            A.data_agendamento ASC;
+    `
+
+    conexao.query(sql, [idCliente], (erro, resultados) => {
+        if (erro) {
+            console.error("Erro ao buscar agendamentos futuros.", erro)
+            return res.status(500).json({ erro: 'Erro ao buscar agendamentos futuros.' })
+        }
+
+        const agendamentosFormatados = resultados.map(ag => {
+            const valorFormatado = ag.valor
+                ? `R$ ${ag.valor.toFixed(2).replace('.', ',')}` 
+                : 'R$ 0,00';
+            
+            return {
+                id_agendamento: ag.id_agendamento,
+                data_agendamento: ag.data_agendamento,
+                duracao: ag.duracao,
+                nome_servico: ag.nome_servico,
+                nome_colaborador: ag.nome_colaborador,
+                imagem_colaborador: ag.imagem_colaborador,
+                valor: valorFormatado
+            }
+        })
+
+        res.json(agendamentosFormatados)
     })
 })
 
