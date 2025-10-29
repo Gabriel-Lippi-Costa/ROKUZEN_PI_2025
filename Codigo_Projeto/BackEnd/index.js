@@ -316,6 +316,29 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     })
 })
 
+app.patch('/agendamento/:id/cancelar', (req, res) => {
+    const { id } = req.params;
+
+    const sql = `
+        UPDATE agendamentos
+        SET status_agendamento = 'cancelado'
+        WHERE id_agendamento = ?
+    `;
+
+    conexao.query(sql, [id], (erro, resultado) => {
+        if (erro) {
+            console.error('Erro ao cancelar agendamento: ', erro);
+            return res.status(500).json({ erro: 'Erro ao cancelar agendamento' });
+        }
+
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({ erro: 'Agendamento não encontrado!' });
+        }
+
+        res.status(200).json({ mensagem: 'Agendamento cancelado com sucesso!' });
+    });
+});
+
 app.listen(3000, () => {
     console.log('server up & running');
 })  

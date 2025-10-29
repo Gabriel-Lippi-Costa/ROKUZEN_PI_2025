@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', carregarAgendamentosFuturos);
 
 async function carregarAgendamentosFuturos() {
-    const idCliente = localStorage.getItem('idClienteLogado'); 
+    const idCliente = localStorage.getItem('idClienteLogado');
 
     if (!idCliente) {
         console.error("Cliente não logado. Não é possível buscar agendamentos.");
@@ -13,7 +13,7 @@ async function carregarAgendamentosFuturos() {
         const url = `http://localhost:3000/cliente/${idCliente}/agendamentos-futuros`;
         const responseFuturos = await axios.get(url);
         const agendamentos = responseFuturos.data;
-        
+
         renderizarAgendamentos(agendamentos);
 
     } catch (erro) {
@@ -24,28 +24,28 @@ async function carregarAgendamentosFuturos() {
 
 function toggleModal() {
     const modal = document.getElementById('modalDados');
-    modal.classList.toggle('ativo'); 
+    modal.classList.toggle('ativo');
 }
 
 async function atualizarDadosUsuario() {
-    const idCliente = localStorage.getItem('idClienteLogado'); 
+    const idCliente = localStorage.getItem('idClienteLogado');
     if (!idCliente) {
         console.error("Não é possível atualizar: cliente não logado.");
         return;
     }
-    
+
     const nome = document.getElementById('nome').value;
     const dataNascimento = document.getElementById('data-nascimento').value;
     const telefone = document.getElementById('telefone').value;
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
 
-    const dadosAtualizados = { 
+    const dadosAtualizados = {
         nome: nome,
         data_nascimento: dataNascimento,
         telefone: telefone,
         email: email,
-        senha: senha 
+        senha: senha
     };
 
     try {
@@ -62,13 +62,13 @@ async function atualizarDadosUsuario() {
 }
 
 function salvarDados(event) {
-    event.preventDefault(); 
+    event.preventDefault();
     atualizarDadosUsuario();
 }
 
 function renderizarAgendamentos(agendamentos) {
     const container = document.querySelector('.meus-agendamentos .cards');
-    container.innerHTML = ''; // limpa o conteúdo anterior
+    container.innerHTML = '';
 
     if (agendamentos.length === 0) {
         container.innerHTML = '<p>Você não possui agendamentos futuros.</p>';
@@ -88,6 +88,24 @@ function renderizarAgendamentos(agendamentos) {
             minute: '2-digit'
         });
 
+        // 🔹 Converter duração tipo "00:45:00" → "45 min"
+        let duracaoFormatada = ag.duracao;
+
+        if (typeof ag.duracao === 'string' && ag.duracao.includes(':')) {
+            const parts = ag.duracao.split(':').map(Number); // [h, m, s]
+            if (parts.length === 3) {
+                const [h, m] = parts;
+                // Se h >= 24, o campo está guardando minutos em 'horas'
+                if (h >= 24) {
+                    duracaoFormatada = h;
+                } else {
+                    duracaoFormatada = h * 60 + m; // converte horas em minutos
+                }
+            } else {
+                duracaoFormatada = Number(parts[0]) || ag.duracao;
+            }
+        }
+
         const card = document.createElement('div');
         card.classList.add('card-agendamento');
 
@@ -98,8 +116,9 @@ function renderizarAgendamentos(agendamentos) {
                 <p><strong>Profissional:</strong> ${ag.nome_colaborador}</p>
                 <p><strong>Data:</strong> ${dataFormatada}</p>
                 <p><strong>Horário:</strong> ${horaFormatada}</p>
-                <p><strong>Duração:</strong> ${ag.duracao} min</p>
+                <p><strong>Duração:</strong> ${duracaoFormatada} min</p>
                 <p><strong>Valor:</strong> ${ag.valor}</p>
+                <button class="btn-cancelar" data-id="${ag.id}">Cancelar</button>
             </div>
         `;
 
