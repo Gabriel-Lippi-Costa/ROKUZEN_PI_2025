@@ -64,3 +64,36 @@ p {
   text-indent: 5;
   font-size: 15px;
 }
+.sobre-nos-page .roda-pe {
+  padding: 20px 10px !important;
+  gap: 15px !important;
+}
+
+.sobre-nos-page .roda-pe p { 
+  margin: 0 !important; 
+}
+
+.sobre-nos-page .roda-pe .direito-de-imagem p { 
+  margin: 0 !important; 
+}
+
+.sobre-nos-page .roda-pe .info-rokuzen { 
+  gap: 25px !important; 
+}
+
+.sobre-nos-page .roda-pe .redes-sociais { 
+  gap: 15px !important; 
+}
+
+.sobre-nos-page .roda-pe .redes-sociais button { 
+  padding: 10px !important; 
+}
+
+.sobre-nos-page .roda-pe .redes-sociais a { 
+  font-size: 30px !important; 
+}
+
+.sobre-nos-page main { 
+  margin-bottom: 0 !important; 
+  padding-bottom: 0 !important; 
+}

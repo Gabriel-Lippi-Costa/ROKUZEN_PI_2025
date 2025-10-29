@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda | Rokuzen</title>
+  <meta name="description" content="Central de Ajuda Rokuzen: perguntas frequentes, agendamentos, pagamentos, unidades e suporte.">
+  <link rel="stylesheet" href="../CSS/ajuda.css">
+  <link rel="stylesheet" href="../CSS/global.css">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
+</head>
+
+<body class="ajuda-page">
+  <header>
+    <nav>
+      <section class="parte-de-cima">
+        <section class="logo">
+          <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
+        </section>
+
+        <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+
+        <ul class="menu-desktop">
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="unidades.html">Unidades</a></li>
+          <li><a href="#">Artigos</a></li>
+          <li><a href="profissionais.html">Profissionais</a></li>
+          <li><a href="ajuda.html" class="active">Ajuda</a></li>
+          <li><a href="sobre-nos.html">Sobre nós</a></li>
+        </ul>
+      </section>
+
+      <section class="parte-do-meio">
+        <section class="login-btn">
+          <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+        </section>
+
+        <section class="menu-btn">
+          <i class="bi bi-list" onclick="menuToggle()"></i>
+        </section>
+
+        <ul>
+          <li class="close-btn-li">
+            <i class="bi bi-x close-btn" onclick="menuToggle()"></i>
+          </li>
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="unidades.html">Unidades</a></li>
+          <li><a href="#">Artigos</a></li>
+          <li><a href="profissionais.html">Profissionais</a></li>
+          <li><a href="ajuda.html" class="active">Ajuda</a></li>
+          <li><a href="sobre-nos.html">Sobre nós</a></li>
+        </ul>
+      </section>
+
+      <section class="parte-de-baixo">
+        <section class="barra-de-pesquisa">
+          <input type="text" placeholder="Pesquisar">
+          <i class="bi bi-search"></i>
+        </section>
+      </section>
+    </nav>
+  </header>
+
+  <section class="banner-ajuda">
+    <h1>AJUDA</h1>
+    <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
+  </section>
+
+  <main class="faq-wrapper">
+    <section class="faq-search">
+      <i class="bi bi-search"></i>
+      <input id="faqSearch" type="text" placeholder="Busque na ajuda (ex.: agendar, pagamento, reembolso)">
+      <button id="faqClear" aria-label="Limpar busca"><i class="bi bi-x-circle"></i></button>
+    </section>
+
+    <section class="faq-group">
+      <h2><i class="bi bi-calendar-check"></i> Agendamentos & Pagamentos</h2>
+
+      <details class="faq-item" open>
+        <summary><span>Como faço para agendar um atendimento?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Você pode agendar pelo site, escolhendo o serviço na página <a href="servicos.html">Serviços</a> e clicando em <b>Ver</b>,
+          ou falar com a gente pelo WhatsApp/Instagram. Após a confirmação, você recebe um lembrete automático.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Posso remarcar ou cancelar?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Sim. Remarcações/cancelamentos podem ser feitos até <b>12 horas</b> antes do horário. Dentro desse prazo,
+          tentamos realocar; após isso pode haver cobrança parcial para garantir a agenda do profissional.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Quais formas de pagamento vocês aceitam?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Aceitamos Pix, cartão (crédito/débito) e dinheiro. Para combos/pacotes, consulte condições de parcelamento.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Há taxa de não comparecimento (no-show)?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Em caso de não comparecimento sem aviso, pode ser cobrada uma taxa de até <b>50%</b> do valor do serviço,
+          pois reservamos o horário do terapeuta exclusivamente para você.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-group">
+      <h2><i class="bi bi-heart-pulse"></i> Serviços & Procedimentos</h2>
+
+      <details class="faq-item">
+        <summary><span>Qual massagem é indicada para dor lombar e tensão?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Normalmente indicamos <b>Massagem nas Costas</b> ou <b>Quick</b> para alívio imediato.
+          Em casos recorrentes, a <b>Reflexologia</b> pode ajudar na regulação e relaxamento geral.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Há contraindicações?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Sim: febre, infecções ativas, trombose, feridas abertas ou pós-operatório recente. Em caso de gestação
+          ou condições específicas, nos informe para adequarmos o atendimento com segurança.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Quanto tempo dura cada sessão?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Depende do serviço: Quick (20–30 min), Massagem nas Costas (30–40 min), Reflexologia (30–45 min) e
+          Auriculoterapia (20–30 min). Consulte a página do serviço para detalhes.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Posso chegar em cima da hora?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Recomendamos chegar com <b>10 minutos</b> de antecedência para preenchimento de informações e início pontual.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-group">
+      <h2><i class="bi bi-geo-alt"></i> Unidades & Atendimento</h2>
+
+      <details class="faq-item">
+        <summary><span>Quais são os horários de atendimento?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          De segunda a sábado, das <b>9h às 20h</b>. Domingos e feriados sob consulta dependendo da unidade.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Como chegar à unidade mais próxima?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Acesse <a href="unidades.html">Unidades</a> para ver endereços, rotas e contatos de cada local.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>É acessível para pessoas com mobilidade reduzida?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Sim. Trabalhamos com acessibilidade e, quando necessário, adaptamos a sessão. Avise na reserva para facilitar.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-group">
+      <h2><i class="bi bi-person-lock"></i> Conta & Privacidade</h2>
+
+      <details class="faq-item">
+        <summary><span>Preciso ter conta para agendar?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Não é obrigatório, mas ter conta facilita remarcações, histórico de atendimentos e ofertas personalizadas.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span>Como meus dados são usados?</span><i class="bi bi-chevron-down"></i></summary>
+        <div class="answer">
+          Utilizamos seus dados apenas para fins de agendamento, atendimento e comunicação essencial.
+          Você pode solicitar ajustes/remoção conforme a LGPD.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq-cta">
+      <h3>Não encontrou o que procurava?</h3>
+      <p>Fale com a nossa equipe — respondemos rapidinho.</p>
+      <div class="cta-actions">
+        <a class="btn-cta" href="mailto:contato@rokuzen.com.br"><i class="bi bi-envelope"></i> contato@rokuzen.com.br</a>
+      </div>
+    </section>
+  </main>
+
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <footer class="roda-pe">
+    <section class="info-rokuzen">
+      <p><a href="#">Contato</a></p>
+      <p><a href="unidades.html">Unidade</a></p>
+      <p><a href="sobre-nos.html">Sobre nós</a></p>
+    </section>
+
+    <section class="redes-sociais">
+      <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-instagram"></i></a></button>
+      <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-facebook"></i></a></button>
+      <button><a href="mailto:contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i class="bi bi-envelope"></i></a></button>
+    </section>
+
+    <section class="direito-de-imagem">
+      <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
+    </section>
+  </footer>
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+  <script src="../JS/menu-home-page.js"></script>
+  <script src="../JS/faq.js"></script>
+</body>
+
+</html>
