@@ -26,6 +26,21 @@ async function loginUsuario() {
 
         localStorage.setItem('idClienteLogado', resposta.data.usuario.id_cliente);
 
+        const agendamentoPendente = JSON.parse(localStorage.getItem('agendamentoPendente'));
+        if (agendamentoPendente) {
+            try {
+                await axios.post(`${protocolo}${baseURL}/agendamento`, {
+                    ...agendamentoPendente,
+                    id_cliente: resposta.data.usuario.id_cliente
+                });
+                localStorage.removeItem('agendamentoPendente');
+                alert('Agendamento pendente realizado com sucesso!');
+            } catch (erro) {
+                console.error('Erro ao processar agendamento pendente:', erro);
+                alert('Erro ao concluir agendamento pendente.');
+            }
+        }
+
         window.location.href = 'minha-conta.html';
 
     } catch (erro) {
@@ -68,6 +83,21 @@ async function cadastrarUsuario() {
         localStorage.removeItem('idClienteLogado');
 
         localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario))
+
+        const agendamentoPendente = JSON.parse(localStorage.getItem('agendamentoPendente'));
+        if (agendamentoPendente) {
+            try {
+                await axios.post(`${protocolo}${baseURL}/agendamento`, {
+                    ...agendamentoPendente,
+                    id_cliente: resposta.data.usuario.id_cliente
+                });
+                localStorage.removeItem('agendamentoPendente');
+                alert('Agendamento pendente realizado com sucesso!');
+            } catch (erro) {
+                console.error('Erro ao processar agendamento pendente:', erro);
+                alert('Erro ao concluir agendamento pendente.');
+            }
+        }
 
         window.location.href = 'minha-conta.html'
 
