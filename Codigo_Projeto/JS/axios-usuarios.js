@@ -19,13 +19,13 @@ async function loginUsuario() {
 
         alert(resposta.data.mensagem);
 
-        // 🔹 Salva o usuário completo
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('idClienteLogado');
+
         localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario));
 
-        // 🔹 Salva o ID do cliente separadamente (para facilitar buscas)
         localStorage.setItem('idClienteLogado', resposta.data.usuario.id_cliente);
 
-        // 🔹 Redireciona para a página principal ou conta
         window.location.href = 'minha-conta.html';
 
     } catch (erro) {
@@ -63,6 +63,9 @@ async function cadastrarUsuario() {
         });
 
         alert(resposta.data.mensagem);
+
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('idClienteLogado');
 
         localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario))
 

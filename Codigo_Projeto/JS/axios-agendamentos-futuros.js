@@ -88,18 +88,16 @@ function renderizarAgendamentos(agendamentos) {
             minute: '2-digit'
         });
 
-        // 🔹 Converter duração tipo "00:45:00" → "45 min"
         let duracaoFormatada = ag.duracao;
 
         if (typeof ag.duracao === 'string' && ag.duracao.includes(':')) {
-            const parts = ag.duracao.split(':').map(Number); // [h, m, s]
+            const parts = ag.duracao.split(':').map(Number);
             if (parts.length === 3) {
                 const [h, m] = parts;
-                // Se h >= 24, o campo está guardando minutos em 'horas'
                 if (h >= 24) {
                     duracaoFormatada = h;
                 } else {
-                    duracaoFormatada = h * 60 + m; // converte horas em minutos
+                    duracaoFormatada = h * 60 + m;
                 }
             } else {
                 duracaoFormatada = Number(parts[0]) || ag.duracao;
@@ -118,10 +116,31 @@ function renderizarAgendamentos(agendamentos) {
                 <p><strong>Horário:</strong> ${horaFormatada}</p>
                 <p><strong>Duração:</strong> ${duracaoFormatada} min</p>
                 <p><strong>Valor:</strong> ${ag.valor}</p>
-                <button class="btn-cancelar" data-id="${ag.id}">Cancelar</button>
+                <button class="btn-cancelar" data-id="${ag.id_agendamento}">Cancelar</button>
             </div>
         `;
 
         container.appendChild(card);
     });
 }
+
+document.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('btn-cancelar')) {
+        const idAgendamento = event.target.getAttribute('data-id');
+
+        if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
+            try {
+                const url = `http://localhost:3000/agendamento/${idAgendamento}/cancelar`;
+                const response = await axios.patch(url);
+
+                if (response.status === 200) {
+                    alert('Agendamento cancelado com sucesso!');
+                    carregarAgendamentosFuturos(); // atualiza lista
+                }
+            } catch (erro) {
+                console.error('Erro ao cancelar o agendamento:', erro);
+                alert('Erro ao cancelar o agendamento. Tente novamente.');
+            }
+        }
+    }
+});
