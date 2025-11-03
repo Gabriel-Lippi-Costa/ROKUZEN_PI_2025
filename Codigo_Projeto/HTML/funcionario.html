@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionário | Rokuzen</title>
+    <link rel="icon" type="image/x-icon" href="../assets/Logo/favicon-rokuzen.png">
+    <link rel="stylesheet" href="../CSS/global.css">
+    <link rel="stylesheet" href="../CSS/funcionario.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <section class="parte-de-cima">
+                <section class="logo">
+                    <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
+                </section>
+
+                <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+
+                <ul class="menu-desktop">
+                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="unidades.html">Unidades</a></li>
+                    <li><a href="#">Artigos</a></li>
+                    <li><a href="profissionais.html">Profissionais</a></li>
+                    <li><a href="ajuda.html">Ajuda</a></li>
+                    <li><a href="sobre-nos.html">Sobre nós</a></li>
+                </ul>
+            </section>
+
+            <section class="parte-do-meio">
+                <section class="login-btn">
+                    <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+                </section>
+
+                <section class="menu-btn">
+                    <i class="bi bi-list" onclick="menuToggle()"></i>
+                </section>
+
+                <ul>
+                    <li class="close-btn-li">
+                        <i class="bi bi-x close-btn" onclick="menuToggle()"></i>
+                    </li>
+                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="unidades.html">Unidades</a></li>
+                    <li><a href="#">Artigos</a></li>
+                    <li><a href="profissionais.html">Profissionais</a></li>
+                    <li><a href="ajuda.html">Ajuda</a></li>
+                    <li><a href="sobre-nos.html">Sobre nós</a></li>
+                </ul>
+            </section>
+
+            <section class="parte-de-baixo">
+                <section class="barra-de-pesquisa">
+                    <input type="text" placeholder="Pesquisar">
+                    <i class="bi bi-search"></i>
+                </section>
+            </section>
+        </nav>
+    </header>
+
+    <section class="banner-funcionario">
+        <h1>FUNCIONÁRIO</h1>
+        <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
+    </section>
+
+    <section class="editar-dados">
+        <button onclick="toggleModal()">
+            <i class="bi bi-pencil-square"></i> Editar dados
+        </button>
+    </section>
+
+    <div class="modal-wrapper" id="modalDados">
+        <section class="conteiner">
+            <h2>Editar Informações</h2>
+            <section class="informacoes">
+                <form id="formDados" onsubmit="salvarDados(event)">
+
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" minlength="2" maxlength="50" required>
+
+                    <label for="data-nascimento">Data de Nascimento</label>
+                    <input type="date" name="data-nascimento" id="data-nascimento" required>
+
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" name="telefone" id="telefone" required oninput="validarTelefone(this)"
+                        placeholder="(00) 00000-0000">
+                    <span id="msgTEL" class="msg-validacao"></span>
+
+                    <label for="email-cadastro">E-mail</label>
+                    <input type="email" name="email" id="email" required>
+
+                    <label for="password-cadastro">Senha</label>
+                    <input type="text" name="password" id="password" required minlength="8" maxlength="30">
+
+                    <div class="form-buttons">
+                        <button type="button" onclick="toggleModal()">
+                            <i class="bi bi-x-circle"></i> Voltar
+                        </button>
+                        <button type="submit" onclick="atualizarDadosUsuario()">
+                            <i class="bi bi-check-circle"></i> Salvar
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+        </section>
+    </div>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <footer class="roda-pe">
+        <section class="info-rokuzen">
+            <p><a href="#">Contato</a></p>
+            <p><a href="unidades.html">Unidade</a></p>
+            <p><a href="sobre-nos.html">Sobre nós</a></p>
+        </section>
+
+        <section class="redes-sociais">
+            <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i
+                        class="bi bi-instagram"></i></a></button>
+            <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i
+                        class="bi bi-facebook"></i></a></button>
+            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
+                        class="bi bi-envelope"></i></a></button>
+        </section>
+
+        <section class="direito-de-imagem">
+            <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
+        </section>
+    </footer>
+
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../JS/validacao-telefone.js"></script>
+    <script src="../JS/menu-home-page.js"></script>
+    <script src="../JS/janela-dados.js"></script>
+</body>
+
+</html>

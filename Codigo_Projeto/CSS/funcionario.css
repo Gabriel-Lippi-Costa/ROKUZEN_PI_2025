@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.banner-funcionario {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #a8be7c;
+  overflow: hidden;
+}
+
+.banner-funcionario h1 {
+  font-size: 2.5em;
+  color: #404040;
+  z-index: 2;
+}
+
+.banner-funcionario img {
+  position: absolute;
+  opacity: 0.3;
+  width: 300px;
+  height: auto;
+  z-index: 1;
+  margin-right: 300px;
+  color: black;
+}
+
+.editar-dados {
+  display: flex;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+.editar-dados button {
+  padding: 12px 24px;
+  background-color: #7e0000;
+  color: white;
+  font-weight: 600;
+  border: 2px solid #7e0000;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.editar-dados button:hover {
+  background-color: white;
+  color: #7e0000;
+}
+
+.modal-wrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-wrapper.show {
+  display: flex !important;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.conteiner {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+  margin: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.conteiner h2 {
+  color: #7e0000;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.informacoes form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.informacoes form label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: -8px;
+}
+
+.informacoes form input,
+.informacoes form select {
+  font-size: 16px;
+  width: 100%;
+  height: 45px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background-color: #f9fff4;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.informacoes form input:focus,
+.informacoes form select:focus {
+  border: 2px solid #9db668;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(157, 182, 104, 0.1);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-buttons button {
+  flex: 1;
+  height: 45px;
+  font-weight: 600;
+  border: 2px solid #7e0000;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.form-buttons button[type="button"] {
+  background-color: white;
+  color: #7e0000;
+}
+
+.form-buttons button[type="button"]:hover {
+  background-color: #f5f5f5;
+}
+
+.form-buttons button[type="submit"] {
+  background-color: #7e0000;
+  color: white;
+}
+
+.form-buttons button[type="submit"]:hover {
+  background-color: #5e0000;
+}
+
+.msg-validacao {
+  font-size: 14px;
+  margin-top: -10px;
+  font-weight: 500;
+}
+
+.conteiner::-webkit-scrollbar {
+  width: 8px;
+}
+
+.conteiner::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.conteiner::-webkit-scrollbar-thumb {
+  background: #7e0000;
+  border-radius: 10px;
+}
+
+.conteiner::-webkit-scrollbar-thumb:hover {
+  background: #5e0000;
+}
