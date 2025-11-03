@@ -339,6 +339,19 @@ app.patch('/agendamento/:id/cancelar', (req, res) => {
     });
 });
 
+app.get('/funcionario/:id', (req, res) => {
+    const { id } = req.params
+
+    const sql = "SELECT * FROM funcionarios WHERE id_funcionario = ?"
+
+    conexao.query(sql, [id], (erro, resultado) => {
+        if (erro) return res.status(500).json({ erro: 'Erro ao buscar funcionário' })
+        if (resultado.length === 0) return res.status(404).json({ erro: 'Funcionário não encontrado' })
+
+        res.json({ funcionario: resultado[0] })
+    })
+})
+
 app.listen(3000, () => {
     console.log('server up & running');
 })  
