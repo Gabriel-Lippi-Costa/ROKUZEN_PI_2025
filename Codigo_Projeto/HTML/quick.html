@@ -4,16 +4,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Quick Massage | Rokuzen</title>
     <meta name="description"
-        content="Conheça a história, valores e propósito da Rokuzen. Inovação, qualidade e conexões humanas guiando nossas soluções." />
+        content="A Quick Massage é prática, eficaz e ideal para quem busca relaxamento rápido e alívio do estresse. Conheça seus benefícios com a Rokuzen." />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" />
     <link rel="stylesheet" href="../CSS/quick.css" />
     <link rel="stylesheet" href="../CSS/global.css">
     <link rel="icon" href="../assets/Logo/favicon.png" type="image/png" />
-    <meta property="og:title" content="Quick Massage | Rokuzen" />
-    <meta property="og:description" content="Inovação, qualidade e conexões humanas. Conheça a Rokuzen." />
+
+    <meta property="og:title" content="Quick Massage - Serviços | Rokuzen" />
+    <meta property="og:description" content="Relaxe em poucos minutos com a Quick Massage da Rokuzen." />
     <meta property="og:image" content="../assets/Logo/logo-rokuzen.png" />
     <meta property="og:type" content="website" />
     <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
@@ -22,7 +25,6 @@
 <body>
     <header>
         <nav>
-
             <section class="parte-de-cima">
                 <section class="logo">
                     <a href="index.html" aria-label="Página inicial">
@@ -33,12 +35,12 @@
                 <a href="autenticacao.html" aria-label="Entrar"><i class="bi bi-person"></i></a>
 
                 <ul class="menu-desktop">
-                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="servicos.html" class="active">Serviços</a></li>
                     <li><a href="unidades.html">Unidades</a></li>
                     <li><a href="#">Artigos</a></li>
                     <li><a href="profissionais.html">Profissionais</a></li>
                     <li><a href="#">Ajuda</a></li>
-                    <li><a href="sobre-nos.html" class="active">Sobre nós</a></li>
+                    <li><a href="sobre-nos.html">Sobre nós</a></li>
                 </ul>
             </section>
 
@@ -51,17 +53,16 @@
                     <i class="bi bi-list" onclick="menuToggle()" aria-label="Abrir menu"></i>
                 </section>
 
-
                 <ul id="menu-mobile">
                     <li class="close-btn-li">
                         <i class="bi bi-x close-btn" onclick="menuToggle()" aria-label="Fechar menu"></i>
                     </li>
-                    <li><a href="#">Serviços</a></li>
+                    <li><a href="servicos.html" class="active">Serviços</a></li>
                     <li><a href="unidades.html">Unidades</a></li>
                     <li><a href="#">Artigos</a></li>
-                    <li><a href="#">Profissionais</a></li>
+                    <li><a href="profissionais.html">Profissionais</a></li>
                     <li><a href="#">Ajuda</a></li>
-                    <li><a href="sobre-nos.html" class="active">Sobre nós</a></li>
+                    <li><a href="sobre-nos.html">Sobre nós</a></li>
                 </ul>
             </section>
 
@@ -74,7 +75,6 @@
         </nav>
     </header>
 
-
     <section class="banner-quick">
         <h1>QUICK MASSAGE</h1>
         <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
@@ -82,22 +82,34 @@
 
     <main>
         <section class="imagem-texto">
-            <img src="../assets/Logo/logo-quick.png" alt="Imagem Quick Massage">
+            <img src="../assets/Serviços/quick.jpg" alt="Quick Massage Rokuzen">
             <div class="texto">
-                <p id="primeiro-topico">A Quick Massage é uma técnica prática e eficaz, ideal para quem busca
-                    relaxamento rápido e alívio do
-                    estresse do dia a dia. Em poucos minutos, você pode renovar suas energias e melhorar seu bem-estar,
-                    mesmo com uma rotina corrida.</p>
+                <p id="primeiro-topico">
+                    A Quick Massage é uma técnica prática e eficaz, ideal para quem busca relaxamento rápido e alívio do estresse do dia a dia. 
+                    Em poucos minutos, você renova suas energias e melhora o bem-estar, mesmo com uma rotina corrida.
+                </p>
+
                 <ol>
+<<<<<<< HEAD
                     <li><strong class="curiosidades">Como funciona?</strong>
                         <p id="segundo-topico">Duração média de 15 a 20 minutos e utiliza movimentos rápidos, porém
                             profundos,
                             que atuam diretamente nas principais regiões de tensão do corpo. Pode ser feita no local de
                             trabalho, em eventos ou em nosso espaço, proporcionando relaxamento imediato e sensação de
                             bem-estar.</p>
+=======
+                    <li class="subtitulos"><strong>Como funciona?</strong>
+                        <p id="terceiro-topico">
+                            A sessão tem duração média de 15 a 20 minutos e utiliza movimentos rápidos e profundos, 
+                            atuando diretamente nas principais regiões de tensão do corpo. 
+                            Pode ser feita no trabalho, em eventos ou em nosso espaço, proporcionando relaxamento imediato.
+                        </p>
+>>>>>>> 67eed8239bf233dc952cfe7827259700258f8f3c
                     </li>
-                    <li><strong class="curiosidades">Benefícios da Quick Massage:</strong>
+
+                    <li class="subtitulos"><strong>Benefícios da Quick Massage</strong>
                         <ul>
+<<<<<<< HEAD
                             <li class="topicos">Redução da tensão muscular nas áreas de ombros, pescoço, costas, braços
                                 e
                                 mãos
@@ -106,47 +118,55 @@
                             <li class="topicos">Melhora da circulação sanguínea</li>
                             <li class="topicos">Aumento da disposição e energia</li>
                             <li class="topicos" id="terceiro-topico">Melhora da concentração e produtividade</li>
+=======
+                            <li class="topicos"><strong>Redução da tensão muscular:</strong> principalmente em ombros, pescoço, costas e braços.</li>
+                            <li class="topicos"><strong>Alívio do estresse e da ansiedade:</strong> melhora o humor e a disposição.</li>
+                            <li class="topicos"><strong>Melhora da circulação sanguínea:</strong> promove oxigenação e bem-estar.</li>
+                            <li class="topicos"><strong>Aumento da energia:</strong> estimula o corpo e a mente.</li>
+                            <li class="topicos" id="segundo-topico"><strong>Melhora da concentração:</strong> ideal para pausas produtivas no trabalho.</li>
+>>>>>>> 67eed8239bf233dc952cfe7827259700258f8f3c
                         </ul>
                     </li>
-                    <li><strong class="curiosidades">Para quem é indicada?</strong>
+
+                    <li class="subtitulos"><strong>Para quem é indicada?</strong>
                         <ul>
-                            <li class="topicos">Pessoas com rotina corrida</li>
-                            <li class="topicos">Profissionais que passam muitas horas sentados ou em frente ao
-                                computador
-                            </li>
-                            <li class="topicos">Quem busca um momento de cuidado rápido e eficaz</li>
-                            <li class="topicos">Empresas que querem investir no bem-estar dos seus colaboradores</li>
+                            <li class="topicos">Pessoas com rotina corrida e estressante.</li>
+                            <li class="topicos">Profissionais que passam muito tempo sentados ou em frente ao computador.</li>
+                            <li class="topicos">Quem busca um momento rápido de cuidado e relaxamento.</li>
+                            <li class="topicos">Empresas que investem no bem-estar dos colaboradores.</li>
+                        </ul>
                     </li>
                 </ol>
             </div>
         </section>
     </main>
 
+    <!-- Botão de Agendar -->
+    <section class="agendar-servico">
+        <a href="agendar.html">
+            <button type="button">Agendar</button>
+        </a>
+    </section>
+
+    <!-- Rodapé -->
     <footer class="roda-pe">
         <section class="info-rokuzen">
             <p><a href="#">Contato</a></p>
             <p><a href="unidades.html">Unidades</a></p>
-            <p><a href="sobre-nos.html" class="active">Sobre nós</a></p>
+            <p><a href="sobre-nos.html">Sobre nós</a></p>
         </section>
 
         <section class="redes-sociais">
-
             <button>
                 <a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="noopener noreferrer"
-                    aria-label="Instagram">
-                    <i class="bi bi-instagram"></i>
-                </a>
+                    aria-label="Instagram"><i class="bi bi-instagram"></i></a>
             </button>
             <button>
                 <a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="noopener noreferrer"
-                    aria-label="Facebook">
-                    <i class="bi bi-facebook"></i>
-                </a>
+                    aria-label="Facebook"><i class="bi bi-facebook"></i></a>
             </button>
             <button>
-                <a href="mailto:contato@rokuzen.com.br" aria-label="Enviar e-mail">
-                    <i class="bi bi-envelope"></i>
-                </a>
+                <a href="mailto:contato@rokuzen.com.br" aria-label="Enviar e-mail"><i class="bi bi-envelope"></i></a>
             </button>
         </section>
 
@@ -154,7 +174,6 @@
             <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
         </section>
     </footer>
-
 
     <script defer>
         function menuToggle() {
@@ -164,5 +183,4 @@
         }
     </script>
 </body>
-
 </html>
