@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Medicina chinesa (MTC) | Rokuzen</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"/>
+  <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="../CSS/global.css"/>
+  <link rel="stylesheet" href="../CSS/artigo-detalhe.css"/>
+</head>
+
+<body class="artigos-page">
+  <header>
+    <nav>
+      <section class="parte-de-cima">
+        <section class="logo"><a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Rokuzen"/></a></section>
+        <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+        <ul class="menu-desktop">
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="unidades.html">Unidades</a></li>
+          <li><a href="artigos.html" class="active">Artigos</a></li>
+          <li><a href="profissionais.html">Profissionais</a></li>
+          <li><a href="ajuda.html">Ajuda</a></li>
+          <li><a href="sobre-nos.html">Sobre nós</a></li>
+        </ul>
+      </section>
+
+      <section class="parte-do-meio">
+        <section class="login-btn"><a href="autenticacao.html"><i class="bi bi-person"></i></a></section>
+        <section class="menu-btn"><i class="bi bi-list" onclick="menuToggle()"></i></section>
+        <ul>
+          <li class="close-btn-li"><i class="bi bi-x close-btn" onclick="menuToggle()"></i></li>
+          <li><a href="servicos.html">Serviços</a></li>
+          <li><a href="unidades.html">Unidades</a></li>
+          <li><a href="artigos.html" class="active">Artigos</a></li>
+          <li><a href="profissionais.html">Profissionais</a></li>
+          <li><a href="ajuda.html">Ajuda</a></li>
+          <li><a href="sobre-nos.html">Sobre nós</a></li>
+        </ul>
+      </section>
+
+      <section class="parte-de-baixo">
+        <section class="barra-de-pesquisa">
+          <input type="text" placeholder="Pesquisar artigos"/>
+          <i class="bi bi-search"></i>
+        </section>
+      </section>
+    </nav>
+  </header>
+
+  <section class="banner-artigo">
+    <h1>Medicina chinesa ou Medicina tradicional chinesa (MTC)</h1>
+  </section>
+
+  <main class="post-wrapper">
+    <img class="post-hero" src="../assets/Imagens/artigo-mtc.jpg" alt="Medicina Tradicional Chinesa"/>
+    <div class="post-meta">
+      <span class="cat">Matérias</span>
+      <span class="data"><i class="bi bi-calendar2"></i> 11 nov, 2020</span>
+      <span>por admin.site</span>
+    </div>
+
+    <article class="post-content">
+      <p>A medicina tradicional chinesa (MTC) é uma das formas mais antigas da medicina, com registros superiores a 5.000 anos. Se permanece em uso até hoje, sua efetividade não pode ser ignorada. No Brasil, ganhou maior reconhecimento nas últimas décadas.</p>
+      <blockquote>“A natureza mutável do Qi entre uma substância material e uma força etérea sutil é essencial à concepção de corpo e mente como unidade integrada.” — Maciocia (2019)</blockquote>
+      <p>O conceito de Qi é fundamental: a base de todas as manifestações da vida, integrando corpo e mente. Historicamente, conhecimentos eram transmitidos entre clãs, por tradição oral, a partir da observação da natureza e do ser humano.</p>
+      <p>Pressões em pontos doloridos, perfurações (acupuntura), sangrias e o aquecimento por moxa estão entre as práticas desenvolvidas. A investigação da influência das estações e hábitos na saúde ajudou a formar uma medicina voltada também à prevenção.</p>
+      <h2>Uso da MTC nos tratamentos</h2>
+      <p>Na ROKUZEN®️, muitas análises e abordagens vêm da MTC, como a teoria Zang Fu e os 5 elementos. Observamos sinais físicos, timbre de voz e odores, estudamos pontos doloridos e utilizamos shiatsu, auriculoterapia, reflexologia e ventosas.</p>
+      <p>Figuras como Lao Tse e o Imperador Amarelo (Huang Ti) foram essenciais para compilar conhecimentos. O taoismo e o confucionismo influenciaram uma visão de mundo presente até hoje.</p>
+      <h2>Yin-Yang e meridianos</h2>
+      <p>No taoismo, tudo é formado por energias opostas e complementares: yin–yang. No corpo, os meridianos conduzem o Qi e influenciam regiões específicas — base para shiatsu e acupuntura.</p>
+      <p>Buscar o “Tao” é reconhecer que somos parte do todo. Corpo, mente e natureza estão conectados.</p>
+    </article>
+
+    <nav class="post-nav">
+      <a href="artigos.html"><i class="bi bi-arrow-left"></i> Voltar aos artigos</a>
+      <a href="artigo-auriculoterapia.html">Próximo: Auriculoterapia <i class="bi bi-arrow-right"></i></a>
+    </nav>
+  </main>
+
+  <footer class="roda-pe">
+    <section class="info-rokuzen">
+      <p><a href="#">Contato</a></p>
+      <p><a href="unidades.html">Unidade</a></p>
+      <p><a href="sobre-nos.html">Sobre nós</a></p>
+    </section>
+
+    <section class="redes-sociais">
+      <button><a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-instagram"></i></a></button>
+      <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i class="bi bi-facebook"></i></a></button>
+      <button><a href="mailto:contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i class="bi bi-envelope"></i></a></button>
+    </section>
+
+    <section class="direito-de-imagem">
+      <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
+    </section>
+  </footer>
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+  <script src="../JS/menu-home-page.js"></script>
+</body>
+</html>
