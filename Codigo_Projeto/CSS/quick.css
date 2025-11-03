@@ -50,38 +50,6 @@ body {
   text-align: left;
 }
 
-<<<<<<< HEAD
-p {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 14px;
-    text-indent: 25px;
-    hyphens: auto;
-}
-
-.curiosidades {
-    font-size: 17px;
-    padding-bottom: 10px;
-}
-
-.topicos {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 14px;
-    padding: 5px;
-}
-
-#primeiro-topico {
-    font-size: 14px;
-    padding: 10px;
-}
-
-#segundo-topico {
-    padding-bottom: 15px;
-}
-
-#terceiro-topico {
-    font-size: 14px;
-    padding-bottom: 15px;
-=======
 .imagem-texto img {
   width: 400px;
   max-width: 600px;
@@ -89,7 +57,6 @@ p {
   border-radius: 14px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   object-fit: cover;
->>>>>>> 67eed8239bf233dc952cfe7827259700258f8f3c
 }
 
 .imagem-texto .texto {

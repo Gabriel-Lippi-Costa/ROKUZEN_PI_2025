@@ -39,6 +39,7 @@ body {
   height: auto;
   z-index: 1;
 }
+
 .imagem-texto {
   display: flex;
   flex-direction: column;
@@ -49,66 +50,6 @@ body {
   text-align: left;
 }
 
-<<<<<<< HEAD
-p {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 14px;
-  text-indent: 25px;
-  hyphens: auto;
-}
-
-.subtitulos {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 17px;
-  padding: 6px;
-}
-
-.topicos {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 14px;
-}
-
-
-#primeiro-topico {
-  padding: 10px;
-}
-
-#segundo-topico {
-  padding-bottom: 15px;
-}
-
-#terceiro-topico {
-  padding-bottom: 15px;
-}
-
-#quarto-topico {
-  padding-bottom: 15px;
-}
-
-#quinto-topico {
-  padding-bottom: 15px;
-}
-
-.secao-auriculoterapia img.icone {
-  width: 70px;
-  height: 70px;
-  vertical-align: middle;
-}
-
-.secao-auriculoterapia h1 {
-  margin-left: -55px;
-  margin-top: 10px;
-}
-
-.secao-auriculoterapia {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 60px 20px;
-  background-color: #9db668;
-  gap: 20px;
-=======
 .imagem-texto img {
   width: 400px;
   max-width: 600px;
@@ -116,7 +57,6 @@ p {
   border-radius: 14px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   object-fit: cover;
->>>>>>> 67eed8239bf233dc952cfe7827259700258f8f3c
 }
 
 .imagem-texto .texto {
@@ -151,31 +91,6 @@ ol {
 
 ul {
   margin-left: 10px;
-}
-
-.agendar-servico {
-  display: flex;
-  justify-content: center;
-  margin: 5px 0px 20px 0px;
-}
-.agendar-servico button {
-  margin-top: 15px;
-  width: 260px;
-  height: 45px;
-  background-color: #7e0000;
-  color: white;
-  font-weight: 550;
-  border: 1px solid black;
-  font-size: 18px;
-  font-family: "Poppins", sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.agendar-servico button:hover {
-  background-color: white;
-  color: #7e0000;
-  transition: all 0.3s ease;
 }
 
 @media (max-width: 992px) {
@@ -220,4 +135,30 @@ h1, .subtitulos {
 
 h1:hover, .subtitulos:hover {
   color: #6d8e30;
+}
+
+.agendar-servico {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0px 20px 0px;
+}
+
+.agendar-servico button {
+  margin-top: 15px;
+  width: 260px;
+  height: 45px;
+  background-color: #7e0000;
+  color: white;
+  font-weight: 550;
+  border: 1px solid black;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agendar-servico button:hover {
+  background-color: white;
+  color: #7e0000;
+  transition: all 0.3s ease;
 }
