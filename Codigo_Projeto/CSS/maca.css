@@ -1,86 +1,164 @@
 * {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Libre Baskerville", Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #f6f7f2;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 .banner-maca {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 200px; 
-  background-color: #A8BE7C;
+  height: 240px;
+  background: linear-gradient(120deg, #a8be7c, #9db668);
+  text-align: center;
+  color: #404040;
   overflow: hidden;
 }
 
 .banner-maca h1 {
-  font-size: 2.5em;
-  color: #404040;
-  z-index: 2; 
+  font-size: 2.4rem;
+  font-weight: 600;
+  z-index: 2;
+  letter-spacing: 1px;
 }
 
 .banner-maca img {
   position: absolute;
-  opacity: 0.3; 
-  width: 300px; 
+  opacity: 0.2;
+  width: 350px;
   height: auto;
   z-index: 1;
-  margin-right: 300px;
-  color: black; 
 }
 
 .imagem-texto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    padding: 40px 20px;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 8%;
+  gap: 30px;
+  text-align: left;
 }
 
-p {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 14px;
-    text-indent: 25px;
-    hyphens: auto;
-}
-
-.curiosidades {
-    font-size: 18px;
-    padding-bottom: 10px;
-}
-
-.topicos {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 14px;
-    padding: 7px;
-}
-
-#primeiro-topico {
-    padding: 10px;
-}
-
-#segundo-topico {
-    padding-bottom: 10px;
-}
-
-#terceiro-topico {
-    padding-bottom: 10px;
+.imagem-texto img {
+  width: 400px;
+  max-width: 600px;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  object-fit: cover;
 }
 
 .imagem-texto .texto {
-    max-width: 600px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #333;
-    padding: 25px;
+  max-width: 800px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  background-color: transparent;
 }
 
 .imagem-texto .texto p {
-    margin: 8px 0;
-    padding: 0;
-    text-indent: 5;
+  margin: 12px 0;
+  text-indent: 25px;
+}
+
+.subtitulos {
+  font-size: 18px;
+  font-weight: bold;
+  color: #7a5b2a;
+  margin-top: 18px;
+}
+
+.topicos {
+  font-size: 15px;
+  margin-left: 30px;
+  list-style-type: disc;
+}
+
+ol {
+  padding-left: 15px;
+}
+
+ul {
+  margin-left: 10px;
+}
+
+.agendar-servico {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0px 20px 0px;
+}
+
+.agendar-servico button {
+  margin-top: 15px;
+  width: 260px;
+  height: 45px;
+  background-color: #7e0000;
+  color: white;
+  font-weight: 550;
+  border: 1px solid black;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.agendar-servico button:hover {
+  background-color: white;
+  color: #7e0000;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  .banner-maca h1 {
+    font-size: 2rem;
+  }
+
+  .imagem-texto {
+    padding: 40px 5%;
+  }
+
+  .imagem-texto img {
+    max-width: 100%;
+  }
+
+  .imagem-texto .texto {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .banner-maca {
+    height: 200px;
+  }
+
+  .banner-maca h1 {
+    font-size: 1.8rem;
+  }
+
+  .imagem-texto {
+    padding: 30px 4%;
+  }
+
+  .imagem-texto .texto {
     font-size: 15px;
+  }
+}
+
+h1, .subtitulos {
+  transition: color 0.3s ease;
+}
+
+h1:hover, .subtitulos:hover {
+  color: #9e7c43;
 }
