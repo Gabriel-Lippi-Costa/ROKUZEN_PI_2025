@@ -170,14 +170,24 @@ body {
         margin-right: 240px;
     }
 }
-body.ajuda-page {
-    overflow: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-body.ajuda-page::-webkit-scrollbar {
-    display: none;
-}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #e9eaee;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  body.ajuda-page {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+  }
+  
 html, body { height: 100%; }
 .ajuda-page .faq-wrapper { min-height: calc(100vh - 200px - 60px); }
 .ajuda-page .roda-pe {
