@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.banner-quick {
+.banner-reflexologia {
   position: relative;
   display: flex;
   justify-content: center;
@@ -14,13 +14,13 @@
   overflow: hidden;
 }
 
-.banner-quick h1 {
+.banner-reflexologia h1 {
   font-size: 2.5em;
   color: #404040;
   z-index: 2; 
 }
 
-.banner-quick img {
+.banner-reflexologia img {
   position: absolute;
   opacity: 0.3; 
   width: 300px; 
@@ -47,18 +47,17 @@ p {
 }
 
 .curiosidades {
-    font-size: 17px;
+    font-size: 18px;
     padding-bottom: 10px;
 }
 
 .topicos {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
-    padding: 5px;
+    padding: 7px;
 }
 
 #primeiro-topico {
-    font-size: 14px;
     padding: 10px;
 }
 
@@ -67,7 +66,6 @@ p {
 }
 
 #terceiro-topico {
-    font-size: 14px;
     padding-bottom: 15px;
 }
 
