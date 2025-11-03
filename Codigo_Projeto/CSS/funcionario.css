@@ -208,3 +208,51 @@
 .conteiner::-webkit-scrollbar-thumb:hover {
   background: #5e0000;
 }
+
+.criar-conta-cliente {
+  display: flex;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+.criar-conta-cliente button {
+  padding: 12px 24px;
+  background-color: #7e0000;
+  color: white;
+  font-weight: 600;
+  border: 2px solid #7e0000;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.criar-conta-cliente button:hover {
+  background-color: white;
+  color: #7e0000;
+}
+
+.criar-servico-cliente {
+  display: flex;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+.criar-servico-cliente button {
+  padding: 12px 24px;
+  background-color: #7e0000;
+  color: white;
+  font-weight: 600;
+  border: 2px solid #7e0000;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.criar-servico-cliente button:hover {
+  background-color: white;
+  color: #7e0000;
+}
