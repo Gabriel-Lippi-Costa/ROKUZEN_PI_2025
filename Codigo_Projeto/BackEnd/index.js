@@ -10,7 +10,7 @@ const conexao = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'dbPessoal123',
+    password: 'imtdb',
     database: 'rokuzen'
 })
 
