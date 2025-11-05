@@ -2,29 +2,29 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/unidades.css">
-    <link rel="stylesheet" href="../CSS/global.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
-    <title>Rokuzen</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unidades | Rokuzen</title>
+    <meta name="description" content="Conheça as unidades da Rokuzen." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../CSS/global.css" />
+    <link rel="stylesheet" href="../CSS/unidades.css" />
 </head>
 
-<body>
-
+<body class="unidades-page">
     <header>
         <nav>
             <section class="parte-de-cima">
                 <section class="logo">
-                    <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
+                    <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen" /></a>
                 </section>
 
                 <a href="autenticacao.html"><i class="bi bi-person"></i></a>
 
                 <ul class="menu-desktop">
                     <li><a href="servicos.html">Serviços</a></li>
-                    <li><a href="unidades.html">Unidades</a></li>
+                    <li><a href="unidades.html" class="active">Unidades</a></li>
                     <li><a href="artigos.html">Artigos</a></li>
                     <li><a href="profissionais.html">Profissionais</a></li>
                     <li><a href="ajuda.html">Ajuda</a></li>
@@ -42,11 +42,9 @@
                 </section>
 
                 <ul>
-                    <li class="close-btn-li">
-                        <i class="bi bi-x close-btn" onclick="menuToggle()"></i>
-                    </li>
+                    <li class="close-btn-li"><i class="bi bi-x close-btn" onclick="menuToggle()"></i></li>
                     <li><a href="servicos.html">Serviços</a></li>
-                    <li><a href="unidades.html">Unidades</a></li>
+                    <li><a href="unidades.html" class="active">Unidades</a></li>
                     <li><a href="artigos.html">Artigos</a></li>
                     <li><a href="profissionais.html">Profissionais</a></li>
                     <li><a href="ajuda.html">Ajuda</a></li>
@@ -56,50 +54,54 @@
 
             <section class="parte-de-baixo">
                 <section class="barra-de-pesquisa">
-                    <input type="text" placeholder="Pesquisar">
+                    <input type="text" placeholder="Pesquisar" aria-label="Pesquisar" />
                     <i class="bi bi-search"></i>
                 </section>
             </section>
         </nav>
     </header>
 
-
     <section class="banner-unidades">
         <h1>UNIDADES</h1>
-        <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
+        <img src="../assets/Logo/logo-titulos.png" alt="Marca Rokuzen" />
     </section>
 
-    <section class="unidades-grid">
-        <div class="unidade">
-            <img src="../assets/Logo/logo-titulos.png" alt="Unidade São Paulo" class="icone">
-            <p>Unidade São Paulo</p>
-        </div>
-        <div class="unidade">
-            <img src="../assets/Logo/logo-titulos.png" alt="Unidade Rio de Janeiro" class="icone">
-            <p>Unidade Rio de Janeiro</p>
-        </div>
-        <div class="unidade">
-            <img src="../assets/Logo/logo-titulos.png" alt="Unidade Belo Horizonte" class="icone">
-            <p>Unidade Belo Horizonte</p>
-        </div>
-        <div class="unidade">
-            <img src="../assets/Logo/logo-titulos.png" alt="Unidade Curitiba" class="icone">
-            <p>Unidade Curitiba</p>
-        </div>
-    </section>
+    <main class="unidades-wrapper">
+        <section class="unidades-grid">
+            <a class="unidade-link" href="santo-andre.html">
+                <article class="unidade-card">
+                    <img class="thumb" src="../assets/Unidades/golden.jpg" alt="Unidade Santo André" />
+                    <h3 class="nome">Santo André</h3>
+                </article>
+            </a>
 
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
+            <a class="unidade-link" href="sao-bernardo.html">
+                <article class="unidade-card">
+                    <img class="thumb" src="../assets/Unidades/ribeirao.jpg" alt="Unidade São Bernardo do Campo" />
+                    <h3 class="nome">São Bernardo do Campo</h3>
+                </article>
+            </a>
 
+            <a class="unidade-link" href="mooca-plaza.html">
+                <article class="unidade-card">
+                    <img class="thumb" src="../assets/Unidades/mooca.jpg" alt="Unidade Mooca Plaza Shopping" />
+                    <h3 class="nome">Mooca Plaza Shopping</h3>
+                </article>
+            </a>
+
+            <a class="unidade-link" href="west-plaza.html">
+                <article class="unidade-card">
+                    <img class="thumb" src="../assets/Unidades/west3.jpg" alt="Unidade West Plaza Shopping" />
+                    <h3 class="nome">West Plaza Shopping</h3>
+                </article>
+            </a>
+        </section>
+    </main>
 
     <footer class="roda-pe">
         <section class="info-rokuzen">
             <p><a href="#">Contato</a></p>
-            <p><a href="unidades.html">Unidade</a></p>
+            <p><a href="unidades.html" class="active">Unidade</a></p>
             <p><a href="sobre-nos.html">Sobre nós</a></p>
         </section>
 
@@ -108,7 +110,7 @@
                         class="bi bi-instagram"></i></a></button>
             <button><a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="external"><i
                         class="bi bi-facebook"></i></a></button>
-            <button><a href="contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
+            <button><a href="mailto:contato@rokuzen.com.br" target="_blank" rel="noopener noreferrer"><i
                         class="bi bi-envelope"></i></a></button>
         </section>
 
@@ -118,9 +120,7 @@
     </footer>
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
+    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
     <script src="../JS/menu-home-page.js"></script>
 </body>
 
