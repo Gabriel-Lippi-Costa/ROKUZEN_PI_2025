@@ -161,12 +161,21 @@
             Criar conta para cliente
         </button>
     </section>
+    <section class="criar-conta-cliente">
+        <a href="grafico.html">
+            <button>
+                <i class="bi bi-pencil-square"></i>
+                Vizualizar estatisticas
+            </button>
+        </a>
+    </section>
+
 
     <div class="modal-wrapper" id="modalCriarContaCliente">
         <section class="conteiner">
             <h2>Criar conta para cliente</h2>
             <section class="informacoes">
-                    <form id="formDadosCriarCliente" onsubmit="">
+                <form id="formDadosCriarCliente" onsubmit="">
 
                     <label for="nome">Nome</label>
                     <input type="text" name="nome-cliente" id="nome-cliente" minlength="2" maxlength="50" required>
@@ -175,15 +184,16 @@
                     <input type="date" name="data-nascimento-cliente" id="data-nascimento-cliente" required>
 
                     <label for="telefone">Telefone</label>
-                    <input type="tel" name="telefone-cliente" id="telefone-cliente" required oninput="validarTelefone(this)"
-                        placeholder="(00) 00000-0000">
+                    <input type="tel" name="telefone-cliente" id="telefone-cliente" required
+                        oninput="validarTelefone(this)" placeholder="(00) 00000-0000">
                     <span id="msgTEL" class="msg-validacao"></span>
 
                     <label for="email-cadastro">E-mail</label>
                     <input type="email" name="email-cliente" id="email-cliente" required>
 
                     <label for="password-cadastro">Senha</label>
-                    <input type="text" name="password-cliente" id="password-cliente" required minlength="8" maxlength="30">
+                    <input type="text" name="password-cliente" id="password-cliente" required minlength="8"
+                        maxlength="30">
 
                     <div class="form-buttons">
                         <button type="button" onclick="toggleModalCriarContaCliente()">
