@@ -363,7 +363,17 @@ app.patch('/agendamento/:id/cancelar', (req, res) => {
 app.get('/funcionario/:id', (req, res) => {
     const { id } = req.params
 
-    const sql = "SELECT * FROM funcionarios WHERE id_funcionario = ?"
+    const sql = `
+        SELECT 
+            id_funcionario,
+            nome_funcionario,
+            email_funcionario,
+            telefone_funcionario,
+            data_nascimento_funcionario,
+            senha_funcionario
+        FROM funcionarios
+        WHERE id_funcionario = ?;
+        `
 
     conexao.query(sql, [id], (erro, resultado) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao buscar funcionário' })
@@ -428,6 +438,37 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
         });
 
         res.json(agendamentosFormatados);
+    });
+});
+
+app.patch('/funcionario/:id', (req, res) => {
+    const { id } = req.params;
+    const { nome, data_nascimento, telefone, email, senha } = req.body;
+
+    if (!nome || !data_nascimento || !telefone || !email || !senha) {
+        return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
+    }
+
+    const sql = `
+        UPDATE funcionarios
+        SET nome_funcionario = ?, data_nascimento_funcionario = ?, telefone_funcionario = ?, email_funcionario = ?, senha_funcionario = ?
+        WHERE id_funcionario = ?
+    `;
+
+    conexao.query(sql, [nome, data_nascimento, telefone, email, senha, id], (erro, resultado) => {
+        if (erro) {
+            console.error('Erro ao atualizar funcionário:', erro);
+            return res.status(500).json({ erro: 'Erro ao atualizar funcionário' });
+        }
+
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({ erro: 'Funcionário não encontrado!' });
+        }
+
+        res.status(200).json({
+            mensagem: 'Funcionário atualizado com sucesso!',
+            funcionario: { id_funcionario: id, nome_funcionario: nome, email_funcionario: email, telefone_funcionario: telefone, data_nascimento_funcionario: data_nascimento }
+        });
     });
 });
 
