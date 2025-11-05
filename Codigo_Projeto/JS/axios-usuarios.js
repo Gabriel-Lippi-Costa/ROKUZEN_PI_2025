@@ -16,32 +16,24 @@ async function loginUsuario() {
 
     try {
         const resposta = await axios.post(URLcompleta, { email, senha });
+        const dados = resposta.data;
 
-        alert(resposta.data.mensagem);
+        alert(dados.mensagem);
 
         localStorage.removeItem('usuario');
         localStorage.removeItem('idClienteLogado');
+        localStorage.removeItem('idFuncionarioLogado');
 
-        localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario));
+        localStorage.setItem('usuario', JSON.stringify(dados.usuario));
+        localStorage.setItem('tipoUsuario', dados.tipo);
 
-        localStorage.setItem('idClienteLogado', resposta.data.usuario.id_cliente);
-
-        const agendamentoPendente = JSON.parse(localStorage.getItem('agendamentoPendente'));
-        if (agendamentoPendente) {
-            try {
-                await axios.post(`${protocolo}${baseURL}/agendamento`, {
-                    ...agendamentoPendente,
-                    id_cliente: resposta.data.usuario.id_cliente
-                });
-                localStorage.removeItem('agendamentoPendente');
-                alert('Agendamento pendente realizado com sucesso!');
-            } catch (erro) {
-                console.error('Erro ao processar agendamento pendente:', erro);
-                alert('Erro ao concluir agendamento pendente.');
-            }
+        if (dados.tipo === 'cliente') {
+            localStorage.setItem('idClienteLogado', dados.usuario.id_cliente);
+            window.location.href = 'minha-conta.html';
+        } else if (dados.tipo === 'funcionario') {
+            localStorage.setItem('idFuncionarioLogado', dados.usuario.id_funcionario);
+            window.location.href = 'funcionario.html';
         }
-
-        window.location.href = 'minha-conta.html';
 
     } catch (erro) {
         if (erro.response) {

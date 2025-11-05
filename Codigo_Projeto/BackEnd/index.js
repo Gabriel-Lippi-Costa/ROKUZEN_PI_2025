@@ -71,19 +71,40 @@ app.post('/login', (req, res) => {
         return res.status(400).json({ erro: 'Preencha todos os campos!' });
     }
 
-    const sql = 'SELECT * FROM clientes WHERE email_cliente = ? AND senha_cliente = ?';
-    conexao.query(sql, [email, senha], (erro, resultado) => {
+    const sqlCliente = 'SELECT * FROM clientes WHERE email_cliente = ? AND senha_cliente = ?';
+    conexao.query(sqlCliente, [email, senha], (erro, resultadoCliente) => {
         if (erro) {
-            console.error('Erro ao consultar usuário: ', erro);
+            console.error('Erro ao consultar cliente: ', erro);
             return res.status(500).json({ erro: 'Erro ao realizar login' });
         }
 
-        if (resultado.length === 0) {
-            return res.status(401).json({ erro: 'Email ou senha incorretos!' });
+        if (resultadoCliente.length > 0) {
+            const usuario = resultadoCliente[0];
+            return res.status(200).json({
+                mensagem: 'Login de cliente realizado com sucesso!',
+                tipo: 'cliente',
+                usuario
+            });
         }
 
-        const usuario = resultado[0];
-        res.status(200).json({ mensagem: 'Login realizado com sucesso!', usuario });
+        const sqlFuncionario = 'SELECT * FROM funcionarios WHERE email_funcionario = ? AND senha_funcionario = ?';
+        conexao.query(sqlFuncionario, [email, senha], (erro2, resultadoFunc) => {
+            if (erro2) {
+                console.error('Erro ao consultar funcionário: ', erro2);
+                return res.status(500).json({ erro: 'Erro ao realizar login' });
+            }
+
+            if (resultadoFunc.length === 0) {
+                return res.status(401).json({ erro: 'Email ou senha incorretos!' });
+            }
+
+            const funcionario = resultadoFunc[0];
+            return res.status(200).json({
+                mensagem: 'Login de funcionário realizado com sucesso!',
+                tipo: 'funcionario',
+                usuario: funcionario
+            });
+        });
     });
 });
 
@@ -351,6 +372,64 @@ app.get('/funcionario/:id', (req, res) => {
         res.json({ funcionario: resultado[0] })
     })
 })
+
+app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
+    const idCliente = req.params.id;
+
+    const sql = `
+        SELECT
+            A.id_agendamento,
+            A.data_agendamento,
+            A.duracao,
+            S.nome_servico,
+            C.nome_colaborador,
+            C.imagem_colaborador,
+            IFNULL(SP.valor, 0) AS valor
+        FROM
+            agendamentos A
+        JOIN
+            servicos S ON A.id_servico = S.id_servico
+        JOIN
+            colaboradores C ON A.id_colaborador = C.id_colaborador
+        LEFT JOIN (
+            SELECT id_servico, valor
+            FROM servicos_precos
+            WHERE ativo = TRUE
+            GROUP BY id_servico
+        ) SP ON A.id_servico = SP.id_servico
+        WHERE   
+            A.id_cliente = ?
+            AND DATE(A.data_agendamento) < CURDATE()
+            AND A.status_agendamento != 'cancelado'
+        ORDER BY
+            A.data_agendamento DESC;
+    `;
+
+    conexao.query(sql, [idCliente], (erro, resultados) => {
+        if (erro) {
+            console.error("Erro ao buscar agendamentos históricos.", erro);
+            return res.status(500).json({ erro: 'Erro ao buscar agendamentos históricos.' });
+        }
+
+        const agendamentosFormatados = resultados.map(ag => {
+            const valorFormatado = ag.valor
+                ? `R$ ${ag.valor.toFixed(2).replace('.', ',')}`
+                : 'R$ 0,00';
+
+            return {
+                id_agendamento: ag.id_agendamento,
+                data_agendamento: ag.data_agendamento,
+                duracao: ag.duracao,
+                nome_servico: ag.nome_servico,
+                nome_colaborador: ag.nome_colaborador,
+                imagem_colaborador: ag.imagem_colaborador,
+                valor: valorFormatado
+            };
+        });
+
+        res.json(agendamentosFormatados);
+    });
+});
 
 app.listen(3000, () => {
     console.log('server up & running');
