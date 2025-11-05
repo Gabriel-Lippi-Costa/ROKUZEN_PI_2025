@@ -504,6 +504,28 @@ app.post('/cadastro-funcionario', (req, res) => {
     });
 });
 
+app.use(express.static(__dirname + '/../../html'));
+
+app.get('/grafico', (req, res) => {
+    const sql = `
+        SELECT S.nome_servico, COUNT(A.id_agendamento) AS total
+        FROM agendamentos A
+        JOIN servicos S ON A.id_servico = S.id_servico
+        GROUP BY S.nome_servico
+    `;
+    
+    conexao.query(sql, (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao buscar dados do gráfico:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico' });
+        }
+
+        console.log('🔹 Resultados do gráfico:', resultados);
+        res.json(resultados);
+    });
+});
+
+
 app.listen(3000, () => {
     console.log('server up & running');
 })  

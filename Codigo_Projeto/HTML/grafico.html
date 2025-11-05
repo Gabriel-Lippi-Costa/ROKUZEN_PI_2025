@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gráfico de Serviços</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="graficoServicos" width="400" height="200"></canvas>
+
+  <script>
+    // Pega os dados do backend
+    fetch('http://localhost:3000/grafico')
+      .then(res => res.json())
+      .then(data => {
+        const labels = data.map(item => item.nome_servico);
+        const totals = data.map(item => item.total);
+
+        const ctx = document.getElementById('graficoServicos').getContext('2d');
+        const chart = new Chart(ctx, {
+          type: 'bar', // gráfico de barras
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Total de Agendamentos',
+              data: totals,
+              backgroundColor: 'rgba(75, 192, 192, 0.5)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: { beginAtZero: true }
+            }
+          }
+        });
+      });
+  </script>
+</body>
+</html>
