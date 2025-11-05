@@ -11,7 +11,7 @@ body {
     background-color: #e9eaee;
     overflow-x: hidden;
     overflow-y: auto;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .banner-ajuda {
@@ -259,4 +259,17 @@ body {
     .faq-search i {
         font-size: 15px
     }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+
+.banner-ajuda h1 {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+    color: #404040;
+    position: relative;
+    left: 40;
 }

@@ -164,3 +164,22 @@ iframe {
     height: 210px;
   }
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+
+
+.unidade-especifica-page .banner-unidades-especificas h1 {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2.5em;
+  letter-spacing: 1px;
+  color: #404040;
+  left: 0;
+}
+
+@media (max-width: 640px) {
+  .unidade-especifica-page .banner-unidades-especificas h1 {
+    font-size: 2rem;
+  }
+}

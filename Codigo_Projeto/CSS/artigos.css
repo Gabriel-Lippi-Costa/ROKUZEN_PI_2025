@@ -1,6 +1,9 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* Banner */
 .banner-artigos {
   position: relative;
   display: flex;
@@ -10,12 +13,14 @@
   background-color: #a8be7c;
   overflow: hidden;
 }
+
 .banner-artigos h1 {
   font-size: 2.5em;
   color: #404040;
   z-index: 2;
   letter-spacing: 1px;
 }
+
 .banner-artigos img {
   position: absolute;
   opacity: 0.3;
@@ -25,55 +30,83 @@
   margin-right: 300px;
 }
 
-/* Conteúdo */
 .conteudo-artigos {
   max-width: 1200px;
   margin: 30px auto 40px;
   padding: 0 16px;
 }
 
-/* Grid de cards */
 .artigos-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 24px;
 }
 
-/* Card */
 .artigo-card {
   grid-column: span 4;
   background: #ffffff;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: rgba(0,0,0,0.1) 0 10px 30px, rgba(0,0,0,0.05) 0 4px 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 10px 30px, rgba(0, 0, 0, 0.05) 0 4px 6px;
   transition: transform .2s ease, box-shadow .2s ease;
   display: flex;
   flex-direction: column;
 }
+
 .artigo-card:hover {
   transform: translateY(-5px);
   box-shadow: rgba(43, 82, 114, 0.2) 0 15px 40px;
 }
-.artigo-card > a img {
+
+.artigo-card>a img {
   width: 100%;
   height: 220px;
   object-fit: cover;
   display: block;
 }
-.artigo-conteudo { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 
-/* Meta (agora só categoria + data, sem tags) */
-.artigo-metadata {
-  display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
-  font-size: 13px; color: #666;
+.artigo-conteudo {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.categoria { font-weight: 700; color: #2b2b2b; }
-.data { display: inline-flex; align-items: center; gap: 6px; }
 
-/* Título, resumo e link */
-.artigo-titulo { font-size: 1.15rem; line-height: 1.35; }
-.artigo-titulo a { color: #333; text-decoration: none; }
-.artigo-titulo a:hover { color: #2d6a4f; }
+
+.artigo-metadata {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #666;
+}
+
+.categoria {
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+.data {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.artigo-titulo {
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.artigo-titulo a {
+  color: #333;
+  text-decoration: none;
+}
+
+.artigo-titulo a:hover {
+  color: #2d6a4f;
+}
 
 .artigo-resumo {
   color: #444;
@@ -97,17 +130,56 @@
   padding: 8px 0;
   border-top: 1px solid #f0f0f0;
 }
-.artigo-link:hover { color: #2d6a4f; }
 
-/* Responsivo */
-@media (max-width: 1024px) {
-  .artigo-card { grid-column: span 6; }
-  .artigo-card > a img { height: 200px; }
+.artigo-link:hover {
+  color: #2d6a4f;
 }
+
+
+@media (max-width: 1024px) {
+  .artigo-card {
+    grid-column: span 6;
+  }
+
+  .artigo-card>a img {
+    height: 200px;
+  }
+}
+
 @media (max-width: 640px) {
-  .banner-artigos { height: 170px; }
-  .banner-artigos h1 { font-size: 2rem; }
-  .banner-artigos img { width: 280px; margin-right: 240px; }
-  .artigo-card { grid-column: span 12; }
-  .artigo-card > a img { height: 190px; }
+  .banner-artigos {
+    height: 170px;
+  }
+
+  .banner-artigos h1 {
+    font-size: 2rem;
+  }
+
+  .banner-artigos img {
+    width: 280px;
+    margin-right: 240px;
+  }
+
+  .artigo-card {
+    grid-column: span 12;
+  }
+
+  .artigo-card>a img {
+    height: 190px;
+  }
+}
+.banner-artigo h1 {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2.5em;
+  letter-spacing: 1px;
+  color: #404040;
+}
+
+
+@media (max-width: 768px) {
+  .banner-artigo h1 {
+    font-size: 2rem;
+  }
 }
