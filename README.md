@@ -29,7 +29,3 @@ Interface responsiva (desktop e tablet)
 Design limpo e intuitivo
 
 Atualização em tempo real da disponibilidade
-
-🚀 <strong>Futuro:</strong>
-
-Programa de fidelidade e cashback integrado
