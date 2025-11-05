@@ -73,3 +73,36 @@ async function atualizarDadosFuncionario() {
 document.getElementById('modalDados').addEventListener('click', function (e) {
     if (e.target === this) toggleModal();
 });
+
+async function criarContaCliente() {
+    const nome = document.getElementById('nome-cliente').value.trim();
+    const data_nascimento = document.getElementById('data-nascimento-cliente').value;
+    const telefone = document.getElementById('telefone-cliente').value.trim();
+    const email = document.getElementById('email-cliente').value.trim();
+    const senha = document.getElementById('password-cliente').value.trim();
+
+    if (!nome || !data_nascimento || !telefone || !email || !senha) {
+        alert('Preencha todos os campos obrigatórios!');
+        return;
+    }
+
+    try {
+        const resposta = await axios.post('http://localhost:3000/cadastro', {
+            nome,
+            data_nascimento,
+            telefone,
+            email,
+            senha
+        });
+
+        alert('Cliente cadastrado com sucesso!');
+        console.log('Cliente criado:', resposta.data);
+
+        document.getElementById('formDadosCriarCliente').reset();
+
+        toggleModalCriarContaCliente();
+    } catch (erro) {
+        console.error('Erro ao criar conta do cliente:', erro);
+        alert('Erro ao criar conta. Verifique os dados e tente novamente.');
+    }
+}
