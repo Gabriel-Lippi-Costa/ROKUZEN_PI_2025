@@ -472,6 +472,39 @@ app.patch('/funcionario/:id', (req, res) => {
     });
 });
 
+app.post('/cadastro-funcionario', (req, res) => {
+    const { nome, data_nascimento, telefone, email, senha } = req.body;
+
+    if (!nome || !data_nascimento || !telefone || !email || !senha) {
+        return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
+    }
+
+    const sql = `
+        INSERT INTO funcionarios 
+        (nome_funcionario, data_nascimento_funcionario, telefone_funcionario, email_funcionario, senha_funcionario)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    conexao.query(sql, [nome, data_nascimento, telefone, email, senha], (erro, resultado) => {
+        if (erro) {
+            console.error('Erro ao cadastrar funcionário: ', erro);
+            return res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
+        }
+
+        res.status(201).json({
+            mensagem: 'Funcionário cadastrado com sucesso!',
+            funcionario: {
+                id_funcionario: resultado.insertId,
+                nome_funcionario: nome,
+                data_nascimento_funcionario: data_nascimento,
+                telefone_funcionario: telefone,
+                email_funcionario: email
+            }
+        });
+    });
+});
+
+
 app.listen(3000, () => {
     console.log('server up & running');
 })  

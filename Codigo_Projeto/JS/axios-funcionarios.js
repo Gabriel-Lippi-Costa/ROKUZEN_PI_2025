@@ -4,7 +4,7 @@ function toggleModalFuncionario() {
 
     if (modalWrapper.classList.contains('show')) {
         document.body.style.overflow = 'hidden';
-        preencherCamposFuncionario(); 
+        preencherCamposFuncionario();
     } else {
         document.body.style.overflow = '';
     }
@@ -60,7 +60,7 @@ async function atualizarDadosFuncionario() {
             senha
         });
 
-        localStorage.setItem('usuarioLogado', JSON.stringify(resp.data.funcionario));
+        localStorage.setItem('usuario', JSON.stringify(resp.data.funcionario));
 
         preencherCamposFuncionario();
         alert('Dados atualizados com sucesso!');
@@ -71,7 +71,7 @@ async function atualizarDadosFuncionario() {
 }
 
 document.getElementById('modalDados').addEventListener('click', function (e) {
-    if (e.target === this) toggleModal();
+    if (e.target === this) toggleModalFuncionario();
 });
 
 async function criarContaCliente() {
@@ -105,4 +105,41 @@ async function criarContaCliente() {
         console.error('Erro ao criar conta do cliente:', erro);
         alert('Erro ao criar conta. Verifique os dados e tente novamente.');
     }
+}
+
+async function criarContaFuncionario() {
+    const nome = document.getElementById('nome-funcionario').value.trim();
+    const data_nascimento = document.getElementById('data-nascimento-funcionario').value;
+    const telefone = document.getElementById('telefone-funcionario').value.trim();
+    const email = document.getElementById('email-funcionario').value.trim();
+    const senha = document.getElementById('password-funcionario').value.trim();
+
+    if (!nome || !data_nascimento || !telefone || !email || !senha) {
+        alert('Preencha todos os campos obrigatórios!');
+        return;
+    }
+
+    try {
+        const resposta = await axios.post('http://localhost:3000/cadastro-funcionario', {
+            nome,
+            data_nascimento,
+            telefone,
+            email,
+            senha
+        });
+
+        alert('Funcionário cadastrado com sucesso!');
+        console.log('Funcionário criado:', resposta.data);
+
+        document.getElementById('formCriarFuncionario').reset();
+        toggleModalFuncionario();
+    } catch (erro) {
+        console.error('Erro ao criar funcionário:', erro);
+        alert('Erro ao criar conta do funcionário. Verifique os dados e tente novamente.');
+    }
+}
+
+function toogleModalCriarContaFuncionario() {
+    const modalWrapper = document.getElementById('modalCriarFuncionario');
+    modalWrapper.classList.toggle('show');
 }

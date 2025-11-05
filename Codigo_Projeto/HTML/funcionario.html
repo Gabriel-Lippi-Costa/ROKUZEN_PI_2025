@@ -71,13 +71,13 @@
 
     <section class="editar-dados">
         <button onclick="toggleModalFuncionario()">
-            <i class="bi bi-pencil-square"></i> Editar dados
+            <i class="bi bi-pencil-square"></i> Editar dados Funcionário
         </button>
     </section>
 
     <div class="modal-wrapper" id="modalDados">
         <section class="conteiner">
-            <h2>Editar Informações</h2>
+            <h2>Editar Informações Funcionário</h2>
             <section class="informacoes">
                 <form id="formDados" onsubmit="salvarDados(event)">
 
@@ -112,6 +112,49 @@
         </section>
     </div>
 
+    <section class="editar-dados">
+        <button onclick="toogleModalCriarContaFuncionario()">
+            <i class="bi bi-pencil-square"></i> Criar conta para Funcionário
+        </button>
+    </section>
+
+    <div class="modal-wrapper" id="modalCriarFuncionario">
+        <section class="conteiner">
+            <h2>Criar conta para Funcionário</h2>
+            <section class="informacoes">
+                <form id="formCriarFuncionario" onsubmit="salvarDados(event)">
+
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome-funcionario" minlength="2" maxlength="50" required>
+
+                    <label for="data-nascimento-funcionario">Data de Nascimento</label>
+                    <input type="date" name="data-nascimento" id="data-nascimento-funcionario" required>
+
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" name="telefone" id="telefone-funcionario" required oninput="validarTelefone(this)"
+                        placeholder="(00) 00000-0000">
+                    <span id="msgTEL" class="msg-validacao"></span>
+
+                    <label for="email-cadastro">E-mail</label>
+                    <input type="email" name="email" id="email-funcionario" required>
+
+                    <label for="password-cadastro">Senha</label>
+                    <input type="text" name="password" id="password-funcionario" required minlength="8" maxlength="30">
+
+                    <div class="form-buttons">
+                        <button type="button" onclick="criarContaFuncionario()">
+                            <i class="bi bi-x-circle"></i> Voltar
+                        </button>
+                        <button type="submit" onclick="criarContaFuncionario()">
+                            <i class="bi bi-check-circle"></i> Salvar
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+        </section>
+    </div>
+
     <section class="criar-conta-cliente">
         <button onclick="toggleModalCriarContaCliente()">
             <i class="bi bi-pencil-square"></i>
@@ -121,7 +164,7 @@
 
     <div class="modal-wrapper" id="modalCriarContaCliente">
         <section class="conteiner">
-            <h2>Editar Informações</h2>
+            <h2>Criar conta para cliente</h2>
             <section class="informacoes">
                     <form id="formDadosCriarCliente" onsubmit="">
 
@@ -146,8 +189,8 @@
                         <button type="button" onclick="toggleModalCriarContaCliente()">
                             <i class="bi bi-x-circle"></i> Voltar
                         </button>
-                        <button type="submit" onclick="criarContaCliente()">
-                            <i class="bi bi-check-circle"></i> Salvar
+                        <button type="button" onclick="criarContaCliente()">
+                            <i class="bi bi-check-circle"></i> Criar
                         </button>
                     </div>
 
@@ -155,94 +198,6 @@
             </section>
         </section>
     </div>
-
-    <!-- <section class="criar-servico-cliente">
-        <button onclick="toggleModal()">
-            <i class="bi bi-pencil-square"></i>
-            Criar serviço para cliente
-        </button>
-    </section>
-
-    <div class="modal-wrapper" id="modalDados">
-        <section class="conteiner">
-            <h2>Editar Informações</h2>
-            <section class="informacoes">
-                <form id="formDados" onsubmit="salvarDados(event)">
-
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome" minlength="2" maxlength="50" required>
-
-                    <label for="data-nascimento">Data de Nascimento</label>
-                    <input type="date" name="data-nascimento" id="data-nascimento" required>
-
-                    <label for="telefone">Telefone</label>
-                    <input type="tel" name="telefone" id="telefone" required oninput="validarTelefone(this)"
-                        placeholder="(00) 00000-0000">
-                    <span id="msgTEL" class="msg-validacao"></span>
-
-                    <label for="email-cadastro">E-mail</label>
-                    <input type="email" name="email" id="email" required>
-
-                    <label for="password-cadastro">Senha</label>
-                    <input type="text" name="password" id="password" required minlength="8" maxlength="30">
-
-                    <div class="form-buttons">
-                        <button type="button" onclick="toggleModal()">
-                            <i class="bi bi-x-circle"></i> Voltar
-                        </button>
-                        <button type="submit" onclick="atualizarDadosUsuario()">
-                            <i class="bi bi-check-circle"></i> Salvar
-                        </button>
-                    </div>
-
-                </form>
-            </section>
-        </section>
-    </div>
-
-    <section class="criar-servico-cliente">
-        <button onclick="toggleModal()">
-            <i class="bi bi-pencil-square"></i>
-            Ver tabela preços
-        </button>
-    </section>
-
-    <div class="modal-wrapper" id="modalDados">
-        <section class="conteiner">
-            <h2>Editar Informações</h2>
-            <section class="informacoes">
-                <form id="formDados" onsubmit="salvarDados(event)">
-
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome" minlength="2" maxlength="50" required>
-
-                    <label for="data-nascimento">Data de Nascimento</label>
-                    <input type="date" name="data-nascimento" id="data-nascimento" required>
-
-                    <label for="telefone">Telefone</label>
-                    <input type="tel" name="telefone" id="telefone" required oninput="validarTelefone(this)"
-                        placeholder="(00) 00000-0000">
-                    <span id="msgTEL" class="msg-validacao"></span>
-
-                    <label for="email-cadastro">E-mail</label>
-                    <input type="email" name="email" id="email" required>
-
-                    <label for="password-cadastro">Senha</label>
-                    <input type="text" name="password" id="password" required minlength="8" maxlength="30">
-
-                    <div class="form-buttons">
-                        <button type="button" onclick="toggleModal()">
-                            <i class="bi bi-x-circle"></i> Voltar
-                        </button>
-                        <button type="submit" onclick="atualizarDadosUsuario()">
-                            <i class="bi bi-check-circle"></i> Salvar
-                        </button>
-                    </div>
-
-                </form>
-            </section>
-        </section>
-    </div> -->
 
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
