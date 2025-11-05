@@ -487,7 +487,7 @@ app.post('/cadastro-funcionario', (req, res) => {
 
     conexao.query(sql, [nome, data_nascimento, telefone, email, senha], (erro, resultado) => {
         if (erro) {
-            console.error('Erro ao cadastrar funcionário: ', erro);
+            console.error('Erro ao cadastrar funcionário:', erro);
             return res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
         }
 
@@ -503,7 +503,6 @@ app.post('/cadastro-funcionario', (req, res) => {
         });
     });
 });
-
 
 app.listen(3000, () => {
     console.log('server up & running');
