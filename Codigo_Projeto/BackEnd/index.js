@@ -10,7 +10,7 @@ const conexao = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'imtdb',
+    password: 'pliquio1',
     database: 'rokuzen'
 })
 
@@ -506,14 +506,19 @@ app.post('/cadastro-funcionario', (req, res) => {
 
 app.use(express.static(__dirname + '/../../html'));
 
-app.get('/grafico', (req, res) => {
+app.get('/agendamentos_servicos_ultimo_mes', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     const sql = `
         SELECT S.nome_servico, COUNT(A.id_agendamento) AS total
-        FROM agendamentos A
-        JOIN servicos S ON A.id_servico = S.id_servico
-        GROUP BY S.nome_servico
+    FROM agendamentos A
+    JOIN servicos S ON A.id_servico = S.id_servico
+    WHERE A.data_agendamento >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+    GROUP BY S.nome_servico;
+
     `;
-    
+
     conexao.query(sql, (erro, resultados) => {
         if (erro) {
             console.error('Erro ao buscar dados do gráfico:', erro);
@@ -525,6 +530,76 @@ app.get('/grafico', (req, res) => {
     });
 });
 
+app.get('/agendamentos_unidades_ultimo_mes', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+    const sql = `
+        SELECT U.nome_unidade, COUNT(A.id_agendamento) AS total
+        FROM agendamentos A
+        JOIN unidades U ON A.id_unidade = U.id_unidade
+        WHERE A.data_agendamento >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+        GROUP BY U.nome_unidade;
+    `;
+
+    conexao.query(sql, (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao buscar dados do gráfico de unidades:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de unidades' });
+        }
+
+        console.log('🔹 Resultados do gráfico de unidades:', resultados);
+        res.json(resultados);
+    });
+});
+
+app.get('/agendamentos_ultimo_ano', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+    const sql = `
+        SELECT DATE_FORMAT(A.data_agendamento, '%Y-%m') AS mes, COUNT(*) AS total
+        FROM agendamentos A
+        GROUP BY mes
+        ORDER BY mes ASC;
+
+    `;
+
+    conexao.query(sql, (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao buscar dados do gráfico de agendamentos:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de agendamentos' });
+        }
+
+        console.log('🔹 Resultados do gráfico de agendamentos:', resultados);
+        res.json(resultados);
+    });
+});
+
+app.get('/agendamentos_profissionais', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+    const sql = `
+        SELECT C.nome_colaborador, COUNT(A.id_agendamento) AS total
+FROM agendamentos A
+JOIN colaboradores C ON A.id_colaborador = C.id_colaborador
+GROUP BY C.nome_colaborador;
+    `;
+
+    conexao.query(sql, (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao buscar dados do gráfico dos profissionais :', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de profissionais' });
+        }
+
+        console.log('🔹 Resultados do gráfico de profissionais:', resultados);
+        res.json(resultados);
+    });
+});
 
 app.listen(3000, () => {
     console.log('server up & running');
