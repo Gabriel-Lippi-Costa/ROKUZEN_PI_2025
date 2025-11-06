@@ -1,0 +1,33 @@
+.graficos-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;      
+    justify-content: center;
+    padding: 40px;   
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grafico-box {
+    width: 500px;
+    height: 400px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    margin: 0 auto;
+
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grafico-box:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); 
+}
+
+.grafico-box canvas {
+    width: 100%;
+    height: 100%;
+}

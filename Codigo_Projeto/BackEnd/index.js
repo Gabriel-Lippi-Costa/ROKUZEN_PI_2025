@@ -10,7 +10,7 @@ const conexao = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'dbPessoal123',
+    password: 'pliquio1',
     database: 'rokuzen'
 })
 
@@ -525,7 +525,6 @@ app.get('/agendamentos_servicos_ultimo_mes', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico' });
         }
 
-        console.log('🔹 Resultados do gráfico:', resultados);
         res.json(resultados);
     });
 });
@@ -549,7 +548,6 @@ app.get('/agendamentos_unidades_ultimo_mes', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de unidades' });
         }
 
-        console.log('🔹 Resultados do gráfico de unidades:', resultados);
         res.json(resultados);
     });
 });
@@ -573,7 +571,6 @@ app.get('/agendamentos_ultimo_ano', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de agendamentos' });
         }
 
-        console.log('🔹 Resultados do gráfico de agendamentos:', resultados);
         res.json(resultados);
     });
 });
@@ -595,10 +592,22 @@ GROUP BY C.nome_colaborador;
             console.error('Erro ao buscar dados do gráfico dos profissionais :', erro);
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de profissionais' });
         }
-
-        console.log('🔹 Resultados do gráfico de profissionais:', resultados);
         res.json(resultados);
     });
+});
+
+app.get("/buscar", (req, res) => {
+  const termo = req.query.q || ""; 
+  const sql = "SELECT opcao, acao FROM acoes WHERE opcao LIKE ? LIMIT 10";
+
+  conexao.query(sql, [`%${termo}%`], (err, results) => {
+    if (err) {
+      console.error("Erro na busca:", err);
+      return res.status(500).json({ error: "Erro no servidor" });
+    }
+    console.log('🔹 Resultados das acoes:', results);
+    res.json(results);
+  });
 });
 
 app.listen(3000, () => {
