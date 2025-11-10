@@ -30,7 +30,7 @@ async function preencherCamposUsuario() {
 
         document.getElementById('telefone').value = dados.telefone_cliente || '';
         document.getElementById('email').value = dados.email_cliente || '';
-        document.getElementById('password').value = dados.senha_cliente || '';
+        document.getElementById('password').value =  '';
     } catch (err) {
         console.error(err);
     }
@@ -38,7 +38,6 @@ async function preencherCamposUsuario() {
 
 async function atualizarDadosUsuario() {
     const usuario = JSON.parse(localStorage.getItem('usuario'))
-
     const id = usuario.id_cliente
 
     const nome = document.getElementById('nome').value;
@@ -48,21 +47,23 @@ async function atualizarDadosUsuario() {
     const senha = document.getElementById('password').value;
 
     try {
-        const resp = await axios.patch(`http://localhost:3000/atualizar/${id}`, {
-            nome,
-            data_nascimento,
-            telefone,
-            email,
-            senha
-        });
+        const resp = await axios.patch(
+            `http://localhost:3000/atualizar/${id}`,
+            { nome, data_nascimento, telefone, email, senha },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        );
 
         localStorage.setItem('usuario', JSON.stringify(resp.data.usuario));
-
         preencherCamposUsuario();
-
         alert('Dados atualizados com sucesso!');
     } catch (err) {
         console.error(err);
+        console.error('Erro ao atualizar os dados do usuário:', err.response?.data || err);
+        console.log({ nome, data_nascimento, telefone, email, senha });
         alert('Erro ao atualizar os dados do usuário!');
     }
 }

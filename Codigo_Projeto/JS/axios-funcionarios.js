@@ -12,6 +12,8 @@ function toggleModalFuncionario() {
 
 async function preencherCamposFuncionario() {
     const funcionario = JSON.parse(localStorage.getItem('usuario'));
+    const token = localStorage.getItem('token');
+
     if (!funcionario || !funcionario.id_funcionario) {
         console.warn("Nenhum funcionário logado encontrado no localStorage.");
         return;
@@ -20,7 +22,9 @@ async function preencherCamposFuncionario() {
     const id = funcionario.id_funcionario;
 
     try {
-        const resp = await axios.get(`http://localhost:3000/funcionario/${id}`);
+        const resp = await axios.get(`http://localhost:3000/funcionario/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
         const dados = resp.data.funcionario;
 
         document.getElementById('nome').value = dados.nome_funcionario || '';
@@ -29,7 +33,7 @@ async function preencherCamposFuncionario() {
             : '';
         document.getElementById('telefone').value = dados.telefone_funcionario || '';
         document.getElementById('email').value = dados.email_funcionario || '';
-        document.getElementById('password').value = dados.senha_funcionario || '';
+        document.getElementById('password').value = ''; // Nunca preenche a senha real
     } catch (err) {
         console.error("Erro ao preencher dados do funcionário:", err);
         alert('Erro ao buscar dados do funcionário!');
@@ -38,6 +42,8 @@ async function preencherCamposFuncionario() {
 
 async function atualizarDadosFuncionario() {
     const funcionario = JSON.parse(localStorage.getItem('usuario'));
+    const token = localStorage.getItem('token');
+
     if (!funcionario || !funcionario.id_funcionario) {
         alert("Funcionário não identificado!");
         return;
@@ -58,9 +64,13 @@ async function atualizarDadosFuncionario() {
             telefone,
             email,
             senha
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
         });
 
-        localStorage.setItem('usuario', JSON.stringify(resp.data.funcionario));
+        const funcionarioAtualizado = { ...resp.data.funcionario };
+        delete funcionarioAtualizado.senha_funcionario;
+        localStorage.setItem('usuario', JSON.stringify(funcionarioAtualizado));
 
         preencherCamposFuncionario();
         alert('Dados atualizados com sucesso!');
@@ -100,6 +110,10 @@ async function criarContaCliente() {
 
         document.getElementById('formDadosCriarCliente').reset();
 
+        localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario));
+        localStorage.setItem('token', resposta.data.token);
+        localStorage.setItem('tipoUsuario', 'cliente');
+
         toggleModalCriarContaCliente();
     } catch (erro) {
         console.error('Erro ao criar conta do cliente:', erro);
@@ -132,6 +146,11 @@ async function criarContaFuncionario() {
         console.log('Funcionário criado:', resposta.data);
 
         document.getElementById('formCriarFuncionario').reset();
+
+        localStorage.setItem('usuario', JSON.stringify(resposta.data.funcionario));
+        localStorage.setItem('token', resposta.data.token);
+        localStorage.setItem('tipoUsuario', 'funcionario');
+
         toggleModalFuncionario();
     } catch (erro) {
         console.error('Erro ao criar funcionário:', erro);
@@ -139,7 +158,7 @@ async function criarContaFuncionario() {
     }
 }
 
-function toogleModalCriarContaFuncionario() {
+function toggleModalCriarContaFuncionario() {
     const modalWrapper = document.getElementById('modalCriarFuncionario');
     modalWrapper.classList.toggle('show');
 }

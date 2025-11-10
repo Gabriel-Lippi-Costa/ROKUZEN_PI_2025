@@ -23,9 +23,17 @@ async function loginUsuario() {
         localStorage.removeItem('usuario');
         localStorage.removeItem('idClienteLogado');
         localStorage.removeItem('idFuncionarioLogado');
+        localStorage.removeItem('tipoUsuario');
+        localStorage.removeItem('token');
 
-        localStorage.setItem('usuario', JSON.stringify(dados.usuario));
+
+        const usuarioLimpo = { ...dados.usuario };
+        delete usuarioLimpo.senha_cliente;
+        delete usuarioLimpo.senha_funcionario;
+
+        localStorage.setItem('usuario', JSON.stringify(usuarioLimpo));
         localStorage.setItem('tipoUsuario', dados.tipo);
+        localStorage.setItem('token', dados.token);
 
         if (dados.tipo === 'cliente') {
             localStorage.setItem('idClienteLogado', dados.usuario.id_cliente);
@@ -36,14 +44,13 @@ async function loginUsuario() {
         }
 
     } catch (erro) {
-        if (erro.response) {
+        if (erro.response && erro.response.data.erro) {
             alert(erro.response.data.erro);
         } else {
             alert('Erro ao conectar com o servidor!');
         }
     }
 }
-
 
 async function cadastrarUsuario() {
     const nome = document.querySelector('#nome').value;
@@ -73,8 +80,13 @@ async function cadastrarUsuario() {
 
         localStorage.removeItem('usuario');
         localStorage.removeItem('idClienteLogado');
+        localStorage.removeItem('token');
 
-        localStorage.setItem('usuario', JSON.stringify(resposta.data.usuario))
+        const usuarioLimpo = { ...resposta.data.usuario };
+        delete usuarioLimpo.senha_cliente;
+
+        localStorage.setItem('usuario', JSON.stringify(usuarioLimpo));
+        localStorage.setItem('token', resposta.data.token);
 
         const agendamentoPendente = JSON.parse(localStorage.getItem('agendamentoPendente'));
         if (agendamentoPendente) {
@@ -82,6 +94,10 @@ async function cadastrarUsuario() {
                 await axios.post(`${protocolo}${baseURL}/agendamento`, {
                     ...agendamentoPendente,
                     id_cliente: resposta.data.usuario.id_cliente
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${resposta.data.token}`
+                    }
                 });
                 localStorage.removeItem('agendamentoPendente');
                 alert('Agendamento pendente realizado com sucesso!');
@@ -91,10 +107,10 @@ async function cadastrarUsuario() {
             }
         }
 
-        window.location.href = 'minha-conta.html'
+        window.location.href = 'minha-conta.html';
 
     } catch (erro) {
-        if (erro.response) {
+        if (erro.response && erro.response.data.erro) {
             alert(erro.response.data.erro);
         } else {
             alert('Erro ao conectar com o servidor!');
