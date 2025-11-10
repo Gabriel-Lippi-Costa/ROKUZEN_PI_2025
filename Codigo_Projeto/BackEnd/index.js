@@ -1,22 +1,32 @@
-const express = require('express')
-const cors = require('cors')
-const mysql = require('mysql2')
+const express = require('express');
+const cors = require('cors');
+const mysql = require('mysql2');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const app = express()
-app.use(express.json())
-app.use(cors())
+const app = express();
+app.use(express.json());
+app.use(cors());
 
 const conexao = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'pliquio1',
-    database: 'rokuzen'
-})
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT, 10) || 3306,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
 
 conexao.connect((erro) => {
     if (erro) {
+        console.log('DB_USER:', process.env.DB_USER);
+        console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
         console.error('Erro ao se conectar no DB')
+        console.error('Erro ao se conectar no DB:');
+        console.error('Código do erro:', erro.code);
+        console.error('Mensagem:', erro.message);
+        console.error('Stack trace:', erro.stack);
         return;
     }
 
@@ -36,33 +46,63 @@ app.get('/usuario/:id', (req, res) => {
     })
 })
 
-app.post('/cadastro', (req, res) => {
+function autenticarToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({ erro: "Token não fornecido!" });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (erro, usuario) => {
+        if (erro) {
+            return res.status(403).json({ erro: "Token inválido ou expirado!" });
+        }
+        req.usuario = usuario; 
+        next();
+    });
+}
+
+app.post('/cadastro', async (req, res) => {
     const { nome, data_nascimento, telefone, email, senha } = req.body;
 
     if (!nome || !data_nascimento || !telefone || !email || !senha) {
-        return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' })
+        return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
     }
 
-    const sql = 'INSERT INTO clientes (nome_cliente, data_nascimento_cliente, telefone_cliente, email_cliente, senha_cliente) VALUES (?, ?, ?, ?, ?)'
+    try {
+        const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-    conexao.query(sql, [nome, data_nascimento, telefone, email, senha], (erro, resultado) => {
-        if (erro) {
-            console.error('Erro ao cadastrar o usuário: ', erro)
-            return res.status(500).json({ erro: 'Erro ao cadastrar usuário' })
-        }
+        const sql = `
+            INSERT INTO clientes 
+            (nome_cliente, data_nascimento_cliente, telefone_cliente, email_cliente, senha_cliente)
+            VALUES (?, ?, ?, ?, ?)
+        `;
 
-        res.status(201).json({
-            mensagem: 'Usuário cadastrado com sucesso!', id: resultado.insertId,
-            usuario: {
-                id_cliente: resultado.insertId,
-                nome_cliente: nome,
-                email_cliente: email,
-                telefone_cliente: telefone,
-                data_nascimento: data_nascimento
+        conexao.query(sql, [nome, data_nascimento, telefone, email, senhaCriptografada], (erro, resultado) => {
+            if (erro) {
+                console.error('Erro ao cadastrar o usuário:', erro);
+                return res.status(500).json({ erro: 'Erro ao cadastrar usuário' });
             }
-        })
-    })
-})
+
+            res.status(201).json({
+                mensagem: 'Usuário cadastrado com sucesso!',
+                id: resultado.insertId,
+                usuario: {
+                    id_cliente: resultado.insertId,
+                    nome_cliente: nome,
+                    email_cliente: email,
+                    telefone_cliente: telefone,
+                    data_nascimento: data_nascimento
+                }
+            });
+        });
+    } catch (erro) {
+        console.error('Erro ao criptografar a senha:', erro);
+        res.status(500).json({ erro: 'Erro interno ao processar senha' });
+    }
+});
+
 
 app.post('/login', (req, res) => {
     const { email, senha } = req.body;
@@ -71,26 +111,39 @@ app.post('/login', (req, res) => {
         return res.status(400).json({ erro: 'Preencha todos os campos!' });
     }
 
-    const sqlCliente = 'SELECT * FROM clientes WHERE email_cliente = ? AND senha_cliente = ?';
-    conexao.query(sqlCliente, [email, senha], (erro, resultadoCliente) => {
+    const sqlCliente = 'SELECT * FROM clientes WHERE email_cliente = ?';
+    conexao.query(sqlCliente, [email], async (erro, resultadoCliente) => {
         if (erro) {
-            console.error('Erro ao consultar cliente: ', erro);
+            console.error('Erro ao consultar cliente:', erro);
             return res.status(500).json({ erro: 'Erro ao realizar login' });
         }
 
         if (resultadoCliente.length > 0) {
-            const usuario = resultadoCliente[0];
+            const cliente = resultadoCliente[0];
+            
+            const senhaCorreta = await bcrypt.compare(senha, cliente.senha_cliente);
+            if (!senhaCorreta) {
+                return res.status(401).json({ erro: 'Email ou senha incorretos!' });
+            }
+
+            const token = jwt.sign(
+                { id: cliente.id_cliente, tipo: 'cliente' },
+                process.env.JWT_SECRET,
+                { expiresIn: '2h' }
+            );
+
             return res.status(200).json({
                 mensagem: 'Login de cliente realizado com sucesso!',
                 tipo: 'cliente',
-                usuario
+                usuario: cliente,
+                token
             });
         }
 
-        const sqlFuncionario = 'SELECT * FROM funcionarios WHERE email_funcionario = ? AND senha_funcionario = ?';
-        conexao.query(sqlFuncionario, [email, senha], (erro2, resultadoFunc) => {
+        const sqlFuncionario = 'SELECT * FROM funcionarios WHERE email_funcionario = ?';
+        conexao.query(sqlFuncionario, [email], async (erro2, resultadoFunc) => {
             if (erro2) {
-                console.error('Erro ao consultar funcionário: ', erro2);
+                console.error('Erro ao consultar funcionário:', erro2);
                 return res.status(500).json({ erro: 'Erro ao realizar login' });
             }
 
@@ -99,16 +152,30 @@ app.post('/login', (req, res) => {
             }
 
             const funcionario = resultadoFunc[0];
+            const senhaCorreta = await bcrypt.compare(senha, funcionario.senha_funcionario);
+            if (!senhaCorreta) {
+                return res.status(401).json({ erro: 'Email ou senha incorretos!' });
+            }
+
+            const token = jwt.sign(
+                { id: funcionario.id_funcionario, tipo: 'funcionario' },
+                process.env.JWT_SECRET,
+                { expiresIn: '2h' }
+            );
+
             return res.status(200).json({
                 mensagem: 'Login de funcionário realizado com sucesso!',
                 tipo: 'funcionario',
-                usuario: funcionario
+                usuario: funcionario,
+                token
             });
         });
     });
 });
 
-app.patch('/atualizar/:id', (req, res) => {
+
+
+app.patch('/atualizar/:id', autenticarToken, async (req, res) => {
     const { id } = req.params;
     const { nome, data_nascimento, telefone, email, senha } = req.body;
 
@@ -116,33 +183,47 @@ app.patch('/atualizar/:id', (req, res) => {
         return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
     }
 
-    const sql = `
-        UPDATE clientes
-        SET nome_cliente = ?, data_nascimento_cliente = ?, telefone_cliente = ?, email_cliente = ?, senha_cliente = ?
-        WHERE id_cliente = ?
-    `;
+    try {
+        const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-    conexao.query(sql, [nome, data_nascimento, telefone, email, senha, id], (erro, resultado) => {
-        if (erro) {
-            console.error('Erro ao atualizar dados do usuário: ', erro);
-            return res.status(500).json({ erro: 'Erro ao atualizar dados do usuário' });
-        }
+        const sql = `
+            UPDATE clientes
+            SET nome_cliente = ?, data_nascimento_cliente = ?, telefone_cliente = ?, email_cliente = ?, senha_cliente = ?
+            WHERE id_cliente = ?
+        `;
 
-        if (resultado.affectedRows === 0) {
-            return res.status(404).json({ erro: 'Usuário não encontrado!' });
-        }
-
-        res.status(200).json({
-            mensagem: 'Usuário atualizado com sucesso!',
-            usuario: {
-                id_cliente: id,
-                nome_cliente: nome,
-                email_cliente: email,
-                telefone_cliente: telefone,
-                data_nascimento: data_nascimento
+        conexao.query(sql, [nome, data_nascimento, telefone, email, senhaCriptografada, id], (erro, resultado) => {
+            if (erro) {
+                console.error('Erro ao atualizar dados do usuário: ', erro);
+                return res.status(500).json({ erro: 'Erro ao atualizar dados do usuário' });
             }
+
+            if (resultado.affectedRows === 0) {
+                return res.status(404).json({ erro: 'Usuário não encontrado!' });
+            }
+
+            const novoToken = jwt.sign(
+                { id: id, tipo: req.usuario.tipo },
+                process.env.JWT_SECRET,
+                { expiresIn: '2h' }
+            );
+
+            res.status(200).json({
+                mensagem: 'Usuário atualizado com sucesso!',
+                usuario: {
+                    id_cliente: id,
+                    nome_cliente: nome,
+                    email_cliente: email,
+                    telefone_cliente: telefone,
+                    data_nascimento: data_nascimento
+                },
+                token: novoToken
+            });
         });
-    });
+    } catch (erro) {
+        console.error("Erro no bcrypt:", erro);
+        res.status(500).json({ erro: "Erro interno ao atualizar o usuário." });
+    }
 });
 
 app.post('/agendamento', (req, res) => {
@@ -262,7 +343,7 @@ app.get('/horarios', (req, res) => {
 
             const inicio = new Date(inicio_escala);
             const fim = new Date(fim_escala);
-            const duracaoSlot = 30; // minutos
+            const duracaoSlot = 30;
 
             const disponiveis = [];
             const atual = new Date(inicio);
@@ -360,7 +441,7 @@ app.patch('/agendamento/:id/cancelar', (req, res) => {
     });
 });
 
-app.get('/funcionario/:id', (req, res) => {
+app.get('/funcionario/:id',autenticarToken, (req, res) => {
     const { id } = req.params
 
     const sql = `
@@ -369,8 +450,7 @@ app.get('/funcionario/:id', (req, res) => {
             nome_funcionario,
             email_funcionario,
             telefone_funcionario,
-            data_nascimento_funcionario,
-            senha_funcionario
+            data_nascimento_funcionario
         FROM funcionarios
         WHERE id_funcionario = ?;
         `
@@ -441,7 +521,7 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
     });
 });
 
-app.patch('/funcionario/:id', (req, res) => {
+app.patch('/funcionario/:id', async (req, res) => {
     const { id } = req.params;
     const { nome, data_nascimento, telefone, email, senha } = req.body;
 
@@ -449,13 +529,15 @@ app.patch('/funcionario/:id', (req, res) => {
         return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
     }
 
+    const senhaHash = await bcrypt.hash(senha, 10);
+
     const sql = `
         UPDATE funcionarios
         SET nome_funcionario = ?, data_nascimento_funcionario = ?, telefone_funcionario = ?, email_funcionario = ?, senha_funcionario = ?
         WHERE id_funcionario = ?
     `;
 
-    conexao.query(sql, [nome, data_nascimento, telefone, email, senha, id], (erro, resultado) => {
+    conexao.query(sql, [nome, data_nascimento, telefone, email, senhaHash, id], (erro, resultado) => {
         if (erro) {
             console.error('Erro ao atualizar funcionário:', erro);
             return res.status(500).json({ erro: 'Erro ao atualizar funcionário' });
@@ -472,36 +554,52 @@ app.patch('/funcionario/:id', (req, res) => {
     });
 });
 
-app.post('/cadastro-funcionario', (req, res) => {
-    const { nome, data_nascimento, telefone, email, senha } = req.body;
 
-    if (!nome || !data_nascimento || !telefone || !email || !senha) {
-        return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
-    }
+app.post('/cadastro-funcionario', async (req, res) => {
+    try {
+        const { nome, data_nascimento, telefone, email, senha } = req.body;
 
-    const sql = `
-        INSERT INTO funcionarios 
-        (nome_funcionario, data_nascimento_funcionario, telefone_funcionario, email_funcionario, senha_funcionario)
-        VALUES (?, ?, ?, ?, ?)
-    `;
-
-    conexao.query(sql, [nome, data_nascimento, telefone, email, senha], (erro, resultado) => {
-        if (erro) {
-            console.error('Erro ao cadastrar funcionário:', erro);
-            return res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
+        if (!nome || !data_nascimento || !telefone || !email || !senha) {
+            return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
         }
 
-        res.status(201).json({
-            mensagem: 'Funcionário cadastrado com sucesso!',
-            funcionario: {
-                id_funcionario: resultado.insertId,
-                nome_funcionario: nome,
-                data_nascimento_funcionario: data_nascimento,
-                telefone_funcionario: telefone,
-                email_funcionario: email
+        const senhaHash = await bcrypt.hash(senha, 10);
+
+        const sql = `
+            INSERT INTO funcionarios 
+            (nome_funcionario, data_nascimento_funcionario, telefone_funcionario, email_funcionario, senha_funcionario)
+            VALUES (?, ?, ?, ?, ?)
+        `;
+
+        conexao.query(sql, [nome, data_nascimento, telefone, email, senhaHash], (erro, resultado) => {
+            if (erro) {
+                console.error('Erro ao cadastrar funcionário:', erro);
+                return res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
             }
+
+            const token = jwt.sign(
+                { id: resultado.insertId, tipo: 'funcionario' },
+                process.env.JWT_SECRET,
+                { expiresIn: '1d' }
+            );
+
+            res.status(201).json({
+                mensagem: 'Funcionário cadastrado com sucesso!',
+                funcionario: {
+                    id_funcionario: resultado.insertId,
+                    nome_funcionario: nome,
+                    data_nascimento_funcionario: data_nascimento,
+                    telefone_funcionario: telefone,
+                    email_funcionario: email
+                },
+                token
+            });
         });
-    });
+
+    } catch (erro) {
+        console.error('Erro inesperado:', erro);
+        res.status(500).json({ erro: 'Erro inesperado ao cadastrar funcionário' });
+    }
 });
 
 app.use(express.static(__dirname + '/../../html'));
@@ -525,6 +623,7 @@ app.get('/agendamentos_servicos_ultimo_mes', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico' });
         }
 
+        console.log('🔹 Resultados do gráfico:', resultados);
         res.json(resultados);
     });
 });
@@ -548,6 +647,7 @@ app.get('/agendamentos_unidades_ultimo_mes', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de unidades' });
         }
 
+        console.log('🔹 Resultados do gráfico de unidades:', resultados);
         res.json(resultados);
     });
 });
@@ -571,6 +671,7 @@ app.get('/agendamentos_ultimo_ano', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de agendamentos' });
         }
 
+        console.log('🔹 Resultados do gráfico de agendamentos:', resultados);
         res.json(resultados);
     });
 });
@@ -592,6 +693,8 @@ GROUP BY C.nome_colaborador;
             console.error('Erro ao buscar dados do gráfico dos profissionais :', erro);
             return res.status(500).json({ erro: 'Erro ao buscar dados do gráfico de profissionais' });
         }
+
+        console.log('🔹 Resultados do gráfico de profissionais:', resultados);
         res.json(resultados);
     });
 });
