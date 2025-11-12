@@ -38,6 +38,7 @@ body {
   width: 350px;
   height: auto;
   z-index: 1;
+  right: 57%;
 }
 
 .imagem-texto {
@@ -69,13 +70,13 @@ body {
 
 .imagem-texto .texto p {
   margin: 12px 0;
-  text-indent: 25px;
+  text-align: justify;
 }
 
 .subtitulos {
   font-size: 18px;
   font-weight: bold;
-  color: #5f742e;
+  color: #333;
   margin-top: 18px;
 }
 
@@ -129,12 +130,9 @@ ul {
   }
 }
 
-h1, .subtitulos {
+h1,
+.subtitulos {
   transition: color 0.3s ease;
-}
-
-h1:hover, .subtitulos:hover {
-  color: #6d8e30;
 }
 
 .agendar-servico {
