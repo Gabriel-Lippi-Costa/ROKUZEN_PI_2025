@@ -56,10 +56,11 @@
 
       <section class="parte-de-baixo">
         <section class="barra-de-pesquisa">
-          <input type="text" placeholder="Pesquisar">
-          <i class="bi bi-search"></i>
+            <input type="text" id="searchBar" placeholder="Pesquisar" aria-label="Pesquisar" autocomplete="off" />
+            <i class="bi bi-search"></i>
+          </section>
+          <ul id="results" class="lista-resultados"></ul>
         </section>
-      </section>
     </nav>
   </header>
 
@@ -227,6 +228,8 @@
   <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
   <script src="../JS/menu-home-page.js"></script>
   <script src="../JS/faq.js"></script>
+  <script src="https://app.embed.im/accessibility.js" defer></script>
+  <script src="../JS/pesquisa.js"></script>
 </body>
 
 </html>
