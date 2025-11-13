@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 const conexao = mysql.createConnection({
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT, 10) || 3306,
@@ -399,9 +400,8 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
         }
 
         const agendamentosFormatados = resultados.map(ag => {
-            const valorFormatado = ag.valor
-                ? `R$ ${ag.valor.toFixed(2).replace('.', ',')}`
-                : 'R$ 0,00';
+            const valorNumerico = Number(ag.valor) || 0;
+            const valorFormatado = `R$ ${valorNumerico.toFixed(2).replace('.', ',')}`;
 
             return {
                 id_agendamento: ag.id_agendamento,
@@ -462,37 +462,31 @@ app.get('/funcionario/:id',autenticarToken, (req, res) => {
         res.json({ funcionario: resultado[0] })
     })
 })
-
 app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
     const idCliente = req.params.id;
+    console.log('ID do cliente recebido:', idCliente);
 
     const sql = `
-        SELECT
+        SELECT 
             A.id_agendamento,
             A.data_agendamento,
             A.duracao,
-            S.nome_servico,
-            C.nome_colaborador,
-            C.imagem_colaborador,
-            IFNULL(SP.valor, 0) AS valor
-        FROM
-            agendamentos A
-        JOIN
-            servicos S ON A.id_servico = S.id_servico
-        JOIN
-            colaboradores C ON A.id_colaborador = C.id_colaborador
-        LEFT JOIN (
-            SELECT id_servico, valor
-            FROM servicos_precos
-            WHERE ativo = TRUE
-            GROUP BY id_servico
-        ) SP ON A.id_servico = SP.id_servico
-        WHERE   
-            A.id_cliente = ?
-            AND DATE(A.data_agendamento) < CURDATE()
-            AND A.status_agendamento != 'cancelado'
-        ORDER BY
-            A.data_agendamento DESC;
+            C.nome_colaborador AS nome_profissional,
+            SP.valor AS preco,
+            S.nome_servico AS tipo_servico
+        FROM agendamentos A
+        JOIN colaboradores C ON A.id_colaborador = C.id_colaborador
+        JOIN servicos S ON A.id_servico = S.id_servico
+        LEFT JOIN servicos_precos SP 
+            ON SP.id_servico = A.id_servico 
+            AND SP.ativo = TRUE
+            AND SP.valor = (
+                SELECT MAX(valor)
+                FROM servicos_precos
+                WHERE id_servico = A.id_servico AND ativo = TRUE
+            )
+        WHERE A.id_cliente = ? 
+        ORDER BY A.data_agendamento DESC;
     `;
 
     conexao.query(sql, [idCliente], (erro, resultados) => {
@@ -501,25 +495,27 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar agendamentos históricos.' });
         }
 
-        const agendamentosFormatados = resultados.map(ag => {
-            const valorFormatado = ag.valor
-                ? `R$ ${ag.valor.toFixed(2).replace('.', ',')}`
-                : 'R$ 0,00';
+        console.log("Resultados brutos da query:", resultados);
 
+        const agendamentosFormatados = resultados.map(ag => {
+            const valorNumerico = Number(ag.preco) || 0;
+            const valorFormatado = `R$ ${valorNumerico.toFixed(2).replace('.', ',')}`;
             return {
                 id_agendamento: ag.id_agendamento,
                 data_agendamento: ag.data_agendamento,
                 duracao: ag.duracao,
-                nome_servico: ag.nome_servico,
-                nome_colaborador: ag.nome_colaborador,
-                imagem_colaborador: ag.imagem_colaborador,
-                valor: valorFormatado
+                nome_profissional: ag.nome_profissional,
+                tipo_servico: ag.tipo_servico,
+                preco: valorFormatado
             };
         });
+
+        console.log("Agendamentos formatados:", JSON.stringify(agendamentosFormatados, null, 2));
 
         res.json(agendamentosFormatados);
     });
 });
+
 
 app.patch('/funcionario/:id', async (req, res) => {
     const { id } = req.params;
