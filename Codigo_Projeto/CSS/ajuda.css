@@ -174,15 +174,33 @@ body {
 }
 
 .faq-cta .btn-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    text-decoration: none;
-    background: #a8be7c;
-    color: #2b2b2b;
-    font-weight: 600
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.faq-cta .btn-cta:hover {
+  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
+  box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.faq-cta .btn-cta:active {
+  transform: translateY(0);
+  box-shadow: 0 0 6px rgba(126, 0, 0, 0.5);
 }
 
 .faq-cta .btn-cta.outline {

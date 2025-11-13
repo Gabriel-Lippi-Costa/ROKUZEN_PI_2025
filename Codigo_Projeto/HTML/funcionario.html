@@ -16,17 +16,17 @@
 
     <header>
         <nav>
-            <section class="parte-de-cima">
+           <section class="parte-de-cima">
                 <section class="logo">
                     <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
                 </section>
 
-                <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+                <a id="botao-autenticacao-topo" href="autenticacao.html"><i class="bi bi-person"></i></a>
 
                 <ul class="menu-desktop">
                     <li><a href="servicos.html">Serviços</a></li>
                     <li><a href="unidades.html">Unidades</a></li>
-                    <li><a href="#">Artigos</a></li>
+                    <li><a href="artigos.html">Artigos</a></li>
                     <li><a href="profissionais.html">Profissionais</a></li>
                     <li><a href="ajuda.html">Ajuda</a></li>
                     <li><a href="sobre-nos.html">Sobre nós</a></li>
@@ -35,7 +35,7 @@
 
             <section class="parte-do-meio">
                 <section class="login-btn">
-                    <a href="autenticacao.html"><i class="bi bi-person"></i></a>
+                    <a id="botao-autenticacao-menu" href="autenticacao.html"><i class="bi bi-person"></i></a>
                 </section>
 
                 <section class="menu-btn">
@@ -197,10 +197,10 @@
                         maxlength="30">
 
                     <div class="form-buttons">
-                        <button type="button" onclick="toggleModalCriarContaCliente()">
+                        <button class ="voltar" type="button" onclick="toggleModalCriarContaCliente()">
                             <i class="bi bi-x-circle"></i> Voltar
                         </button>
-                        <button type="button" onclick="criarContaCliente()">
+                        <button class ="criar"type="button" onclick="criarContaCliente()">
                             <i class="bi bi-check-circle"></i> Criar
                         </button>
                     </div>
@@ -244,6 +244,7 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../JS/verificar-usuario.js"></script>
     <script src="../JS/validacao-telefone.js"></script>
     <script src="../JS/menu-home-page.js"></script>
     <script src="../JS/janela-dados.js"></script>

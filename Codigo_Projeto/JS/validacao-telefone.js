@@ -30,9 +30,13 @@ function validarTelefone(input) {
         if (telefone.length === 10 || telefone.length === 11) {
             msg.textContent = "✅ Telefone válido";
             msg.style.color = "green";
+            msg.style.fontFamily = "'Poppins', sans-serif";
+            msg.style.fontWeight = "500";
         } else {
             msg.textContent = "❌ Número incompleto";
-            msg.style.color = "red";
+            msg.style.color = "#7e0000";
+            msg.style.fontFamily = "'Poppins', sans-serif";
+            msg.style.fontWeight = "500";
         }
     } else {
         msg.textContent = "";

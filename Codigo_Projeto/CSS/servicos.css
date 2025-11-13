@@ -64,6 +64,7 @@
 }
 
 .cards .card .tipo-massagem {
+  font-family: "Poppins", sans-serif;
   font-size: 1.4em;
   font-weight: 600;
   color: #333;
@@ -72,9 +73,10 @@
 }
 
 .cards .card .preco {
+  font-family: "Poppins", sans-serif;
   font-size: 1.3em;
   font-weight: 700;
-  color: red;
+  color: #b30000;
   margin-bottom: 10px;
 }
 
@@ -92,6 +94,7 @@
 }
 
 .card-bottom a.agendamento {
+  font-family: "Poppins", sans-serif;
   display: block;
   text-align: center;
   padding: 12px 25px;
@@ -105,9 +108,24 @@
 }
 
 .card-bottom a.agendamento:hover {
-  background-color: white;
-  color: #7e0000;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+              0 0 10px rgba(126, 0, 0, 0.7);
+  transform: translateY(-3px);
 }
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
 
 @media (max-width: 1024px) {
   .cards {

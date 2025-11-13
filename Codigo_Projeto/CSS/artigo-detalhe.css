@@ -4,21 +4,28 @@
   box-sizing: border-box;
 }
 
+/* ===========================
+   BANNER DO ARTIGO
+=========================== */
 .banner-artigo {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 220px;
   background-color: #a8be7c;
   overflow: hidden;
   text-align: center;
+  padding: 0 20px;
 }
 
 .banner-artigo h1 {
-  font-size: 2.5em;
-  color: #404040;
-  letter-spacing: 1px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 2.6em;
+  letter-spacing: 0.5px;
+  color: #2b2b2b;
+  line-height: 1.2;
   z-index: 2;
 }
 
@@ -28,23 +35,28 @@
   }
 
   .banner-artigo h1 {
-    font-size: 1.9em;
+    font-size: 2em;
   }
 }
 
+/* ===========================
+   CONTEÚDO PRINCIPAL
+=========================== */
 .post-wrapper {
-  max-width: 980px;
-  margin: 30px auto 50px;
-  padding: 0 16px;
+  max-width: 860px;
+  margin: 50px auto;
+  padding: 0 20px;
 }
 
+/* Meta info */
 .post-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   color: #666;
-  font-size: 0.95rem;
-  margin: 6px 0 16px;
+  font-size: 0.9rem;
+  margin: 10px 0 22px;
+  font-family: "Inter", sans-serif;
 }
 
 .post-meta .cat {
@@ -52,58 +64,13 @@
   color: #2b2b2b;
 }
 
+/* Imagem principal */
 .post-hero {
   width: 100%;
-  height: 340px;
+  height: 360px;
   object-fit: cover;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.post-content {
-  margin-top: 22px;
-  color: #333;
-  line-height: 1.7;
-  font-size: 1.02rem;
-}
-
-.post-content p {
-  margin: 0 0 14px;
-}
-
-.post-content blockquote {
-  margin: 14px 0;
-  padding: 12px 16px;
-  border-left: 4px solid #a8be7c;
-  background: #f7f8fa;
-  color: #2b2b2b;
-  font-style: italic;
-}
-
-.post-content h2 {
-  font-size: 1.25rem;
-  margin: 22px 0 10px;
-  color: #2b2b2b;
-}
-
-.post-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 28px;
-}
-
-.post-nav a {
-  text-decoration: none;
-  color: #2b2b2b;
-  font-weight: 700;
-  padding: 10px 12px;
-  border: 1px solid #e4e7ea;
-  border-radius: 10px;
-}
-
-.post-nav a:hover {
-  background: #a8be7c;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 640px) {
@@ -112,21 +79,72 @@
   }
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap");
+/* ===========================
+   TEXTO DO POST
+=========================== */
+.post-content {
+  margin-top: 28px;
+  color: #2b2b2b;
+  font-family: "Inter", sans-serif;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  text-align: justify;
+}
 
+/* Parágrafos */
+.post-content p {
+  margin: 0 0 22px;
+  text-indent: 0;
+}
 
-.banner-artigo h1 {
+/* Bloco de citação */
+.post-content blockquote {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border-left: 4px solid #a8be7c;
+  background: #f7f8fa;
+  color: #333;
+  font-style: italic;
+  border-radius: 8px;
+}
+
+/* Subtítulos */
+.post-content h2 {
+  font-size: 1.4rem;
+  margin: 34px 0 14px;
+  color: #2b2b2b;
   font-family: "Libre Baskerville", serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 2.5em;
-  letter-spacing: 1px;
-  color: #404040;
 }
 
-
-@media (max-width: 768px) {
-  .banner-artigo h1 {
-    font-size: 2rem;
-  }
+/* ===========================
+   NAVEGAÇÃO ENTRE POSTS
+=========================== */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 40px;
 }
+
+.post-nav a {
+  text-decoration: none;
+  color: #2b2b2b;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  padding: 10px 14px;
+  border: 1px solid #e4e7ea;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+.post-nav a:hover {
+  background: #a8be7c;
+  color: #fff;
+  border-color: #a8be7c;
+  box-shadow: 0 4px 12px rgba(168, 190, 124, 0.4);
+}
+
+/* ===========================
+   FONTES
+=========================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Baskerville:wght@400;700&display=swap");

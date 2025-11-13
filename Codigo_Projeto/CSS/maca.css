@@ -1,9 +1,8 @@
-
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -13,7 +12,6 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
-
 
 .banner-maca {
   position: relative;
@@ -44,7 +42,6 @@ body {
   right: 57%;
 }
 
-
 .imagem-texto {
   display: flex;
   flex-direction: column;
@@ -60,8 +57,14 @@ body {
   max-width: 600px;
   height: auto;
   border-radius: 14px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
   object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imagem-texto img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .imagem-texto .texto {
@@ -69,7 +72,6 @@ body {
   font-size: 16px;
   line-height: 1.8;
   color: #333;
-  background-color: transparent;
 }
 
 .imagem-texto .texto p {
@@ -77,13 +79,25 @@ body {
   text-align: justify;
 }
 
-
 .subtitulos {
   font-size: 18px;
   font-weight: bold;
   color: #333;
   margin-top: 18px;
+  position: relative;
 }
+
+.subtitulos::after {
+  content: "";
+  display: block;
+  margin-top: 6px;
+  border-radius: 2px;
+  width: 30px;
+  height: 2px;
+  background-color: #9db668;
+  opacity: 0.6;
+}
+
 
 .topicos {
   font-size: 15px;
@@ -91,43 +105,41 @@ body {
   list-style-type: disc;
 }
 
-ol {
-  padding-left: 15px;
-}
-
+ol,
 ul {
-  margin-left: 10px;
+  padding-left: 20px;
 }
 
 .agendar-servico {
   display: flex;
   justify-content: center;
-  margin: 5px 0px 20px 0px;
+  margin: 30px 0;
 }
 
 .agendar-servico button {
   margin-top: 15px;
   width: 260px;
   height: 45px;
-  background-color: #7e0000;
+  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
   color: white;
   font-weight: 550;
-  border: 1px solid black;
+  border: none;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
+  border-radius: 10px;
   transition: all 0.3s ease;
 }
 
 .agendar-servico button:hover {
-  background-color: white;
-  color: #7e0000;
-  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
+  box-shadow: 0 0 15px rgba(126, 0, 0, 0.5);
+  transform: translateY(-3px);
 }
 
 
 @media (max-width: 992px) {
-  .banner-maca h1 {
+  .banner-reflexologia h1 {
     font-size: 2rem;
   }
 
@@ -161,9 +173,3 @@ ul {
     font-size: 15px;
   }
 }
-
-
-h1, .subtitulos {
-  transition: color 0.3s ease;
-}
-

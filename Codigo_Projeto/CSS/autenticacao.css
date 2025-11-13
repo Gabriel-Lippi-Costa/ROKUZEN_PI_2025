@@ -85,25 +85,33 @@
 .conteiner .informacoes-usuario .informacoes-cadastro form select option {
   font-size: 18px;
 }
-
 .conteiner .informacoes-usuario .informacoes-cadastro form button {
   margin-top: 15px;
-  height: 35px;
+  height: 40px;
   background-color: #7e0000;
   color: white;
   font-weight: 550;
-  border: 1px solid black;
+  border: none; /* 🔹 tira a borda preta que destoava */
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
+  border-radius: 8px; /* 🔘 cantos arredondados */
   transition: all 0.3s ease;
 }
 
 .conteiner .informacoes-usuario .informacoes-cadastro form button:hover {
-  background-color: white;
-  color: #7e0000;
-  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+              0 0 10px rgba(126, 0, 0, 0.7); /* ✨ brilho duplo */
+  transform: translateY(-3px); /* 🪶 leve elevação */
+  background-color: #7e0000; /* mantém o fundo vermelho */
+  color: white;
 }
+
+.conteiner .informacoes-usuario .informacoes-cadastro form button:active {
+  transform: translateY(0); /* 🖱️ volta ao normal ao clicar */
+  box-shadow: 0 0 8px rgba(126, 0, 0, 0.5);
+}
+
 
 .conteiner .informacoes-usuario .informacoes-login form label {
   font-size: 24px;
@@ -136,16 +144,9 @@
   background-color: #7e0000;
   color: white;
   font-weight: 550;
-  border: 1px solid black;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.conteiner .informacoes-usuario .informacoes-login form button:hover {
-  background-color: white;
-  color: #7e0000;
   transition: all 0.3s ease;
 }
 
@@ -158,4 +159,64 @@
     display: block;
     width: 100%;
   }
+}
+.conteiner button {
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.conteiner button:hover {
+  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
+  box-shadow: 0 0 10px rgba(126, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.escolha-autenticacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  gap: 0;
+}
+
+.escolha-autenticacao button {
+  padding: 10px;
+  width: 170px;
+  font-size: 22px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: white;
+  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+  transition: all 0.3s ease;
+}
+
+.escolha-autenticacao .login-btn button {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.escolha-autenticacao .cadastro-btn button {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Hover com brilho */
+.escolha-autenticacao button:hover {
+  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
+  box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Botão ativo (pode ser trocado com JS) */
+.escolha-autenticacao button.ativo {
+  background: white;
+  color: #7e0000;
+  box-shadow: 0 0 10px rgba(126, 0, 0, 0.5);
 }

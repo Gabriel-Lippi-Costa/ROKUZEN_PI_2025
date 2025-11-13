@@ -148,7 +148,7 @@ async function carregarProfissionais(idUnidade, idServico) {
         container.innerHTML = '';
 
         if (!data.length) {
-            container.innerHTML = '<p>Nenhum profissional disponível para esta combinação.</p>';
+            container.innerHTML ='<p class="mensagem-vazia">Nenhum profissional disponível para essa combinação.</p>';;
             return;
         }
 
@@ -211,7 +211,7 @@ async function carregarHorarios(dataSelecionada) {
             });
             document.getElementById('selecionadoHorarioTxt').innerHTML = 'Selecione um horário acima';
         } else {
-            container.innerHTML = 'Nenhum horário disponível para esta data.';
+            container.innerHTML = '<p class="mensagem-vazia">Nenhum horário disponível para essa data.</p>';
         }
     } catch (error) {
         console.error('Erro ao buscar horários:', error);

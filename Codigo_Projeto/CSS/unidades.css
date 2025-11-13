@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 .banner-unidades {
   position: relative;
   display: flex;
@@ -69,6 +68,7 @@
 }
 
 .unidade-card .nome {
+  font-family: "Poppins", sans-serif;
   font-size: 1.05rem;
   color: #333;
   font-weight: 700;

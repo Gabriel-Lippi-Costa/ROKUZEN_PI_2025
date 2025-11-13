@@ -49,7 +49,7 @@
   color: #404040;
   padding: 15px;
   font-weight: 600;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .cards {
@@ -103,7 +103,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #111;
 }
 
@@ -166,6 +166,7 @@
 }
 
 .escolher-duracao .help {
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
 
@@ -174,7 +175,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #111;
 }
 
@@ -204,11 +205,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #111;
 }
 
 .escolher-horario .group-title {
+  font-family: "Poppins", sans-serif;
   text-align: center;
   font-weight: 600;
   font-size: 1rem;
@@ -267,6 +269,7 @@
 }
 
 .escolher-horario .help {
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }
 
@@ -282,10 +285,10 @@
   margin-top: 15px;
   width: 260px;
   height: 45px;
-  background-color: #7e0000;
+  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
   color: white;
   font-weight: 550;
-  border: 1px solid black;
+  border: none;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
@@ -293,9 +296,10 @@
 }
 
 .confirmar-servico button:hover {
-  background-color: white;
-  color: #7e0000;
-  transition: all 0.3s ease;
+  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
+  box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
+  transform: translateY(-2px);
+  color: white;
 }
 
 .cards .card {
@@ -370,4 +374,15 @@
     min-width: 64px;
     font-size: 0.95rem;
   }
+}
+.mensagem-vazia {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #7e0000; /* cor preta */
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%; /* ocupa a maior parte do container */
+  margin: 20px auto; /* centraliza horizontalmente e dá margem superior/inferior */
 }

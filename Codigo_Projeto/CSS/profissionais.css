@@ -47,6 +47,7 @@
 }
 
 .cards .card .nome-profissional {
+  font-family: "Poppins", sans-serif; 
   font-size: 1.5em;
   text-align: center;
   font-weight: 600;
@@ -75,7 +76,7 @@
 }
 
 .nav-button:hover {
-  background-color: #007bff;
+  background-color: #7e0000;
   color: white;
 }
 

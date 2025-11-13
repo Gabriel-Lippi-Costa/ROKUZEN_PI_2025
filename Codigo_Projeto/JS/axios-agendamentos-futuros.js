@@ -71,7 +71,7 @@ function renderizarAgendamentos(agendamentos) {
     container.innerHTML = '';
 
     if (agendamentos.length === 0) {
-        container.innerHTML = '<p>Você não possui agendamentos futuros.</p>';
+        container.innerHTML = '<p class="mensagem-vazia">Você não possui agendamentos futuros.</p>';
         return;
     }
 
@@ -115,7 +115,7 @@ function renderizarAgendamentos(agendamentos) {
                 <p><strong>Data:</strong> ${dataFormatada}</p>
                 <p><strong>Horário:</strong> ${horaFormatada}</p>
                 <p><strong>Duração:</strong> ${duracaoFormatada} min</p>
-                <p><strong>Valor:</strong> ${ag.valor}</p>
+                <p><strong>Valor:</strong> ${ag.valor || 'R$ 0,00'}</p>
                 <button class="btn-cancelar" data-id="${ag.id_agendamento}">Cancelar</button>
             </div>
         `;

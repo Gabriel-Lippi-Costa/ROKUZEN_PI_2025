@@ -1,99 +1,75 @@
+/* 🔧 RESET GERAL */
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+/* 🏞️ BANNER SOBRE NÓS */
 .banner-sobre-nos {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  background-color: #a8be7c;
+  height: 220px;
+  background: linear-gradient(135deg, #a8be7c, #9db668);
   overflow: hidden;
 }
 
 .banner-sobre-nos h1 {
-  font-size: 2.5em;
-  color: #404040;
+  font-size: 2.6em;
+  color: #2b2b2b;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   z-index: 2;
+  animation: fadeInDown 1s ease;
 }
 
 .banner-sobre-nos img {
   position: absolute;
-  opacity: 0.3;
-  width: 300px;
+  opacity: 0.25;
+  width: 320px;
   height: auto;
   z-index: 1;
-  margin-right: 300px;
-  color: black;
+  right: 12%;
 }
 
+
+/* 📖 SEÇÃO IMAGEM + TEXTO */
 .imagem-texto {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
-  padding: 40px 20px;
+  gap: 60px;
   flex-wrap: wrap;
+  padding: 60px 8%;
+  background-color: #fafafa;
 }
 
-p {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 14px;
-  padding: 1px;
-  margin: 25px;
-  text-indent: 25px;
-  line-height: 1.2;
-  hyphens: auto;
-}
-
+/* 🧠 TEXTO PRINCIPAL */
 .imagem-texto .texto {
-  max-width: 600px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
+  max-width: 700px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
   color: #333;
-  padding: 25px;
+  padding: 30px 35px;
 }
 
 .imagem-texto .texto p {
-  margin: 8px 0;
-  padding: 0;
-  text-indent: 5;
-  font-size: 15px;
-}
-.sobre-nos-page .roda-pe {
-  padding: 20px 10px !important;
-  gap: 15px !important;
+  margin: 25px 0;
+  text-align: justify;
+  text-indent: 20px;
 }
 
-.sobre-nos-page .roda-pe p { 
-  margin: 0 !important; 
+/* 🖼️ IMAGEM DA SEÇÃO */
+.imagem-texto img {
+  width: 380px;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-.sobre-nos-page .roda-pe .direito-de-imagem p { 
-  margin: 0 !important; 
-}
-
-.sobre-nos-page .roda-pe .info-rokuzen { 
-  gap: 25px !important; 
-}
-
-.sobre-nos-page .roda-pe .redes-sociais { 
-  gap: 15px !important; 
-}
-
-.sobre-nos-page .roda-pe .redes-sociais button { 
-  padding: 10px !important; 
-}
-
-.sobre-nos-page .roda-pe .redes-sociais a { 
-  font-size: 30px !important; 
-}
-
-.sobre-nos-page main { 
-  margin-bottom: 0 !important; 
-  padding-bottom: 0 !important; 
-}
+/* 

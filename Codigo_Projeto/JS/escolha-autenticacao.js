@@ -4,29 +4,47 @@ const btnCadastro = document.querySelector(".escolha-autenticacao .cadastro-btn 
 const formLogin = document.querySelector(".informacoes-login form");
 const formCadastro = document.querySelector(".informacoes-cadastro form");
 
-const corAtiva = "white";
-const corPadrao = "rgba(128, 128, 128, 0.5)";
+// Gradientes modernos
+const gradienteAtivo = "linear-gradient(90deg, #7e0000 0%, #a80000 100%)";
+const gradienteInativo = "linear-gradient(90deg, #c4c4c4 0%, #e0e0e0 100%)";
+const corTextoAtivo = "white";
+const corTextoInativo = "#333";
 
-formLogin.style.display = "none";
-formCadastro.style.display = "flex";
+// Estado inicial → LOGIN é o padrão
+formLogin.style.display = "flex";
+formLogin.style.flexDirection = "column";
+formLogin.style.gap = "10px";
 
-btnLogin.style.backgroundColor = corPadrao;
-btnCadastro.style.backgroundColor = corAtiva;
+formCadastro.style.display = "none";
 
+btnLogin.style.background = gradienteAtivo;
+btnLogin.style.color = corTextoAtivo;
+
+btnCadastro.style.background = gradienteInativo;
+btnCadastro.style.color = corTextoInativo;
+
+// Clique em LOGIN
 btnLogin.addEventListener("click", () => {
-    formCadastro.style.display = "none";
-    formLogin.style.display = "flex";
-    formLogin.style.flexDirection = "column";
-    formLogin.style.gap = "10px";
+  formCadastro.style.display = "none";
+  formLogin.style.display = "flex";
+  formLogin.style.flexDirection = "column";
+  formLogin.style.gap = "10px";
 
-    btnLogin.style.backgroundColor = corAtiva;
-    btnCadastro.style.backgroundColor = corPadrao;
+  btnLogin.style.background = gradienteAtivo;
+  btnLogin.style.color = corTextoAtivo;
+
+  btnCadastro.style.background = gradienteInativo;
+  btnCadastro.style.color = corTextoInativo;
 });
 
+// Clique em CADASTRO
 btnCadastro.addEventListener("click", () => {
-    formLogin.style.display = "none";
-    formCadastro.style.display = "flex";
+  formLogin.style.display = "none";
+  formCadastro.style.display = "flex";
 
-    btnCadastro.style.backgroundColor = corAtiva;
-    btnLogin.style.backgroundColor = corPadrao;
+  btnCadastro.style.background = gradienteAtivo;
+  btnCadastro.style.color = corTextoAtivo;
+
+  btnLogin.style.background = gradienteInativo;
+  btnLogin.style.color = corTextoInativo;
 });

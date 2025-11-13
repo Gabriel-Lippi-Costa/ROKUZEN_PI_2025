@@ -107,7 +107,7 @@ async function cadastrarUsuario() {
             }
         }
 
-        window.location.href = 'minha-conta.html';
+        window.location.href = 'autenticacao.html';
 
     } catch (erro) {
         if (erro.response && erro.response.data.erro) {
