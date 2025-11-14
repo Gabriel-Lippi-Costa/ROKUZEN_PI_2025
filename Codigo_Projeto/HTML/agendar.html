@@ -69,195 +69,48 @@
         <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
     </section>
 
-    <section class="escolher-servico">
+        <div class = "nome-servico">
+</div>
+<section class="unidades-grid">
+    <div class="unidade-card" data-id="1">
+        <img class="thumb" src="../assets/Unidades/ribeirao.jpg" alt="Unidade Santo André" />
+        <h3 class="nome">Santo André</h3>
+    </div>
 
-        <h2>Selecione um Serviço</h2>
+    <div class="unidade-card" data-id="2">
+        <img class="thumb" src="../assets/Unidades/golden.jpg" alt="Unidade São Bernardo do Campo" />
+        <h3 class="nome">São Bernardo do Campo</h3>
+    </div>
 
-        <section class="cards">
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Serviços/reflexo.jpg" alt="Serviço Reflexologia Podal">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Reflexologia Podal</p>
-                </section>
-            </section>
+    <div class="unidade-card" data-id="3">
+        <img class="thumb" src="../assets/Unidades/mooca.jpg" alt="Unidade Mooca Plaza Shopping" />
+        <h3 class="nome">Mooca Plaza Shopping</h3>
+    </div>
 
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Serviços/maca.jpg" alt="Serviço Maca">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Maca</p>
-                </section>
-            </section>
+    <div class="unidade-card" data-id="4">
+        <img class="thumb" src="../assets/Unidades/west3.jpg" alt="Unidade West Plaza Shopping" />
+        <h3 class="nome">West Plaza Shopping</h3>
+    </div>
+</section>
 
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Serviços/quick.jpg" alt="Massagem no Rosto">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Quick Massage</p>
-                </section>
-            </section>
 
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Serviços/auriculo.jpg" alt="Massagem no Rosto">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Auriculoterapia</p>
-                </section>
-            </section>
-        </section>
-    </section>
+    <div id="conteudo-selecionado" style="display: none;">
+    <h2>Escolha a duração do serviço</h2>
+    <div class="duration-group">
+        <!-- Radios serão inseridos aqui dinamicamente -->
+    </div>
+</div>
 
-    <section class="escolher-unidade etapa-escondida">
-        <h2>Selecione uma Unidade</h2>
+   <section class="selecionar-data" style="display:none;" id="form-calendario">
+    <h2>Escolha a data:</h2>
+    <input type="date" id="data-agendamento">
+</section>
 
-        <section class="cards">
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/unidades/west3.jpg" alt="Unidade West Plaza Shopping">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">West Plaza Shopping</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Unidades/ribeirao.jpg" alt="Unidade Grand Plaza Shopping">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Grand Plaza Shopping</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Unidades/mooca.jpg" alt="Unidade Mooca Plaza Shopping">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Mooca Plaza Shopping</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Unidades/golden.jpg" alt="Massagem no Rosto">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Golden Square Shopping</p>
-                </section>
-            </section>
-        </section>
-    </section>
-
-    <section class="escolher-duracao etapa-escondida">
-        <h2>Selecione uma Duração</h2>
-
-        <label class="group-title">Escolha a duração da massagem</label>
-
-        <div class="duration-group">
-            <input type="radio" id="dur30" name="duracao" value="30">
-            <label class="chip" for="dur30">30 min</label>
-
-            <input type="radio" id="dur45" name="duracao" value="45">
-            <label class="chip" for="dur45">45 min</label>
-
-            <input type="radio" id="dur60" name="duracao" value="60">
-            <label class="chip" for="dur60">60 min</label>
-
-            <input type="radio" id="dur90" name="duracao" value="90">
-            <label class="chip" for="dur90">90 min</label>
-
-            <input type="radio" id="dur120" name="duracao" value="120">
-            <label class="chip" for="dur120">120 min</label>
-        </div>
-
-        <div class="help" id="selecionadoTxt">Selecione uma duração acima</div>
-    </section>
-
-    <section class="escolher-data etapa-escondida">
-        <h2>Selecione uma Data</h2>
-
-        <input type="date" name="data-servico" id="data-servico">
-    </section>
-
-    <section class="escolher-profissional etapa-escondida">
-        <h2>Selecione um Profissional</h2>
-
-        <section class="cards">
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Profissionais/foto-nao-disponivel-masculino-rokuzen.jpeg"
-                        alt="Unidade West Plaza Shopping">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Brunno</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Profissionais/imagem-generica.png" alt="Unidade Grand Plaza Shopping">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Adriana</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Profissionais/eric-rokuzen.jpeg" alt="Unidade Mooca Plaza Shopping">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Eric</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Profissionais/imagem-generica.png" alt="Massagem no Rosto">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Suzy</p>
-                </section>
-            </section>
-
-            <section class="card">
-                <section class="parte-de-cima">
-                    <img src="../assets/Profissionais/foto-nao-disponivel-masculino-rokuzen.jpeg"
-                        alt="Massagem no Rosto">
-                </section>
-                <section class="parte-de-baixo">
-                    <p class="tipo-massagem">Marcelo</p>
-                </section>
-            </section>
-        </section>
-    </section>
-
-    <section class="escolher-horario etapa-escondida">
-        <h2>Selecione um Horário</h2>
-
-        <label class="group-title">Escolha o horário desejado</label>
-
-        <div class="duration-group">
-            
-        </div>
-
-        <div class="help" id="selecionadoHorarioTxt">
-            Selecione um horário acima
-        </div>
-    </section>
-
-    <section class="confirmar-servico etapa-escondida">
-        <button type="button" id="botao-agendar">
-            Agendar
-        </button>
-    </section>
-    <section></section>
+<section id="funcionarios-container" class="funcionarios-grid">
+    <!-- Cards serão inseridos aqui -->
+</section>
+<div id="horarios-container"></div>
+<button id="btn-agendar" style="display: none;">Agendar</button>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
@@ -265,13 +118,15 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../JS/axios-agendamento.js"></script>
+    <!-- <script src="../JS/axios-agendamento.js"></script> -->
     <script src="../JS/carrosel.js"></script>
     <script src="../JS/menu-home-page.js"></script>
     <script src="../JS/animacao-toque-cards.js"></script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
     <script src="../JS/pesquisa.js"></script>
     <script src="../JS/verificar-usuario.js"></script>
+    <script src="../JS/agendamentos.js"></script>
+
 </body>
 
 </html>

@@ -68,8 +68,16 @@ async function atualizarDadosUsuario() {
     }
 }
 
-document.getElementById('modalDados').addEventListener('click', function (e) {
-    if (e.target === this) {
-        toggleModal();
-    }
+document.getElementById('modalEditarFuncionario').addEventListener('click', function (e) {
+    if (e.target === this) toggleModalEditarFuncionario();
 });
+
+function toggleModalEditarFuncionario() {
+    const modal = document.getElementById('modalEditarFuncionario');
+    modal.classList.toggle('show');
+
+    // Só chama se estiver abrindo o modal
+    if (modal.classList.contains('show')) {
+        preencherCamposFuncionario();
+    }
+}

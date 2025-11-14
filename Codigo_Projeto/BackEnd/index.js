@@ -59,7 +59,7 @@ function autenticarToken(req, res, next) {
         if (erro) {
             return res.status(403).json({ erro: "Token inválido ou expirado!" });
         }
-        req.usuario = usuario; 
+        req.usuario = usuario;
         next();
     });
 }
@@ -121,7 +121,7 @@ app.post('/login', (req, res) => {
 
         if (resultadoCliente.length > 0) {
             const cliente = resultadoCliente[0];
-            
+
             const senhaCorreta = await bcrypt.compare(senha, cliente.senha_cliente);
             if (!senhaCorreta) {
                 return res.status(401).json({ erro: 'Email ou senha incorretos!' });
@@ -227,143 +227,185 @@ app.patch('/atualizar/:id', autenticarToken, async (req, res) => {
     }
 });
 
-app.post('/agendamento', (req, res) => {
-    const { id_cliente, servico, unidade, duracao, data, profissional, horario } = req.body;
 
-    if (!id_cliente || !servico || !unidade || !duracao || !data || !profissional || !horario) {
-        return res.status(400).json({ erro: 'Selecione todos os campos necessários para o agendamento!' });
+
+app.post('/agendamentos', (req, res) => {
+    console.log("📥 Dados recebidos no backend:", req.body);
+
+    const {
+        id_cliente,
+        id_servico,
+        id_unidade,
+        id_funcionario,
+        data_agendamento,
+        duracao,
+        horario
+    } = req.body;
+
+    // Validação básica
+    if (!id_cliente || !id_servico || !id_unidade || !id_funcionario || !data_agendamento || !duracao || !horario) {
+        console.error("❌ Dados faltando:", req.body);
+        return res.status(400).json({ erro: 'Faltam dados para criar agendamento!', dadosRecebidos: req.body });
     }
+
+    // Combina data + horário
+    const dataHora = `${data_agendamento} ${horario}`;
 
     const sql = `
         INSERT INTO agendamentos 
-        (id_cliente, id_servico, id_unidade, id_colaborador, data_agendamento, duracao)
+        (id_cliente, id_servico, id_unidade, id_funcionario, data_agendamento, duracao)
         VALUES (?, ?, ?, ?, ?, ?)
     `;
-
-    const dataHora = `${data} ${horario}:00`;
-    const duracaoTime = `${duracao}:00`;
-
-    const values = [id_cliente, servico, unidade, profissional, dataHora, duracaoTime];
+    const values = [id_cliente, id_servico, id_unidade, id_funcionario, dataHora, duracao];
 
     conexao.query(sql, values, (err, result) => {
         if (err) {
-            console.error('Erro ao confirmar agendamento:', err);
-            return res.status(500).json({ erro: 'Erro ao agendar massagem!' });
+            console.error('❌ Erro ao criar agendamento:', err);
+            return res.status(500).json({ erro: 'Erro ao criar agendamento!', detalhes: err });
         }
 
-        res.status(201).json({ mensagem: 'Agendamento realizado com sucesso!', id_agendamento: result.insertId });
+        res.status(201).json({
+            mensagem: 'Agendamento realizado com sucesso!',
+            id_agendamento: result.insertId
+        });
     });
 });
 
-app.get('/servicos', (req, res) => {
-    const sql = 'SELECT * FROM servicos WHERE servico_ativo = TRUE'
 
-    conexao.query(sql, (erro, resultado) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao buscar serviços!' })
-        res.json(resultado)
-    })
-})
 
-app.get('/unidades', (req, res) => {
-    const sql = 'SELECT * FROM unidades'
-    conexao.query(sql, (erro, resultado) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao buscar unidades!' })
-        res.json(resultado)
-    })
-})
 
-app.get('/profissionais', (req, res) => {
-    const { id_unidade, id_servico } = req.query
 
-    if (!id_unidade || !id_servico) {
-        return res.status(400).json({ erro: 'Informe id_unidade e id_servico' })
+
+
+
+
+
+app.get('/profissionais', async (req, res) => {
+    const { id_servico, id_unidade, diaSemana } = req.query;
+
+    if (!id_servico || !id_unidade || !diaSemana) {
+        return res.status(400).json({ erro: "Parâmetros ausentes" });
     }
 
-    const sql = ` SELECT c.id_colaborador, c.nome_colaborador
-        FROM colaboradores c
-        JOIN unidades_colaboradores uc ON c.id_colaborador = uc.id_colaborador
-        JOIN servicos_colaboradores sc ON c.id_colaborador = sc.id_colaborador
-        WHERE uc.id_unidade = ? AND sc.id_servico = ? AND c.colaborador_ativo = TRUE
-    `
+    try {
+        const sql = `
+            SELECT f.id_funcionario, f.nome_funcionario
+            FROM funcionarios f
+            JOIN escalas e ON f.id_funcionario = e.id_funcionario
+            JOIN servicos_funcionarios sf ON f.id_funcionario = sf.id_funcionario
+            WHERE sf.id_servico = ?
+              AND e.id_unidade = ?
+              AND e.dia_semana = ?
+              AND f.funcionario_ativo = 1
+        `;
 
-    conexao.query(sql, [id_unidade, id_servico], (erro, resultado) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao buscar profissionais disponíveis' })
-        res.json(resultado)
-    })
-})
+        // ⚠️ Usando 'conexao' ao invés de 'pool'
+        const [rows] = await conexao.promise().query(sql, [id_servico, id_unidade, diaSemana]);
+        console.log("🔹 Rows retornadas do banco:", rows);
 
-app.get('/horarios', (req, res) => {
-    const { id_colaborador, id_unidade, data } = req.query
+        res.json(rows);
+    } catch (erro) {
+        console.error("❌ Erro no endpoint /profissionais:", erro);
+        res.status(500).json({ erro: "Erro ao consultar funcionários" });
+    }
+});
 
-    console.log('🔍 Buscando horários para:', { id_colaborador, id_unidade, data })
 
-    if (!id_colaborador || !id_unidade || !data) {
-        return res.status(400).json({ erro: 'Informe id_colaborador, id_unidade e data!' })
+
+app.get('/horarios', async (req, res) => {
+    const { funcionario, data, diaSemana, duracao } = req.query;
+
+    // Log para verificar os dados recebidos
+    console.log("📥 Dados recebidos no backend:", { funcionario, data, diaSemana, duracao });
+
+    if (!funcionario || !data || !diaSemana || !duracao) {
+        return res.status(400).json({ erro: "Parâmetros ausentes" });
     }
 
-    const sqlEscala = `
-        SELECT e.id_escala, e.inicio_escala, e.fim_escala
-        FROM escalas e
-        WHERE DATE(e.inicio_escala) = ?
-        ORDER BY e.inicio_escala
-    `
-
-    conexao.query(sqlEscala, [data], (erroEscala, escalas) => {
-        if (erroEscala) {
-            console.error('❌ Erro ao buscar escala: ', erroEscala)
-            return res.status(500).json({ erro: 'Erro ao buscar escala colaborador.' })
-        }
-
-        console.log('📋 Escalas encontradas na data:', escalas)
+    try {
+        // 1️⃣ Busca a escala do funcionário para aquele dia da semana
+        const sqlEscala = `
+            SELECT hora_inicio, hora_fim
+            FROM escalas
+            WHERE id_funcionario = ?
+              AND dia_semana = ?
+        `;
+        const [escalas] = await conexao.promise().query(sqlEscala, [funcionario, diaSemana]);
+        console.log("🔹 Escalas retornadas:", escalas);
 
         if (escalas.length === 0) {
-            console.log('⚠️ Nenhuma escala cadastrada para a data:', data)
-            return res.status(404).json({ erro: 'Nenhuma escala encontrada para este colaborador nesta data!' })
+            return res.json([]); // Sem escala, sem horários
         }
 
-        const { inicio_escala, fim_escala } = escalas[0]
-
-        console.log('⏰ Horário da escala:', { inicio_escala, fim_escala })
-
+        // 2️⃣ Busca agendamentos existentes para o funcionário nessa data
         const sqlAgendamentos = `
-            SELECT TIME(data_agendamento) AS horario_ocupado
+            SELECT TIME(data_agendamento) AS inicio, duracao
             FROM agendamentos
-            WHERE id_colaborador = ? AND id_unidade = ? AND DATE(data_agendamento) = ? 
-            AND status_agendamento != 'cancelado'
-        `
+            WHERE id_funcionario = ?
+              AND DATE(data_agendamento) = ?
+        `;
+        const [agendamentos] = await conexao.promise().query(sqlAgendamentos, [funcionario, data]);
+        console.log("🔹 Agendamentos existentes:", agendamentos);
 
-        conexao.query(sqlAgendamentos, [id_colaborador, id_unidade, data], (erroAg, agendamentos) => {
-            if (erroAg) {
-                console.error('❌ Erro ao buscar agendamentos:', erroAg);
-                return res.status(500).json({ erro: 'Erro ao buscar agendamentos.' });
-            }
+        const duracaoSegundos = parseInt(duracao.split(':')[0]) * 3600 + parseInt(duracao.split(':')[1]) * 60 + parseInt(duracao.split(':')[2]);
 
-            console.log('📅 Agendamentos ocupados:', agendamentos)
+        const horariosDisponiveis = [];
 
-            const ocupados = agendamentos.map(a => a.horario_ocupado.slice(0, 5));
+        // 3️⃣ Para cada escala, criar blocos disponíveis
+        escalas.forEach(escala => {
+            let inicioSegundos = parseInt(escala.hora_inicio.split(':')[0]) * 3600
+                               + parseInt(escala.hora_inicio.split(':')[1]) * 60
+                               + parseInt(escala.hora_inicio.split(':')[2]);
+            const fimSegundos = parseInt(escala.hora_fim.split(':')[0]) * 3600
+                              + parseInt(escala.hora_fim.split(':')[1]) * 60
+                              + parseInt(escala.hora_fim.split(':')[2]);
 
-            const inicio = new Date(inicio_escala);
-            const fim = new Date(fim_escala);
-            const duracaoSlot = 30;
+            while (inicioSegundos + duracaoSegundos <= fimSegundos) {
+                const inicioHH = String(Math.floor(inicioSegundos / 3600)).padStart(2, '0');
+                const inicioMM = String(Math.floor((inicioSegundos % 3600) / 60)).padStart(2, '0');
+                const inicioSS = String(inicioSegundos % 60).padStart(2, '0');
+                const blocoInicio = `${inicioHH}:${inicioMM}:${inicioSS}`;
 
-            const disponiveis = [];
-            const atual = new Date(inicio);
+                const fimBlocoSeg = inicioSegundos + duracaoSegundos;
+                const fimHH = String(Math.floor(fimBlocoSeg / 3600)).padStart(2, '0');
+                const fimMM = String(Math.floor((fimBlocoSeg % 3600) / 60)).padStart(2, '0');
+                const fimSS = String(fimBlocoSeg % 60).padStart(2, '0');
+                const blocoFim = `${fimHH}:${fimMM}:${fimSS}`;
 
-            while (atual < fim) {
-                const hora = atual.toTimeString().slice(0, 5);
-                if (!ocupados.includes(hora)) {
-                    disponiveis.push(hora);
+                // Verifica se esse bloco bate com algum agendamento
+                const ocupado = agendamentos.some(a => {
+                    const agInicio = parseInt(a.inicio.split(':')[0]) * 3600
+                                   + parseInt(a.inicio.split(':')[1]) * 60
+                                   + parseInt(a.inicio.split(':')[2]);
+                    const agFim = agInicio + (parseInt(a.duracao.split(':')[0]) * 3600
+                                              + parseInt(a.duracao.split(':')[1]) * 60
+                                              + parseInt(a.duracao.split(':')[2]));
+                    return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim); // conflito
+                });
+
+                if (!ocupado) {
+                    horariosDisponiveis.push({ inicio: blocoInicio, fim: blocoFim });
                 }
-                atual.setMinutes(atual.getMinutes() + duracaoSlot);
+
+                // Avança o bloco em 15 min (ou outro intervalo desejado)
+                inicioSegundos += 15 * 60;
             }
+        });
 
-            console.log('✅ Horários disponíveis gerados:', disponiveis)
+        console.log("🔹 Horários disponíveis finais:", horariosDisponiveis);
+        res.json(horariosDisponiveis);
 
-            res.json({ horarios_disponiveis: disponiveis });
-        })
-    })
-})
+    } catch (erro) {
+        console.error("❌ Erro no endpoint /horarios:", erro);
+        res.status(500).json({ erro: "Erro ao consultar horários" });
+    }
+});
 
+
+
+
+
+//ATÉ AQUI
 app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     const idCliente = req.params.id
 
@@ -373,20 +415,19 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
         A.data_agendamento,
         A.duracao,
         S.nome_servico,
-        C.nome_colaborador,
-        C.imagem_colaborador,
+        C.nome_funcionario AS nome_colaborador,
+        C.imagem_funcionario AS imagem_colaborador,
         SP.valor
     FROM
         agendamentos A
     JOIN
         servicos S ON A.id_servico = S.id_servico
     JOIN
-        colaboradores C ON A.id_colaborador = C.id_colaborador
+        funcionarios C ON A.id_funcionario= C.id_funcionario
     LEFT JOIN 
         servicos_precos SP ON A.id_servico = SP.id_servico
     WHERE
         A.id_cliente = ?
-        AND (A.status_agendamento = 'pendente' OR A.status_agendamento = 'confirmado')
         AND DATE(A.data_agendamento) >= CURDATE()
     ORDER BY
         A.data_agendamento ASC;
@@ -422,29 +463,34 @@ app.patch('/agendamento/:id/cancelar', (req, res) => {
     const { id } = req.params;
 
     const sql = `
-        UPDATE agendamentos
-        SET status_agendamento = 'cancelado'
+        DELETE FROM agendamentos
         WHERE id_agendamento = ?
     `;
 
     conexao.query(sql, [id], (erro, resultado) => {
         if (erro) {
-            console.error('Erro ao cancelar agendamento: ', erro);
-            return res.status(500).json({ erro: 'Erro ao cancelar agendamento' });
+            console.error('Erro ao deletar agendamento: ', erro);
+            return res.status(500).json({ erro: 'Erro ao deletar agendamento' });
         }
 
         if (resultado.affectedRows === 0) {
             return res.status(404).json({ erro: 'Agendamento não encontrado!' });
         }
 
-        res.status(200).json({ mensagem: 'Agendamento cancelado com sucesso!' });
+        res.status(200).json({ mensagem: 'Agendamento deletado com sucesso!' });
     });
 });
 
-app.get('/funcionario/:id',autenticarToken, (req, res) => {
-    const { id } = req.params
+app.get('/funcionario/:id', autenticarToken, (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    console.log('ID do funcionário recebido:', id);
 
-    const sql = `
+    if (isNaN(id)) {
+        console.warn('ID inválido recebido:', req.params.id);
+        return res.status(400).json({ erro: 'ID de funcionário inválido' });
+    }
+
+    const sqlFuncionario = `
         SELECT 
             id_funcionario,
             nome_funcionario,
@@ -453,15 +499,78 @@ app.get('/funcionario/:id',autenticarToken, (req, res) => {
             data_nascimento_funcionario
         FROM funcionarios
         WHERE id_funcionario = ?;
-        `
+    `;
 
-    conexao.query(sql, [id], (erro, resultado) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao buscar funcionário' })
-        if (resultado.length === 0) return res.status(404).json({ erro: 'Funcionário não encontrado' })
+    conexao.query(sqlFuncionario, [id], (erro, resultado) => {
+        if (erro) {
+            console.error('Erro na query de funcionário:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar funcionário' });
+        }
 
-        res.json({ funcionario: resultado[0] })
-    })
-})
+        if (resultado.length === 0) {
+            console.warn('Funcionário não encontrado com id:', id);
+            return res.status(404).json({ erro: 'Funcionário não encontrado' });
+        }
+
+        const funcionario = resultado[0];
+
+        const sqlEscala = `
+            SELECT dia_semana,
+                   id_unidade AS unidade,
+                   hora_inicio AS inicio,
+                   hora_fim AS fim,
+                   hora_inicio_almoco AS inicio_almoco,
+                   hora_fim_almoco AS fim_almoco
+            FROM escalas
+            WHERE id_funcionario = ?;
+        `;
+
+        conexao.query(sqlEscala, [id], (erroEscala, resultadoEscala) => {
+            if (erroEscala) {
+                console.error('Erro detalhado da query de escala:', erroEscala);
+                return res.status(500).json({ erro: 'Erro ao buscar escala', detalhes: erroEscala });
+            }
+
+            const escala = {};
+            resultadoEscala.forEach(item => {
+                escala[item.dia_semana] = {
+                    unidade: item.unidade,
+                    inicio: item.inicio,
+                    fim: item.fim,
+                    inicio_almoco: item.inicio_almoco,
+                    fim_almoco: item.fim_almoco
+                };
+            });
+
+            // Agora buscamos os serviços do funcionário
+            const sqlServicos = `
+                SELECT id_servico
+                FROM servicos_funcionarios
+                WHERE id_funcionario = ?;
+            `;
+
+            conexao.query(sqlServicos, [id], (erroServicos, resultadoServicos) => {
+                if (erroServicos) {
+                    console.error('Erro ao buscar serviços do funcionário:', erroServicos);
+                    return res.status(500).json({ erro: 'Erro ao buscar serviços' });
+                }
+
+                const servicos = resultadoServicos.map(item => item.id_servico);
+
+                // Monta o JSON final
+                const resposta = { 
+                    funcionario: { ...funcionario, escala, servicos } 
+                };
+
+                console.log('JSON retornado:', resposta);
+                res.json(resposta);
+            });
+        });
+    });
+});
+
+
+
 app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
     const idCliente = req.params.id;
     console.log('ID do cliente recebido:', idCliente);
@@ -471,11 +580,11 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
             A.id_agendamento,
             A.data_agendamento,
             A.duracao,
-            C.nome_colaborador AS nome_profissional,
+            C.nome_funcionario AS nome_profissional,
             SP.valor AS preco,
             S.nome_servico AS tipo_servico
         FROM agendamentos A
-        JOIN colaboradores C ON A.id_colaborador = C.id_colaborador
+        JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
         JOIN servicos S ON A.id_servico = S.id_servico
         LEFT JOIN servicos_precos SP 
             ON SP.id_servico = A.id_servico 
@@ -517,78 +626,189 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
 });
 
 
-app.patch('/funcionario/:id', async (req, res) => {
+
+
+
+app.patch('/funcionario/:id', (req, res) => {
     const { id } = req.params;
-    const { nome, data_nascimento, telefone, email, senha } = req.body;
+    const { nome, data_nascimento, telefone, email, senha, escala, servicos } = req.body;
 
     if (!nome || !data_nascimento || !telefone || !email || !senha) {
+        console.log('Campos obrigatórios não preenchidos!');
         return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
-
-    const sql = `
-        UPDATE funcionarios
-        SET nome_funcionario = ?, data_nascimento_funcionario = ?, telefone_funcionario = ?, email_funcionario = ?, senha_funcionario = ?
-        WHERE id_funcionario = ?
-    `;
-
-    conexao.query(sql, [nome, data_nascimento, telefone, email, senhaHash, id], (erro, resultado) => {
-        if (erro) {
-            console.error('Erro ao atualizar funcionário:', erro);
-            return res.status(500).json({ erro: 'Erro ao atualizar funcionário' });
+    bcrypt.hash(senha, 10, (erroHash, senhaHash) => {
+        if (erroHash) {
+            console.error('Erro ao gerar hash da senha:', erroHash);
+            return res.status(500).json({ erro: 'Erro ao gerar hash da senha' });
         }
 
-        if (resultado.affectedRows === 0) {
-            return res.status(404).json({ erro: 'Funcionário não encontrado!' });
-        }
+        // Atualiza dados do funcionário
+        const sqlFuncionario = `
+            UPDATE funcionarios
+            SET nome_funcionario = ?, data_nascimento_funcionario = ?, telefone_funcionario = ?, email_funcionario = ?, senha_funcionario = ?
+            WHERE id_funcionario = ?;
+        `;
+        conexao.query(sqlFuncionario, [nome, data_nascimento, telefone, email, senhaHash, id], (erro, resultado) => {
+            if (erro) {
+                console.error('Erro ao atualizar funcionário:', erro);
+                return res.status(500).json({ erro: 'Erro ao atualizar funcionário' });
+            }
 
-        res.status(200).json({
-            mensagem: 'Funcionário atualizado com sucesso!',
-            funcionario: { id_funcionario: id, nome_funcionario: nome, email_funcionario: email, telefone_funcionario: telefone, data_nascimento_funcionario: data_nascimento }
+            // Atualizar escala
+            if (Array.isArray(escala)) {
+                const sqlDeleteEscala = `DELETE FROM escalas WHERE id_funcionario = ?;`;
+                conexao.query(sqlDeleteEscala, [id], (erroDelete) => {
+                    if (erroDelete) console.error('Erro ao deletar escala antiga:', erroDelete);
+                    else {
+                        const valoresEscala = escala
+                            .filter(item => item.dia !== undefined)
+                            .map(item => [
+                                Number(id),
+                                Number(item.dia),
+                                item.unidade ? Number(item.unidade) : null,
+                                item.inicio || null,
+                                item.fim || null,
+                                item.inicio_almoco || null,
+                                item.fim_almoco || null
+                            ]);
+
+                        if (valoresEscala.length > 0) {
+                            const sqlInsertEscala = `
+                                INSERT INTO escalas (id_funcionario, dia_semana, id_unidade, hora_inicio, hora_fim, hora_inicio_almoco, hora_fim_almoco)
+                                VALUES ?;
+                            `;
+                            conexao.query(sqlInsertEscala, [valoresEscala], (erroInsert) => {
+                                if (erroInsert) console.error('Erro ao inserir nova escala:', erroInsert);
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Atualizar serviços
+            if (Array.isArray(servicos)) {
+                const sqlDeleteServicos = `DELETE FROM servicos_funcionarios WHERE id_funcionario = ?;`;
+                conexao.query(sqlDeleteServicos, [id], (erroDelete) => {
+                    if (erroDelete) console.error('Erro ao deletar serviços antigos:', erroDelete);
+                    else {
+                        const valoresServicos = servicos.map(idServico => [id, idServico]);
+                        if (valoresServicos.length > 0) {
+                            const sqlInsertServicos = `
+                                INSERT INTO servicos_funcionarios (id_funcionario, id_servico)
+                                VALUES ?;
+                            `;
+                            conexao.query(sqlInsertServicos, [valoresServicos], (erroInsert) => {
+                                if (erroInsert) console.error('Erro ao inserir serviços:', erroInsert);
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Resposta final apenas no final do fluxo
+            console.log('Funcionário atualizado com sucesso:', { id, nome, email, telefone, data_nascimento });
+            res.status(200).json({
+                mensagem: 'Funcionário atualizado com sucesso!',
+                funcionario: { id_funcionario: id, nome_funcionario: nome, email_funcionario: email, telefone_funcionario: telefone, data_nascimento_funcionario: data_nascimento }
+            });
         });
     });
 });
 
 
+
+
+
+
+
+
+
+
+
 app.post('/cadastro-funcionario', async (req, res) => {
     try {
-        const { nome, data_nascimento, telefone, email, senha } = req.body;
+        const { nome, data_nascimento, telefone, email, senha, escala, servicos } = req.body;
 
         if (!nome || !data_nascimento || !telefone || !email || !senha) {
             return res.status(400).json({ erro: 'Preencha todos os campos obrigatórios!' });
         }
 
+        if (!escala || typeof escala !== 'object') {
+            return res.status(400).json({ erro: 'Escala inválida!' });
+        }
+
+        if (!Array.isArray(servicos) || servicos.length === 0) {
+            return res.status(400).json({ erro: 'Selecione pelo menos um serviço!' });
+        }
+
         const senhaHash = await bcrypt.hash(senha, 10);
 
-        const sql = `
+        const sqlFuncionario = `
             INSERT INTO funcionarios 
             (nome_funcionario, data_nascimento_funcionario, telefone_funcionario, email_funcionario, senha_funcionario)
             VALUES (?, ?, ?, ?, ?)
         `;
 
-        conexao.query(sql, [nome, data_nascimento, telefone, email, senhaHash], (erro, resultado) => {
+        // 1️⃣ Criar funcionário
+        conexao.query(sqlFuncionario, [nome, data_nascimento, telefone, email, senhaHash], (erro, resultado) => {
             if (erro) {
                 console.error('Erro ao cadastrar funcionário:', erro);
                 return res.status(500).json({ erro: 'Erro ao cadastrar funcionário' });
             }
 
-            const token = jwt.sign(
-                { id: resultado.insertId, tipo: 'funcionario' },
-                process.env.JWT_SECRET,
-                { expiresIn: '1d' }
-            );
+            const idFuncionario = resultado.insertId;
 
-            res.status(201).json({
-                mensagem: 'Funcionário cadastrado com sucesso!',
-                funcionario: {
-                    id_funcionario: resultado.insertId,
-                    nome_funcionario: nome,
-                    data_nascimento_funcionario: data_nascimento,
-                    telefone_funcionario: telefone,
-                    email_funcionario: email
-                },
-                token
+            // 2️⃣ Inserir escala
+            const valoresEscala = [];
+            for (const dia of Object.keys(escala)) {
+                const dado = escala[dia];
+                if (!dado || !dado.unidade || !dado.inicio || !dado.fim) continue;
+
+                valoresEscala.push([
+                    idFuncionario,
+                    dia,
+                    dado.unidade,
+                    dado.inicio,
+                    dado.fim,
+                    dado.inicio_almoco || null,
+                    dado.fim_almoco || null
+                ]);
+            }
+
+            const sqlEscala = `
+                INSERT INTO escalas
+                (id_funcionario, dia_semana, id_unidade, hora_inicio, hora_fim, hora_inicio_almoco, hora_fim_almoco)
+                VALUES ?
+            `;
+
+            conexao.query(sqlEscala, [valoresEscala], (erro) => {
+                if (erro) {
+                    console.error('Erro ao inserir escala:', erro);
+                    return res.status(500).json({ erro: 'Erro ao salvar escala do funcionário' });
+                }
+
+                // 3️⃣ Inserir serviços
+                const valoresServicos = servicos.map(idServico => [idFuncionario, idServico]);
+                const sqlServicos = `
+                    INSERT INTO servicos_funcionarios
+                    (id_funcionario, id_servico)
+                    VALUES ?
+                `;
+
+                conexao.query(sqlServicos, [valoresServicos], (erro) => {
+                    if (erro) {
+                        console.error('Erro ao inserir serviços:', erro);
+                        return res.status(500).json({ erro: 'Erro ao salvar serviços do funcionário' });
+                    }
+
+                    // ✅ Tudo certo, resposta final
+                    return res.status(201).json({
+                        mensagem: 'Funcionário, escala e serviços cadastrados com sucesso!',
+                        funcionario_id: idFuncionario
+                    });
+                });
             });
         });
 
@@ -597,6 +817,10 @@ app.post('/cadastro-funcionario', async (req, res) => {
         res.status(500).json({ erro: 'Erro inesperado ao cadastrar funcionário' });
     }
 });
+
+
+
+//GRAFICOS
 
 app.use(express.static(__dirname + '/../../html'));
 
@@ -678,10 +902,10 @@ app.get('/agendamentos_profissionais', (req, res) => {
     res.setHeader('Expires', '0');
 
     const sql = `
-        SELECT C.nome_colaborador, COUNT(A.id_agendamento) AS total
+        SELECT C.nome_funcionario, COUNT(A.id_agendamento) AS total
 FROM agendamentos A
-JOIN colaboradores C ON A.id_colaborador = C.id_colaborador
-GROUP BY C.nome_colaborador;
+JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
+GROUP BY C.nome_funcionario;
     `;
 
     conexao.query(sql, (erro, resultados) => {
@@ -696,19 +920,42 @@ GROUP BY C.nome_colaborador;
 });
 
 app.get("/buscar", (req, res) => {
-  const termo = req.query.q || ""; 
-  const sql = "SELECT opcao, acao FROM acoes WHERE opcao LIKE ? LIMIT 10";
+    const termo = req.query.q || "";
+    const sql = "SELECT opcao, acao FROM acoes WHERE opcao LIKE ? LIMIT 10";
 
-  conexao.query(sql, [`%${termo}%`], (err, results) => {
-    if (err) {
-      console.error("Erro na busca:", err);
-      return res.status(500).json({ error: "Erro no servidor" });
-    }
-    console.log('🔹 Resultados das acoes:', results);
-    res.json(results);
-  });
+    conexao.query(sql, [`%${termo}%`], (err, results) => {
+        if (err) {
+            console.error("Erro na busca:", err);
+            return res.status(500).json({ error: "Erro no servidor" });
+        }
+        console.log('🔹 Resultados das acoes:', results);
+        res.json(results);
+    });
 });
 
 app.listen(3000, () => {
     console.log('server up & running');
 })  
+
+app.get('/servico/:id', (req, res) => {
+    const { id } = req.params;
+    const sql = `
+        SELECT 
+            p.id_preco, 
+            p.id_servico, 
+            s.nome_servico,
+            p.duracao, 
+            p.valor
+        FROM servicos_precos p
+        JOIN servicos s ON p.id_servico = s.id_servico
+        WHERE p.id_servico = ?
+    `;
+    
+    conexao.query(sql, [id], (erro, resultado) => {
+        if (erro) return res.status(500).json({ erro: 'Erro ao buscar serviço' });
+        if (resultado.length === 0) return res.status(404).json({ erro: 'Serviço não encontrado' });
+        
+        // retorna todas as opções de duração e preço
+        res.json(resultado);
+    });
+});

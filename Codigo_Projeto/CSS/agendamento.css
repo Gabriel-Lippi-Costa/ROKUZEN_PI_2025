@@ -386,3 +386,70 @@
   width: 90%; /* ocupa a maior parte do container */
   margin: 20px auto; /* centraliza horizontalmente e dá margem superior/inferior */
 }
+
+.unidades-grid {
+    display: flex;                /* deixa os filhos em linha */
+    justify-content: space-between; /* espaçamento igual entre as unidades */
+    flex-wrap: wrap;              /* quebra linha se a tela for pequena */
+    gap: 20px;                     /* espaçamento entre os cards */
+    margin: 20px;                  /* margem geral */
+}
+
+.unidade-card {
+    flex: 1 1 calc(25% - 20px);   /* ocupa 25% da largura menos o gap */
+    box-sizing: border-box;        /* inclui padding e borda no tamanho */
+    text-align: center;
+    border: 1px solid #ccc;       /* borda opcional */
+    border-radius: 8px;           /* cantos arredondados */
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.unidade-card:hover {
+    transform: scale(1.05);       /* efeito ao passar o mouse */
+}
+
+.unidade-card img.thumb {
+    width: 100%;                  /* imagem ocupa todo o card */
+    height: auto;                 /* mantém proporção */
+    border-radius: 5px;
+}
+
+#conteudo-selecionado {
+    display: none; /* ou visibility: hidden; */
+}
+#funcionarios-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.funcionario-item {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.funcionario-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.thumb-funcionario {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+}
+
+.funcionario-item h3 {
+    font-size: 16px;
+    margin: 0;
+    color: #333;
+}
