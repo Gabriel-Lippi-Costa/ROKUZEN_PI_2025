@@ -1,6 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     async function clicarBotaoServico(botao) {
+
+        // 🔒 Verifica login antes de qualquer coisa
+        const token = localStorage.getItem("token");
+        const tipo = localStorage.getItem("tipoUsuario");
+
+        if (!token || tipo !== "cliente") {
+            alert("Você precisa estar logado como cliente para agendar um serviço!");
+            return; // ❗ não deixa continuar
+        }
+
         const idServico = botao.dataset.idServico;
         console.log("Botão clicado, ID do serviço:", idServico);
 
@@ -14,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Salva o JSON no localStorage
             localStorage.setItem('servicoSelecionado', JSON.stringify(dadosServico));
 
-            // Se quiser redirecionar:
             window.location.href = 'agendar.html';
 
         } catch (erro) {

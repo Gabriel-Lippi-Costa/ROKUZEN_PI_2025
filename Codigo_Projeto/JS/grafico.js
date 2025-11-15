@@ -60,5 +60,5 @@ gerarGrafico(
 ],
     'nome_unidade' 
 );
-gerarGrafico('http://localhost:3000/agendamentos_profissionais', 'graficoProfissionais', 'Agendamentos por profissional', 'Agendamentos por Profissional (Total)', "bar", 'rgba(168, 190, 124, 0.8)', 'nome_colaborador');
+gerarGrafico('http://localhost:3000/agendamentos_profissionais', 'graficoProfissionais', 'Agendamentos por profissional', 'Agendamentos por Profissional (Total)', "bar", 'rgba(168, 190, 124, 0.8)', 'nome_funcionario');
 gerarGrafico('http://localhost:3000/agendamentos_ultimo_ano', 'graficoMensal', 'Agendamentos por mês', 'Agendamentos no Último Ano', "line", 'rgba(168, 190, 124, 0.8)', 'mes');

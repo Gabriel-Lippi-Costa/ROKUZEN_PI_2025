@@ -8,14 +8,26 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!botao) return;
 
         botao.addEventListener("click", (e) => {
-            e.preventDefault(); // impede ir direto para autenticacao.html
+            e.preventDefault();
 
             const token = localStorage.getItem("token");
+            const tipoUsuario = localStorage.getItem("tipoUsuario");
 
-            if (token) {
+            if (!token) {
+                // Ninguém logado → vai pra login
+                window.location.href = "autenticacao.html";
+                return;
+            }
 
+            // Redirecionamento correto:
+            if (tipoUsuario === "cliente") {
                 window.location.href = "minha-conta.html";
-            } else {
+            } 
+            else if (tipoUsuario === "funcionario") {
+                window.location.href = "funcionario.html"; 
+            } 
+            else {
+                // Caso de segurança (não deveria acontecer)
                 window.location.href = "autenticacao.html";
             }
         });

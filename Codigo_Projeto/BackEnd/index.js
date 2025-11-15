@@ -354,11 +354,11 @@ app.get('/horarios', async (req, res) => {
         // 3️⃣ Para cada escala, criar blocos disponíveis
         escalas.forEach(escala => {
             let inicioSegundos = parseInt(escala.hora_inicio.split(':')[0]) * 3600
-                               + parseInt(escala.hora_inicio.split(':')[1]) * 60
-                               + parseInt(escala.hora_inicio.split(':')[2]);
+                + parseInt(escala.hora_inicio.split(':')[1]) * 60
+                + parseInt(escala.hora_inicio.split(':')[2]);
             const fimSegundos = parseInt(escala.hora_fim.split(':')[0]) * 3600
-                              + parseInt(escala.hora_fim.split(':')[1]) * 60
-                              + parseInt(escala.hora_fim.split(':')[2]);
+                + parseInt(escala.hora_fim.split(':')[1]) * 60
+                + parseInt(escala.hora_fim.split(':')[2]);
 
             while (inicioSegundos + duracaoSegundos <= fimSegundos) {
                 const inicioHH = String(Math.floor(inicioSegundos / 3600)).padStart(2, '0');
@@ -375,11 +375,11 @@ app.get('/horarios', async (req, res) => {
                 // Verifica se esse bloco bate com algum agendamento
                 const ocupado = agendamentos.some(a => {
                     const agInicio = parseInt(a.inicio.split(':')[0]) * 3600
-                                   + parseInt(a.inicio.split(':')[1]) * 60
-                                   + parseInt(a.inicio.split(':')[2]);
+                        + parseInt(a.inicio.split(':')[1]) * 60
+                        + parseInt(a.inicio.split(':')[2]);
                     const agFim = agInicio + (parseInt(a.duracao.split(':')[0]) * 3600
-                                              + parseInt(a.duracao.split(':')[1]) * 60
-                                              + parseInt(a.duracao.split(':')[2]));
+                        + parseInt(a.duracao.split(':')[1]) * 60
+                        + parseInt(a.duracao.split(':')[2]));
                     return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim); // conflito
                 });
 
@@ -407,57 +407,61 @@ app.get('/horarios', async (req, res) => {
 
 //ATÉ AQUI
 app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
-    const idCliente = req.params.id
+    const idCliente = req.params.id;
 
     const sql = `
-            SELECT
-        A.id_agendamento,
-        A.data_agendamento,
-        A.duracao,
-        S.nome_servico,
-        C.nome_funcionario AS nome_colaborador,
-        C.imagem_funcionario AS imagem_colaborador,
-        SP.valor
-    FROM
-        agendamentos A
-    JOIN
-        servicos S ON A.id_servico = S.id_servico
-    JOIN
-        funcionarios C ON A.id_funcionario= C.id_funcionario
-    LEFT JOIN 
-        servicos_precos SP ON A.id_servico = SP.id_servico
-    WHERE
-        A.id_cliente = ?
-        AND DATE(A.data_agendamento) >= CURDATE()
-    ORDER BY
-        A.data_agendamento ASC;
-
-    `
+        SELECT 
+            A.id_agendamento,
+            A.data_agendamento,
+            A.duracao,
+            S.nome_servico,
+            F.nome_funcionario,
+            F.imagem_colaborador,
+            U.nome_unidade,
+            SP.valor AS preco_final
+        FROM agendamentos A
+        JOIN servicos S ON A.id_servico = S.id_servico
+        JOIN funcionarios F ON A.id_funcionario = F.id_funcionario
+        JOIN unidades U ON A.id_unidade = U.id_unidade
+        JOIN servicos_precos SP 
+            ON SP.id_servico = A.id_servico
+            AND SP.id_unidade = A.id_unidade
+            AND SP.duracao = A.duracao
+            AND SP.ativo = 1
+        WHERE 
+            A.id_cliente = ?
+            AND A.data_agendamento > NOW()
+        ORDER BY A.data_agendamento ASC;
+    `;
 
     conexao.query(sql, [idCliente], (erro, resultados) => {
         if (erro) {
-            console.error("Erro ao buscar agendamentos futuros.", erro)
-            return res.status(500).json({ erro: 'Erro ao buscar agendamentos futuros.' })
+            console.error("Erro ao buscar agendamentos futuros.", erro);
+            return res.status(500).json({ erro: 'Erro ao buscar agendamentos futuros.' });
         }
 
         const agendamentosFormatados = resultados.map(ag => {
-            const valorNumerico = Number(ag.valor) || 0;
-            const valorFormatado = `R$ ${valorNumerico.toFixed(2).replace('.', ',')}`;
+            const valorNumerico = Number(ag.preco_final) || 0;
+            const valorFormatado = `R$ ${valorNumerico
+                .toFixed(2)
+                .replace('.', ',')}`;
 
             return {
                 id_agendamento: ag.id_agendamento,
                 data_agendamento: ag.data_agendamento,
                 duracao: ag.duracao,
                 nome_servico: ag.nome_servico,
-                nome_colaborador: ag.nome_colaborador,
+                nome_colaborador: ag.nome_funcionario,
                 imagem_colaborador: ag.imagem_colaborador,
+                unidade: ag.nome_unidade,
                 valor: valorFormatado
-            }
-        })
+            };
+        });
 
-        res.json(agendamentosFormatados)
-    })
-})
+        res.json(agendamentosFormatados);
+    });
+});
+
 
 app.patch('/agendamento/:id/cancelar', (req, res) => {
     const { id } = req.params;
@@ -558,8 +562,8 @@ app.get('/funcionario/:id', autenticarToken, (req, res) => {
                 const servicos = resultadoServicos.map(item => item.id_servico);
 
                 // Monta o JSON final
-                const resposta = { 
-                    funcionario: { ...funcionario, escala, servicos } 
+                const resposta = {
+                    funcionario: { ...funcionario, escala, servicos }
                 };
 
                 console.log('JSON retornado:', resposta);
@@ -568,8 +572,6 @@ app.get('/funcionario/:id', autenticarToken, (req, res) => {
         });
     });
 });
-
-
 
 app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
     const idCliente = req.params.id;
@@ -581,11 +583,13 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
             A.data_agendamento,
             A.duracao,
             C.nome_funcionario AS nome_profissional,
-            SP.valor AS preco,
-            S.nome_servico AS tipo_servico
+            S.nome_servico AS tipo_servico,
+            U.nome_unidade AS unidade,
+            SP.valor AS preco
         FROM agendamentos A
         JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
         JOIN servicos S ON A.id_servico = S.id_servico
+        JOIN unidades U ON A.id_unidade = U.id_unidade
         LEFT JOIN servicos_precos SP 
             ON SP.id_servico = A.id_servico 
             AND SP.ativo = TRUE
@@ -595,6 +599,7 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
                 WHERE id_servico = A.id_servico AND ativo = TRUE
             )
         WHERE A.id_cliente = ? 
+        AND A.data_agendamento < NOW()
         ORDER BY A.data_agendamento DESC;
     `;
 
@@ -615,6 +620,7 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
                 duracao: ag.duracao,
                 nome_profissional: ag.nome_profissional,
                 tipo_servico: ag.tipo_servico,
+                unidade: ag.unidade,
                 preco: valorFormatado
             };
         });
@@ -624,6 +630,7 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
         res.json(agendamentosFormatados);
     });
 });
+
 
 
 
@@ -935,7 +942,7 @@ app.get("/buscar", (req, res) => {
 
 app.listen(3000, () => {
     console.log('server up & running');
-})  
+})
 
 app.get('/servico/:id', (req, res) => {
     const { id } = req.params;
@@ -950,12 +957,157 @@ app.get('/servico/:id', (req, res) => {
         JOIN servicos s ON p.id_servico = s.id_servico
         WHERE p.id_servico = ?
     `;
-    
+
     conexao.query(sql, [id], (erro, resultado) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao buscar serviço' });
         if (resultado.length === 0) return res.status(404).json({ erro: 'Serviço não encontrado' });
-        
+
         // retorna todas as opções de duração e preço
         res.json(resultado);
+    });
+});
+
+app.delete('/deletar/:tipo/:id', (req, res) => {
+    const { tipo, id } = req.params;
+
+    let tabela = '';
+
+    if (tipo === 'cliente') tabela = 'clientes';
+    else if (tipo === 'funcionario') tabela = 'funcionarios';
+    else return res.status(400).json({ erro: "Tipo inválido." });
+
+    const sql = `DELETE FROM ${tabela} WHERE id_${tipo} = ?`;
+
+    conexao.query(sql, [id], (erro) => {
+        if (erro) {
+            console.log("Erro ao apagar conta:", erro);
+            return res.status(500).json({ erro: "Erro ao apagar conta." });
+        }
+
+        res.json({ mensagem: "Conta deletada com sucesso!" });
+    });
+});
+
+app.get('/funcionario/:id/agendamentos-futuros', (req, res) => {
+    console.log('Requisição recebida para agendamentos futuros do funcionário:', req.params.id);
+    const idFuncionario = req.params.id;
+
+    const sql = `
+        SELECT 
+A.id_agendamento,
+    A.data_agendamento,
+    A.duracao,
+    CL.nome_cliente AS nome_cliente, -- nome do cliente
+    S.nome_servico AS tipo_servico,
+    U.nome_unidade AS unidade,
+    SP.valor AS preco
+FROM agendamentos A
+JOIN clientes CL ON A.id_cliente = CL.id_cliente  -- join com clientes
+JOIN servicos S ON A.id_servico = S.id_servico
+JOIN unidades U ON A.id_unidade = U.id_unidade
+LEFT JOIN servicos_precos SP 
+    ON SP.id_servico = A.id_servico 
+    AND SP.ativo = TRUE
+    AND SP.valor = (
+        SELECT MAX(valor)
+        FROM servicos_precos
+        WHERE id_servico = A.id_servico AND ativo = TRUE
+    )
+WHERE A.id_funcionario = ?
+AND A.data_agendamento > NOW()
+ORDER BY A.data_agendamento DESC;
+    `;
+
+    conexao.query(sql, [idFuncionario], (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao buscar agendamentos históricos:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar agendamentos históricos.' });
+        }
+
+        console.log('Agendamentos brutos encontrados (backend):', resultados);
+
+        const agendamentosFormatados = resultados.map(ag => ({
+            id_agendamento: ag.id_agendamento,
+            data_agendamento: ag.data_agendamento,
+            duracao: ag.duracao,
+            nome_cliente: ag.nome_cliente,
+            nome_servico: ag.tipo_servico,
+            unidade: ag.unidade,
+            valor: `R$ ${(Number(ag.preco) || 0).toFixed(2).replace('.', ',')}`
+        }));
+
+        res.json(agendamentosFormatados);
+    });
+});
+app.get('/funcionario/:id/agendamentos-historicos', (req, res) => {
+    const idFuncionario = req.params.id;
+
+    const sql = `
+       SELECT 
+A.id_agendamento,
+    A.data_agendamento,
+    A.duracao,
+    CL.nome_cliente AS nome_cliente, -- nome do cliente
+    S.nome_servico AS tipo_servico,
+    U.nome_unidade AS unidade,
+    SP.valor AS preco
+FROM agendamentos A
+JOIN clientes CL ON A.id_cliente = CL.id_cliente  -- join com clientes
+JOIN servicos S ON A.id_servico = S.id_servico
+JOIN unidades U ON A.id_unidade = U.id_unidade
+LEFT JOIN servicos_precos SP 
+    ON SP.id_servico = A.id_servico 
+    AND SP.ativo = TRUE
+    AND SP.valor = (
+        SELECT MAX(valor)
+        FROM servicos_precos
+        WHERE id_servico = A.id_servico AND ativo = TRUE
+    )
+WHERE A.id_funcionario = ?
+AND A.data_agendamento < NOW()
+ORDER BY A.data_agendamento DESC;
+    `;
+
+    conexao.query(sql, [idFuncionario], (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao buscar agendamentos históricos:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar agendamentos históricos.' });
+        }
+
+        console.log('Agendamentos brutos encontrados (backend):', resultados);
+
+        const agendamentosFormatados = resultados.map(ag => ({
+            id_agendamento: ag.id_agendamento,
+            data_agendamento: ag.data_agendamento,
+            duracao: ag.duracao,
+            nome_cliente: ag.nome_cliente,
+            nome_servico: ag.tipo_servico,
+            unidade: ag.unidade,
+            valor: `R$ ${(Number(ag.preco) || 0).toFixed(2).replace('.', ',')}`
+        }));
+
+        res.json(agendamentosFormatados);
+    });
+});
+
+app.get('/listar-profissionais', (req, res) => {
+    console.log('Requisição para /profissionais recebida');
+    console.log('Headers:', req.headers);
+    console.log('Query params:', req.query);
+
+    const sql = `
+        SELECT id_funcionario, nome_funcionario, imagem_colaborador
+        FROM funcionarios
+        WHERE funcionario_ativo = 1
+        ORDER BY nome_funcionario ASC;
+    `;
+
+    conexao.query(sql, (erro, resultados) => {
+        if (erro) {
+            console.error('Erro ao executar query:', erro);
+            return res.status(500).json({ erro: 'Erro ao buscar profissionais.' });
+        }
+        console.log('Resultados encontrados:', resultados.length);
+        res.json(resultados);
     });
 });

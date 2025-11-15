@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../CSS/global.css">
     <link rel="stylesheet" href="../CSS/funcionario.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../CSS/minha-conta.css">
     <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
 </head>
 
@@ -628,14 +629,33 @@
         </button>
     </section>
     <section class="criar-conta-cliente">
-        <a href="grafico.html" target="_blank">
+        <a href="grafico.html">
             <button>
                 <i class="bi bi-pencil-square"></i>
-                Vizualizar estatisticas
+                Visualizar estatísticas
             </button>
         </a>
     </section>
 
+    <section class="meus-agendamentos">
+  <h2>Agendamentos Futuros do Funcionário</h2>
+  <section class="cards" id="cards-futuros-funcionario"></section>
+</section>
+
+<section class="meu-historico">
+  <h2>Histórico de Agendamentos do Funcionário</h2>
+  <section class="cards" id="cards-historico-funcionario"></section>
+</section>
+<section class="criar-conta-cliente">
+        <button id="botao-sair">
+            <i class="bi bi-pencil-square"></i>
+            Sair da conta</button>
+            </section>
+    <section class="criar-conta-cliente">
+        <button id="botao-apagar-conta">
+            <i class="bi bi-pencil-square"></i>
+            Apagar minha conta</button>
+    </section>
 
     <div class="modal-wrapper" id="modalCriarContaCliente">
         <section class="conteiner">
@@ -719,6 +739,8 @@
     <script src="../JS/janela-tabela-precos.js"></script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
     <script src="../JS/pesquisa.js"></script>
+    <script src="../JS/deletar-conta.js"></script>
+    <script src="../JS/agendamentos-funcionario.js"></script>
 </body>
 
 </html>
