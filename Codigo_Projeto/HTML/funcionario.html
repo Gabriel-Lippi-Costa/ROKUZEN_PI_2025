@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
 </head>
 
+
 <body>
 
     <header>
@@ -91,7 +92,7 @@
 
                     <label for="telefone-funcionario-editar">Telefone</label>
                     <input type="tel" name="telefone" id="telefone-funcionario-editar" required
-                        oninput="validarTelefone(this)" placeholder="(00) 00000-0000">
+                        oninput="validarTelefone(this)">
                     <span id="msgTEL-editar" class="msg-validacao"></span>
 
                     <label for="email-funcionario-editar">E-mail</label>
@@ -368,8 +369,8 @@
                     <input type="date" name="data-nascimento" id="data-nascimento-funcionario" required>
 
                     <label for="telefone">Telefone</label>
-                    <input type="tel" name="telefone" id="telefone-funcionario" required oninput="validarTelefone(this)"
-                        placeholder="(00) 00000-0000">
+                    <input type="tel" name="telefone" id="telefone-funcionario" required
+                        oninput="validarTelefone(this)">
                     <span id="msgTEL" class="msg-validacao"></span>
 
                     <label for="email-cadastro">E-mail</label>
@@ -638,19 +639,19 @@
     </section>
 
     <section class="meus-agendamentos">
-  <h2>Agendamentos Futuros do Funcionário</h2>
-  <section class="cards" id="cards-futuros-funcionario"></section>
-</section>
+        <h2>Agendamentos Futuros do Funcionário</h2>
+        <section class="cards" id="cards-futuros-funcionario"></section>
+    </section>
 
-<section class="meu-historico">
-  <h2>Histórico de Agendamentos do Funcionário</h2>
-  <section class="cards" id="cards-historico-funcionario"></section>
-</section>
-<section class="criar-conta-cliente">
+    <section class="meu-historico">
+        <h2>Histórico de Agendamentos do Funcionário</h2>
+        <section class="cards" id="cards-historico-funcionario"></section>
+    </section>
+    <section class="criar-conta-cliente">
         <button id="botao-sair">
             <i class="bi bi-pencil-square"></i>
             Sair da conta</button>
-            </section>
+    </section>
     <section class="criar-conta-cliente">
         <button id="botao-apagar-conta">
             <i class="bi bi-pencil-square"></i>
@@ -671,7 +672,7 @@
 
                     <label for="telefone">Telefone</label>
                     <input type="tel" name="telefone-cliente" id="telefone-cliente" required
-                        oninput="validarTelefone(this)" placeholder="(00) 00000-0000">
+                        oninput="validarTelefone(this)">
                     <span id="msgTEL" class="msg-validacao"></span>
 
                     <label for="email-cadastro">E-mail</label>

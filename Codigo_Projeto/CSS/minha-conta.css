@@ -344,3 +344,10 @@
   width: 90%; /* ocupa a maior parte do container */
   margin: 20px auto; /* centraliza horizontalmente e dá margem superior/inferior */
 }
+
+.img-servico {
+    width: 250px;      /* largura maior */
+    height: 250px;     /* altura maior */
+    object-fit: cover; /* mantém proporção e corta partes se necessário */
+    border-radius: 8px; /* cantos arredondados */
+}

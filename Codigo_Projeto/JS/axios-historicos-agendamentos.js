@@ -47,17 +47,24 @@ function renderizarCards(agendamentos, containerSelector, tipo = 'futuro') {
             duracaoFormatada = h * 60 + m;
         }
 
-        // ---- CAMPOS DIFERENTES ENTRE ROTAS ----
+        // ---- CAMPOS ----
         const nomeServico = ag.nome_servico || ag.tipo_servico;
         const nomeProfissional = ag.nome_colaborador || ag.nome_profissional;
         const valor = ag.valor || ag.preco;
+
+        // ---- GERAR NOME DO ARQUIVO DO SERVIÇO ----
+        let nomeArquivoServico = nomeServico.toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove acentos
+            .replace(/\s+/g, "-"); // substitui espaços por hífen
+
+        let imagemServico = `../assets/serviços/${nomeArquivoServico}.jpg`;
 
         // ---- CARD HTML ----
         const card = document.createElement('div');
         card.classList.add('card-agendamento');
 
         card.innerHTML = `
-            <img src="${ag.imagem_colaborador || '../IMG/sem-foto.png'}" alt="${nomeProfissional}">
+            <img src="${imagemServico}" alt="${nomeServico}" class="img-servico" onerror="this.src='../assets/profissionais/imagem-generica.png'">
             <div class="card">
                 <h3>${nomeServico}</h3>
                 <p><strong>Profissional:</strong> ${nomeProfissional}</p>

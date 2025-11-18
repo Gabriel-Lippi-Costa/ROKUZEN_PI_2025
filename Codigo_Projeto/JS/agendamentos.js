@@ -1,3 +1,11 @@
+// 🔹 Esconde o container de funcionários no início
+document.addEventListener('DOMContentLoaded', () => {
+    const containerFuncionarios = document.getElementById('funcionarios-container');
+    if (containerFuncionarios) {
+        containerFuncionarios.style.display = 'none';
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const unidades = document.querySelectorAll('.unidade-card');
     const containerDura = document.getElementById('conteudo-selecionado');
@@ -36,23 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
         radio.name = 'duracao';
         radio.id = `dur${item.duracao}`;
         radio.value = item.duracao;
+        radio.classList.add('radio-duracao');
 
         const label = document.createElement('label');
-        label.classList.add('chip');
+        label.classList.add('chip', 'label-duracao');
         label.setAttribute('for', `dur${item.duracao}`);
         label.textContent = `${item.duracao} min - R$ ${parseFloat(item.valor).toFixed(2)}`;
-
-        // Evento ao selecionar
         radio.addEventListener('change', () => {
-            console.log("Duração selecionada:", item.duracao);
+            // desabilita todos os outros radios imediatamente
+            precos.forEach(otherItem => {
+                const otherRadio = document.getElementById(`dur${otherItem.duracao}`);
+                const otherLabel = document.querySelector(`label[for='dur${otherItem.duracao}']`);
+                if (otherRadio !== radio) {
+                    otherRadio.disabled = true;
+                    otherLabel.style.pointerEvents = 'none';
+                    otherLabel.style.opacity = '0.6';
+                }
+            });
+
+            // mostra calendário e container pai
             const calendario = document.getElementById('form-calendario');
             if (calendario) calendario.style.display = 'block';
 
-            // Mostrar os radios (ou container) somente quando necessário
             const containerPai = document.getElementById('conteudo-selecionado');
             if (containerPai) containerPai.style.display = 'block';
         });
 
+        // Adiciona os elementos ao container
         container.appendChild(radio);
         container.appendChild(label);
     });
@@ -73,40 +91,62 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const containerFuncionarios = document.getElementById('funcionarios-container');
+        containerFuncionarios.style.display = 'flex';
+        containerFuncionarios.innerHTML = '';
+
+
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const dataInput = new Date(dataSelecionada);
+        if (dataInput < hoje) {
+            const msg = document.createElement('div');
+            msg.classList.add('sem-funcionarios-msg');
+            msg.textContent = 'Não é possível selecionar uma data passada.';
+            containerFuncionarios.appendChild(msg);
+            requestAnimationFrame(() => msg.classList.add('show'));
+            return; // sai do listener, não busca funcionários
+        }
+
         const diaSemana = new Date(dataSelecionada).getDay();
         const dadosServico = JSON.parse(localStorage.getItem('servicoSelecionado'));
         const unidadeSelecionada = localStorage.getItem('unidadeSelecionada');
 
         if (!dadosServico || !unidadeSelecionada) return;
 
-        const idServico = Array.isArray(dadosServico) ? dadosServico[0].id_servico : dadosServico.id_servico;
 
-        console.log("📤 Dados que seriam enviados ao backend:", {
-            idServico,
-            idUnidade: unidadeSelecionada,
-            diaSemana,
-            dataSelecionada
-        });
+
+        const idServico = Array.isArray(dadosServico) ? dadosServico[0].id_servico : dadosServico.id_servico;
 
         try {
             const resposta = await fetch(`http://localhost:3000/profissionais?id_servico=${idServico}&id_unidade=${encodeURIComponent(unidadeSelecionada)}&diaSemana=${diaSemana}`);
             const funcionarios = await resposta.json();
-            console.log("📥 Funcionários recebidos do backend:", funcionarios);
-
-            const containerFuncionarios = document.getElementById('funcionarios-container');
-            if (!containerFuncionarios) return;
 
             containerFuncionarios.innerHTML = '';
 
+            const titulo = document.createElement('h2');
+            titulo.classList.add('selecionar-profissional');
+            titulo.textContent = 'Escolha um profissional';
+            containerFuncionarios.appendChild(titulo);
+
+            const areaCards = document.createElement('div');
+            areaCards.classList.add('funcionarios-cards');
+            containerFuncionarios.appendChild(areaCards);
+
             if (funcionarios.length === 0) {
-                containerFuncionarios.textContent = 'Nenhum funcionário disponível nesse dia.';
+                const msg = document.createElement('div');
+                msg.classList.add('sem-funcionarios-msg');
+                msg.textContent = 'Nenhum funcionário disponível nesse dia.';
+                containerFuncionarios.appendChild(msg);
+                requestAnimationFrame(() => msg.classList.add('show'));
             } else {
                 funcionarios.forEach(func => {
                     const div = document.createElement('div');
                     div.classList.add('funcionario-item');
+                    div.setAttribute('data-id', func.id_funcionario);
 
                     const img = document.createElement('img');
-                    img.src = "../assets/profissionais/eric-rokuzen.jpeg";
+                    img.src = "../assets/profissionais/imagem-generica.png";
                     img.alt = func.nome_funcionario;
                     img.classList.add('thumb-funcionario');
 
@@ -117,58 +157,88 @@ document.addEventListener('DOMContentLoaded', () => {
                     div.appendChild(nome);
 
                     div.addEventListener('click', async () => {
-                        const idFuncionario = func.id_funcionario;
-                        localStorage.setItem('funcionarioSelecionado', idFuncionario);
-                        const dataSelecionada = inputData.value;
+                        if (div.classList.contains('selecionado')) return; // não permite mudar após selecionar
+
+                        document.querySelectorAll('.funcionario-item')
+                            .forEach(f => f.classList.remove('selecionado'));
+
+                        div.classList.add('selecionado');
+                        localStorage.setItem('funcionarioSelecionado', func.id_funcionario);
+
+                        document.querySelectorAll('.funcionario-item').forEach(f => {
+                            if (f !== div) {
+                                f.style.pointerEvents = 'none';   // não clicável
+                                f.style.opacity = '0.6';          // efeito visual de desativado
+                            }
+                        });
+
+                        // 🔹 Desabilita o input de data
+                        const inputData = document.getElementById('data-agendamento');
+                        if (inputData) {
+                            inputData.disabled = true;
+                            inputData.style.opacity = '0.6'; // efeito visual opcional
+                        }
+
+                        document.querySelectorAll('.unidade-card').forEach(card => {
+                            card.style.pointerEvents = 'none';
+                            card.style.opacity = '0.9';
+                        });
+
                         const duracaoSelecionada = document.querySelector('input[name="duracao"]:checked')?.value;
 
-
                         try {
-                            console.log(`http://localhost:3000/horarios?funcionario=${idFuncionario}&data=${dataSelecionada}&diaSemana=${diaSemana}&duracao=${duracaoSelecionada}`);
+                            const respostaHorarios = await fetch(
+                                `http://localhost:3000/horarios?funcionario=${func.id_funcionario}&data=${dataSelecionada}&diaSemana=${diaSemana}&duracao=${duracaoSelecionada}`
+                            );
+                            if (!respostaHorarios.ok) throw new Error("Erro ao buscar horários.");
 
-                            const resposta = await fetch(`http://localhost:3000/horarios?funcionario=${idFuncionario}&data=${dataSelecionada}&diaSemana=${diaSemana}&duracao=${duracaoSelecionada}`);
-                            if (!resposta.ok) throw new Error("Erro ao buscar horários.");
-
-                            const horarios = await resposta.json();
-                            console.log("Horários disponíveis:", horarios);
-
+                            const horarios = await respostaHorarios.json();
                             const containerHorarios = document.getElementById('horarios-container');
-                            if (!containerHorarios) {
-                                console.error("Container de horários não encontrado!");
-                                return;
-                            }
+                            if (!containerHorarios) return;
+
                             containerHorarios.innerHTML = '';
 
+                            const tituloHorarios = document.createElement('h2');
+                            tituloHorarios.textContent = 'Escolha um horário';
+                            tituloHorarios.classList.add('selecionar-horario');
+                            containerHorarios.appendChild(tituloHorarios);
+
+                            const botoesContainer = document.createElement('div');
+                            botoesContainer.classList.add('botoes-horarios');
+                            containerHorarios.appendChild(botoesContainer);
+
                             if (horarios.length === 0) {
-                                containerHorarios.textContent = 'Nenhum horário disponível nesse dia.';
+                                const msg = document.createElement('div');
+                                msg.textContent = 'Nenhum horário disponível nesse dia.';
+                                msg.classList.add('sem-horarios-msg'); // nova classe
+                                containerHorarios.appendChild(msg);
+                                requestAnimationFrame(() => msg.classList.add('show')); // animação
                             } else {
                                 horarios.forEach(h => {
                                     const btn = document.createElement('button');
-                                    btn.classList.add('horario-btn');
+                                    btn.classList.add('horario-btn', 'btn-horario');
                                     btn.textContent = `${h.inicio} - ${h.fim}`;
 
                                     btn.addEventListener('click', () => {
-                                        // Armazena o horário selecionado
+                                        botoesContainer.querySelectorAll('.btn-horario')
+                                            .forEach(b => b.classList.remove('selecionado'));
+
+                                        btn.classList.add('selecionado');
                                         localStorage.setItem('horarioSelecionado', h.inicio);
 
-                                        // Destaca o botão clicado
-                                        document.querySelectorAll('.horario-btn').forEach(b => b.classList.remove('selecionado'));
-                                        btn.classList.add('selecionado');
-
-                                        // Mostra o botão de agendar
                                         const btnAgendar = document.getElementById('btn-agendar');
-                                        if (btnAgendar) btnAgendar.style.display = 'inline-block';
+                                        if (btnAgendar) btnAgendar.style.display = 'block';
                                     });
 
-                                    containerHorarios.appendChild(btn);
+                                    botoesContainer.appendChild(btn);
                                 });
                             }
-                        } catch (erro) {
-                            console.error("Erro ao buscar horários:", erro);
+                        } catch (erroHorarios) {
+                            console.error("Erro ao buscar horários:", erroHorarios);
                         }
                     });
 
-                    containerFuncionarios.appendChild(div);
+                    areaCards.appendChild(div);
                 });
             }
         } catch (erro) {
@@ -176,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 
 
 
@@ -200,14 +271,14 @@ document.getElementById('btn-agendar').addEventListener('click', async () => {
         alert("Faltam dados para agendar!");
         return;
     }
- const agendamentoData = {
+    const agendamentoData = {
         id_cliente: idCliente, // pega do localStorage ou sessão
-    id_servico: Array.isArray(servico) ? servico[0].id_servico : servico.id_servico,
-    id_unidade: unidade,
-    id_funcionario: idFuncionario,
-    data_agendamento: data,
-    duracao: duracaoSelecionada,  // em HH:MM:SS
-    horario 
+        id_servico: Array.isArray(servico) ? servico[0].id_servico : servico.id_servico,
+        id_unidade: unidade,
+        id_funcionario: idFuncionario,
+        data_agendamento: data,
+        duracao: duracaoSelecionada,  // em HH:MM:SS
+        horario
     };
 
     console.log("📤 Dados que serão enviados ao backend:", agendamentoData);
@@ -228,4 +299,13 @@ document.getElementById('btn-agendar').addEventListener('click', async () => {
         console.error("Erro no POST de agendamento:", erro);
         alert("Erro ao criar agendamento.");
     }
+});
+
+const unidades = document.querySelectorAll('.unidade-card');
+
+unidades.forEach(card => {
+    card.addEventListener('click', () => {
+        unidades.forEach(c => c.classList.remove('ativo'));
+        card.classList.add('ativo');
+    });
 });

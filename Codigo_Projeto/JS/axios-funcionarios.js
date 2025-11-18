@@ -214,22 +214,6 @@ function toggleDia(header) {
     const content = header.nextElementSibling;
     content.classList.toggle("show");
 }
-
-function validarTelefone(input) {
-    let v = input.value.replace(/\D/g, '');
-    if (v.length > 11) v = v.slice(0, 11);
-
-    if (v.length >= 2) v = `(${v.slice(0, 2)}) ${v.slice(2)}`;
-    if (v.length >= 9) v = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
-
-    input.value = v;
-
-    if (v.length === 15) {
-        document.getElementById("msgTEL").textContent = "";
-    } else {
-        document.getElementById("msgTEL").textContent = "Telefone inválido!";
-    }
-}
 async function salvarDados(event) {
     event.preventDefault();
 

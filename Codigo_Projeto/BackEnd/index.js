@@ -388,7 +388,7 @@ app.get('/horarios', async (req, res) => {
                 }
 
                 // Avança o bloco em 15 min (ou outro intervalo desejado)
-                inicioSegundos += 15 * 60;
+                inicioSegundos += 30 * 60;
             }
         });
 
@@ -408,30 +408,32 @@ app.get('/horarios', async (req, res) => {
 //ATÉ AQUI
 app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     const idCliente = req.params.id;
+    console.log('ID do cliente recebido:', idCliente);
 
     const sql = `
         SELECT 
             A.id_agendamento,
             A.data_agendamento,
             A.duracao,
-            S.nome_servico,
-            F.nome_funcionario,
-            F.imagem_colaborador,
-            U.nome_unidade,
-            SP.valor AS preco_final
+            C.nome_funcionario AS nome_profissional,
+            S.nome_servico AS tipo_servico,
+            U.nome_unidade AS unidade,
+            SP.valor AS preco
         FROM agendamentos A
+        JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
         JOIN servicos S ON A.id_servico = S.id_servico
-        JOIN funcionarios F ON A.id_funcionario = F.id_funcionario
         JOIN unidades U ON A.id_unidade = U.id_unidade
-        JOIN servicos_precos SP 
-            ON SP.id_servico = A.id_servico
-            AND SP.id_unidade = A.id_unidade
-            AND SP.duracao = A.duracao
-            AND SP.ativo = 1
-        WHERE 
-            A.id_cliente = ?
-            AND A.data_agendamento > NOW()
-        ORDER BY A.data_agendamento ASC;
+        LEFT JOIN servicos_precos SP 
+            ON SP.id_servico = A.id_servico 
+            AND SP.ativo = TRUE
+            AND SP.valor = (
+                SELECT MAX(valor)
+                FROM servicos_precos
+                WHERE id_servico = A.id_servico AND ativo = TRUE
+            )
+        WHERE A.id_cliente = ?
+        AND A.data_agendamento > NOW()
+        ORDER BY A.data_agendamento DESC;
     `;
 
     conexao.query(sql, [idCliente], (erro, resultados) => {
@@ -440,27 +442,29 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao buscar agendamentos futuros.' });
         }
 
+        console.log("Resultados brutos da query:", resultados);
+
         const agendamentosFormatados = resultados.map(ag => {
-            const valorNumerico = Number(ag.preco_final) || 0;
-            const valorFormatado = `R$ ${valorNumerico
-                .toFixed(2)
-                .replace('.', ',')}`;
+            const valorNumerico = Number(ag.preco) || 0;
+            const valorFormatado = `R$ ${valorNumerico.toFixed(2).replace('.', ',')}`;
 
             return {
                 id_agendamento: ag.id_agendamento,
                 data_agendamento: ag.data_agendamento,
                 duracao: ag.duracao,
-                nome_servico: ag.nome_servico,
-                nome_colaborador: ag.nome_funcionario,
-                imagem_colaborador: ag.imagem_colaborador,
-                unidade: ag.nome_unidade,
+                nome_servico: ag.tipo_servico,
+                nome_colaborador: ag.nome_profissional,
+                unidade: ag.unidade,
                 valor: valorFormatado
             };
         });
 
+        console.log("Agendamentos formatados:", agendamentosFormatados);
+
         res.json(agendamentosFormatados);
     });
 });
+
 
 
 app.patch('/agendamento/:id/cancelar', (req, res) => {
