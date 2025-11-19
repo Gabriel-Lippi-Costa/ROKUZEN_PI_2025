@@ -311,7 +311,6 @@ app.get('/profissionais', async (req, res) => {
 });
 
 
-
 app.get('/horarios', async (req, res) => {
     const { funcionario, data, diaSemana, duracao } = req.query;
 
@@ -325,7 +324,7 @@ app.get('/horarios', async (req, res) => {
     try {
         // 1️⃣ Busca a escala do funcionário para aquele dia da semana
         const sqlEscala = `
-            SELECT hora_inicio, hora_fim
+            SELECT hora_inicio, hora_fim, hora_inicio_almoco, hora_fim_almoco
             FROM escalas
             WHERE id_funcionario = ?
               AND dia_semana = ?
@@ -347,47 +346,53 @@ app.get('/horarios', async (req, res) => {
         const [agendamentos] = await conexao.promise().query(sqlAgendamentos, [funcionario, data]);
         console.log("🔹 Agendamentos existentes:", agendamentos);
 
-        const duracaoSegundos = parseInt(duracao.split(':')[0]) * 3600 + parseInt(duracao.split(':')[1]) * 60 + parseInt(duracao.split(':')[2]);
+        const duracaoSegundos = parseInt(duracao.split(':')[0]) * 3600 + parseInt(duracao.split(':')[1]) * 60;
 
         const horariosDisponiveis = [];
 
         // 3️⃣ Para cada escala, criar blocos disponíveis
         escalas.forEach(escala => {
             let inicioSegundos = parseInt(escala.hora_inicio.split(':')[0]) * 3600
-                + parseInt(escala.hora_inicio.split(':')[1]) * 60
-                + parseInt(escala.hora_inicio.split(':')[2]);
+                + parseInt(escala.hora_inicio.split(':')[1]) * 60;
             const fimSegundos = parseInt(escala.hora_fim.split(':')[0]) * 3600
-                + parseInt(escala.hora_fim.split(':')[1]) * 60
-                + parseInt(escala.hora_fim.split(':')[2]);
+                + parseInt(escala.hora_fim.split(':')[1]) * 60;
+
+            // horário de almoço (pode ser null)
+            const inicioAlmocoSeg = escala.hora_inicio_almoco
+                ? parseInt(escala.hora_inicio_almoco.split(':')[0]) * 3600 + parseInt(escala.hora_inicio_almoco.split(':')[1]) * 60
+                : null;
+            const fimAlmocoSeg = escala.hora_fim_almoco
+                ? parseInt(escala.hora_fim_almoco.split(':')[0]) * 3600 + parseInt(escala.hora_fim_almoco.split(':')[1]) * 60
+                : null;
 
             while (inicioSegundos + duracaoSegundos <= fimSegundos) {
                 const inicioHH = String(Math.floor(inicioSegundos / 3600)).padStart(2, '0');
                 const inicioMM = String(Math.floor((inicioSegundos % 3600) / 60)).padStart(2, '0');
-                const inicioSS = String(inicioSegundos % 60).padStart(2, '0');
-                const blocoInicio = `${inicioHH}:${inicioMM}:${inicioSS}`;
+                const blocoInicio = `${inicioHH}:${inicioMM}`;
 
                 const fimBlocoSeg = inicioSegundos + duracaoSegundos;
                 const fimHH = String(Math.floor(fimBlocoSeg / 3600)).padStart(2, '0');
                 const fimMM = String(Math.floor((fimBlocoSeg % 3600) / 60)).padStart(2, '0');
-                const fimSS = String(fimBlocoSeg % 60).padStart(2, '0');
-                const blocoFim = `${fimHH}:${fimMM}:${fimSS}`;
+                const blocoFim = `${fimHH}:${fimMM}`;
 
                 // Verifica se esse bloco bate com algum agendamento
                 const ocupado = agendamentos.some(a => {
                     const agInicio = parseInt(a.inicio.split(':')[0]) * 3600
-                        + parseInt(a.inicio.split(':')[1]) * 60
-                        + parseInt(a.inicio.split(':')[2]);
+                        + parseInt(a.inicio.split(':')[1]) * 60;
                     const agFim = agInicio + (parseInt(a.duracao.split(':')[0]) * 3600
-                        + parseInt(a.duracao.split(':')[1]) * 60
-                        + parseInt(a.duracao.split(':')[2]));
+                        + parseInt(a.duracao.split(':')[1]) * 60);
                     return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim); // conflito
                 });
 
-                if (!ocupado) {
+                // Verifica se o bloco cai no horário de almoço
+                const duranteAlmoco = inicioAlmocoSeg !== null && fimAlmocoSeg !== null &&
+                                      !(fimBlocoSeg <= inicioAlmocoSeg || inicioSegundos >= fimAlmocoSeg);
+
+                if (!ocupado && !duranteAlmoco) {
                     horariosDisponiveis.push({ inicio: blocoInicio, fim: blocoFim });
                 }
 
-                // Avança o bloco em 15 min (ou outro intervalo desejado)
+                // Avança o bloco em 30 min
                 inicioSegundos += 30 * 60;
             }
         });
@@ -400,10 +405,6 @@ app.get('/horarios', async (req, res) => {
         res.status(500).json({ erro: "Erro ao consultar horários" });
     }
 });
-
-
-
-
 
 //ATÉ AQUI
 app.get('/cliente/:id/agendamentos-futuros', (req, res) => {

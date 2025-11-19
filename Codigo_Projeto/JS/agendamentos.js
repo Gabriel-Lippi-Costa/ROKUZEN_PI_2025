@@ -309,3 +309,28 @@ unidades.forEach(card => {
         card.classList.add('ativo');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const servicosSelecionados = JSON.parse(localStorage.getItem('servicoSelecionado'));
+
+    if (servicosSelecionados && servicosSelecionados.length > 0) {
+        const servico = servicosSelecionados[0];
+        const containerNomeServico = document.querySelector('.nome-servico');
+
+        // Cria o H2 com o nome do serviço
+        const h2 = document.createElement('h2');
+        h2.textContent = servico.nome_servico;
+        h2.classList.add('titulo-servico'); // ✅ adiciona classe
+        containerNomeServico.appendChild(h2);
+
+        // Cria a imagem do serviço
+        const img = document.createElement('img');
+        const nomeImagem = servico.nome_servico.toLowerCase().replace(/\s+/g, '-') + '.jpg';
+        img.src = `../assets/Serviços/${nomeImagem}`;
+        img.alt = servico.nome_servico;
+        img.classList.add('imagem-servico'); // ✅ adiciona classe
+        containerNomeServico.appendChild(img);
+    } else {
+        console.error('Nenhum serviço encontrado no localStorage:', servicosSelecionados);
+    }
+});

@@ -398,7 +398,7 @@
     flex: 1 1 calc(25% - 20px);   
     box-sizing: border-box;        
     text-align: center;
-    border: 1px solid #ccc;       
+    border: 3px solid #ccc;       
     border-radius: 8px;           
     padding: 10px;
     transition: transform 0.2s;
@@ -409,6 +409,18 @@
 
 .unidade-card:hover {
     transform: scale(1.05);       
+}
+
+
+.unidade-card {
+    border: 2px solid #ccc; /* aumentei de 1px para 2px */
+    border-radius: 8px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.unidade-card:hover {
+    border-color: #00b33c; /* verde do hover */
+    transform: scale(1.05);
 }
 
 .unidade-card img.thumb {
@@ -797,4 +809,35 @@
 .sem-horarios-msg.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+.nome-servico {
+    text-align: center; /* centraliza o conteúdo */
+    margin: 30px 0;
+    font-family: 'Poppins', sans-serif; /* aplica a fonte */
+}
+
+.titulo-servico {
+    font-size: 3rem; /* aumentei de 2rem para 3rem */
+    font-weight: 600;
+    color: #7e0000;
+    margin-bottom: 30px;
+}
+
+.imagem-servico {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto 50px auto; /* top 0, horizontal auto, bottom 30px */
+}
+
+
+.selecionar-unidade {
+    font-size: 3rem; /* aumentei de 2rem para 3rem */
+    font-weight: 600;
+    color: #7e0000;
+    margin-bottom: 30px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
 }
