@@ -268,9 +268,10 @@ document.getElementById('btn-agendar').addEventListener('click', async () => {
     console.log("data", data)
 
     if (!servico || !unidade || !horario || !idFuncionario || !data) {
-        alert("Faltam dados para agendar!");
+        mostrarAlertaBootstrap("Faltam dados para agendar!", "danger", 3000);
         return;
     }
+
     const agendamentoData = {
         id_cliente: idCliente, // pega do localStorage ou sessão
         id_servico: Array.isArray(servico) ? servico[0].id_servico : servico.id_servico,
@@ -294,10 +295,10 @@ document.getElementById('btn-agendar').addEventListener('click', async () => {
 
         const resultado = await resposta.json();
         console.log("Agendamento criado:", resultado);
-        alert("Agendamento realizado com sucesso!");
+        mostrarAlertaBootstrap("Agendamento realizado com sucesso!", "success", 3000);
     } catch (erro) {
         console.error("Erro no POST de agendamento:", erro);
-        alert("Erro ao criar agendamento.");
+        mostrarAlertaBootstrap("Erro ao criar agendamento.", "danger", 3000);
     }
 });
 

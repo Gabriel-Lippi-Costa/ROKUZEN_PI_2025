@@ -130,7 +130,6 @@ async function carregarAgendamentosHistoricos() {
             '<p>Erro ao carregar históricos.</p>';
     }
 }
-
 // ===================================================
 // CANCELAR AGENDAMENTO
 // ===================================================
@@ -139,19 +138,25 @@ document.addEventListener('click', async (event) => {
 
         const idAgendamento = event.target.getAttribute('data-id');
 
-        if (!confirm('Tem certeza que deseja cancelar este agendamento?')) return;
+        // Substituindo o confirm nativo por nossa função customizada
+        mostrarConfirmacao(
+            "Tem certeza que deseja cancelar este agendamento?",
+            async () => { // callback "Sim"
+                try {
+                    const url = `http://localhost:3000/agendamento/${idAgendamento}/cancelar`;
+                    const response = await axios.patch(url);
 
-        try {
-            const url = `http://localhost:3000/agendamento/${idAgendamento}/cancelar`;
-            const response = await axios.patch(url);
-
-            if (response.status === 200) {
-                alert('Agendamento cancelado!');
-                carregarAgendamentosFuturos(); // atualiza lista
+                    if (response.status === 200) {
+                        mostrarAlertaBootstrap("Agendamento cancelado!", "success", 3000);
+                        carregarAgendamentosFuturos(); // atualiza lista
+                    }
+                } catch (erro) {
+                    mostrarAlertaBootstrap("Erro ao cancelar o agendamento.", "danger", 3000);
+                    console.error('Erro ao cancelar o agendamento:', erro);
+                }
+            },
+            () => {
             }
-        } catch (erro) {
-            alert('Erro ao cancelar o agendamento.');
-            console.error('Erro ao cancelar o agendamento:', erro);
-        }
+        );
     }
 });

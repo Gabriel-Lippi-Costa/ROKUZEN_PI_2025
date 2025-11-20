@@ -8,7 +8,10 @@ async function loginUsuario() {
     const senha = document.querySelector('#senha-login').value;
 
     if (!email || !senha) {
-        alert('Preencha todos os campos!');
+        if (!email || !senha) {
+            mostrarAlertaBootstrap('Preencha todos os campos!', 'warning');
+            return;
+        }
         return;
     }
 
@@ -18,7 +21,8 @@ async function loginUsuario() {
         const resposta = await axios.post(URLcompleta, { email, senha });
         const dados = resposta.data;
 
-        alert(dados.mensagem);
+        mostrarAlertaBootstrap(dados.mensagem, 'success');
+
 
         localStorage.removeItem('usuario');
         localStorage.removeItem('idClienteLogado');
@@ -42,14 +46,14 @@ async function loginUsuario() {
             localStorage.setItem('idFuncionarioLogado', dados.usuario.id_funcionario);
             window.location.href = 'funcionario.html';
         }
-
     } catch (erro) {
         if (erro.response && erro.response.data.erro) {
-            alert(erro.response.data.erro);
+            mostrarAlertaBootstrap(erro.response.data.erro, 'danger');
         } else {
-            alert('Erro ao conectar com o servidor!');
+            mostrarAlertaBootstrap('Erro ao conectar com o servidor!', 'danger');
         }
     }
+
 }
 
 async function cadastrarUsuario() {
@@ -61,7 +65,7 @@ async function cadastrarUsuario() {
     const confirmar_senha = document.querySelector('#confirmar-password-cadastro').value;
 
     if (senha !== confirmar_senha) {
-        alert('As senhas não são iguais!');
+        mostrarAlertaBootstrap('As senhas não são iguais!', 'warning');
         return;
     }
 
@@ -76,7 +80,7 @@ async function cadastrarUsuario() {
             senha
         });
 
-        alert(resposta.data.mensagem);
+        mostrarAlertaBootstrap(resposta.data.mensagem, 'success');
 
         localStorage.removeItem('usuario');
         localStorage.removeItem('idClienteLogado');
@@ -100,10 +104,12 @@ async function cadastrarUsuario() {
                     }
                 });
                 localStorage.removeItem('agendamentoPendente');
-                alert('Agendamento pendente realizado com sucesso!');
+                mostrarAlertaBootstrap('Agendamento pendente realizado com sucesso!', 'success');
+
             } catch (erro) {
                 console.error('Erro ao processar agendamento pendente:', erro);
-                alert('Erro ao concluir agendamento pendente.');
+                mostrarAlertaBootstrap('Erro ao concluir agendamento pendente.', 'danger');
+
             }
         }
 
@@ -111,11 +117,12 @@ async function cadastrarUsuario() {
 
     } catch (erro) {
         if (erro.response && erro.response.data.erro) {
-            alert(erro.response.data.erro);
+            mostrarAlertaBootstrap(erro.response.data.erro, 'danger');
         } else {
-            alert('Erro ao conectar com o servidor!');
+            mostrarAlertaBootstrap('Erro ao conectar com o servidor!', 'danger');
         }
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {

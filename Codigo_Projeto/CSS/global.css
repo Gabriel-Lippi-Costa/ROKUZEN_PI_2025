@@ -422,3 +422,106 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
 .lista-resultados li:hover {
   background-color: #f2f2f2;
 }
+#alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Estilo geral dos alerts e confirmações */
+.alert-custom {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    font-size: 14px;
+    color: #333;
+    font-weight: 600; /* fonte mais forte */
+    position: relative;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: slideIn 0.3s forwards;
+}
+
+/* Tipos de alert */
+.alert-custom.alert-success {
+    background-color: #e6f4ea;
+    border-left: 5px solid #34a853;
+}
+
+.alert-custom.alert-danger {
+    background-color: #fdecea;
+    border-left: 5px solid #d93025;
+}
+
+.alert-custom.alert-info {
+    background-color: #e8f0fe;
+    border-left: 5px solid #1a73e8;
+}
+
+/* Botão de fechar */
+.close-alert {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.close-alert:hover {
+    color: #000;
+}
+
+/* Animação de entrada */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Botões de confirmação */
+.alert-custom button {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-weight: 700; /* botões mais fortes */
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.2s;
+}
+
+.alert-custom button#sim {
+    background-color: #34a853;
+    color: #fff;
+}
+
+.alert-custom button#sim:hover {
+    background-color: #2c8c46;
+}
+
+.alert-custom button#nao {
+    background-color: #d93025;
+    color: #fff;
+}
+
+.alert-custom button#nao:hover {
+    background-color: #b22a1f;
+}
+
+/* Texto da mensagem da confirmação */
+.alert-custom div:first-child {
+    margin-bottom: 10px;
+    font-weight: 700; /* texto mais forte */
+}
+.alert-custom.alert-warning {
+    background-color: #fff4e5; /* amarelo bem suave */
+    border-left: 5px solid #fbbc04; /* borda amarela mais intensa */
+    color: #665c00; /* texto mais escuro para contraste */
+}

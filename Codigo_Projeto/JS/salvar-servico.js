@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const tipo = localStorage.getItem("tipoUsuario");
 
         if (!token || tipo !== "cliente") {
-            alert("Você precisa estar logado como cliente para agendar um serviço!");
-            return; // ❗ não deixa continuar
-        }
-
+    mostrarAlertaBootstrap(
+        "Você precisa estar logado como cliente para agendar um serviço!",
+        "warning",
+        3000
+    );
+    return;
+}
         const idServico = botao.dataset.idServico;
         console.log("Botão clicado, ID do serviço:", idServico);
 
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (erro) {
             console.error("Erro ao buscar serviço:", erro);
-            alert('Não foi possível carregar os dados do serviço.');
+            mostrarAlertaBootstrap("Não foi possível carregar os dados do serviço.", "danger", 3000);
         }
     }
 

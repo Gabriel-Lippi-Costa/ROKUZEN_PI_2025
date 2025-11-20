@@ -1,53 +1,65 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const botao = document.getElementById("botao-apagar-conta");
-
-    botao.addEventListener("click", async () => {
-
-        const confirmar = confirm("Tem certeza que deseja apagar DEFINITIVAMENTE sua conta?");
-
-        if (!confirmar) return;
-
-        const tipo = localStorage.getItem("tipoUsuario"); 
-        const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-        let idConta;
-        if (tipo === "cliente") idConta = usuario.id_cliente;
-        if (tipo === "funcionario") idConta = usuario.id_funcionario;
-
-        if (!idConta) {
-            alert("Erro: ID da conta não encontrado!");
-            return;
-        }
-
-        try {
-            const resposta = await axios.delete(`http://localhost:3000/deletar/${tipo}/${idConta}`);
-
-            alert("Conta apagada com sucesso!");
-
-            localStorage.clear();
-            window.location.href = "index.html";
-
-        } catch (erro) {
-            console.error("Erro ao apagar conta:", erro);
-            alert("Erro ao apagar conta.");
-        }
-    });
-});
-
+// deletar-conta.js
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    // ======== APAGAR CONTA ========
+    const botaoApagar = document.getElementById("botao-apagar-conta");
+    if (botaoApagar) {
+        botaoApagar.addEventListener("click", () => {
+            mostrarConfirmacao(
+                "Tem certeza que deseja apagar DEFINITIVAMENTE sua conta?",
+                async () => {
+                    const tipo = localStorage.getItem("tipoUsuario"); 
+                    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+                    let idConta;
+                    if (tipo === "cliente") idConta = usuario.id_cliente;
+                    if (tipo === "funcionario") idConta = usuario.id_funcionario;
+
+                    if (!idConta) {
+                        mostrarAlertaBootstrap("Erro: ID da conta não encontrado!", "danger", 3000);
+                        return;
+                    }
+
+                    try {
+                        await axios.delete(`http://localhost:3000/deletar/${tipo}/${idConta}`);
+                        mostrarAlertaBootstrap("Conta apagada com sucesso!", "success", 3000);
+
+                        localStorage.clear();
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 1000); // dá tempo do alerta aparecer
+                    } catch (erro) {
+                        console.error("Erro ao apagar conta:", erro);
+                        mostrarAlertaBootstrap("Erro ao apagar conta.", "danger", 3000);
+                    }
+                },
+                () => {
+                    // Cancelou, não faz nada
+                }
+            );
+        });
+    }
+
+    // ======== SAIR DA CONTA ========
     const botaoSair = document.getElementById("botao-sair");
+    if (botaoSair) {
+        botaoSair.addEventListener("click", () => {
+            mostrarConfirmacao(
+                "Deseja realmente sair da conta?",
+                () => { 
+                    localStorage.clear(); // limpa dados
+                    mostrarAlertaBootstrap("Você saiu da sua conta.", "success", 3000);
 
-    if (!botaoSair) return;
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 1000); // dá tempo do alerta aparecer
+                },
+                () => {
+                    // Cancelou, não faz nada
+                }
+            );
+        });
+    }
 
-    botaoSair.addEventListener("click", () => {
-        const confirmar = confirm("Deseja realmente sair da conta?");
-
-        if (!confirmar) return;
-
-        localStorage.clear();   // limpa tudo
-        alert("Você saiu da sua conta.");
-
-        window.location.href = "index.html"; // altere para a página desejada
-    });
 });

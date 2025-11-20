@@ -68,7 +68,7 @@ async function preencherCamposFuncionario() {
 
     } catch (err) {
         console.error("Erro ao preencher dados do funcionário:", err);
-        alert('Erro ao buscar dados do funcionário!');
+    mostrarAlertaBootstrap("Erro ao buscar dados do funcionário!", "danger", 3000);
     }
 }
 
@@ -78,7 +78,7 @@ async function atualizarDadosFuncionario() {
     const token = localStorage.getItem('token');
 
     if (!funcionario || !funcionario.id_funcionario) {
-        alert("Funcionário não identificado!");
+        mostrarAlertaBootstrap("Funcionário não identificado!", "danger", 3000);
         return;
     }
 
@@ -127,13 +127,11 @@ const servicos = Array.from(
         delete funcionarioAtualizado.senha_funcionario;
         localStorage.setItem('usuario', JSON.stringify(funcionarioAtualizado));
 
-        // Fecha o modal antes do alert
         toggleModalEditarFuncionario();
 
-        // Atualiza os campos na tela
         preencherCamposFuncionario();
 
-        alert('Dados atualizados com sucesso!');
+        mostrarAlertaBootstrap("Dados atualizados com sucesso!", "success", 3000);
     } catch (err) {
         console.error('Erro ao atualizar os dados do funcionário:', err);
         alert('Erro ao atualizar os dados do funcionário!');
@@ -151,7 +149,7 @@ if (formEditarFuncionario) {
 
 
 document.getElementById('modalEditarFuncionario').addEventListener('click', function (e) {
-    if (e.target === this) toggleModalEditarFuncionario();
+    if (e.target === this) toggleModalFuncionario();
 });
 
 
@@ -169,7 +167,7 @@ async function criarContaCliente(event) {
     const senha = document.getElementById('password-cliente').value.trim();
 
     if (!nome || !data_nascimento || !telefone || !email || !senha) {
-        alert('Preencha todos os campos obrigatórios!');
+        mostrarAlertaBootstrap("Preencha todos os campos obrigatórios", "warning", 3000);
         return;
     }
 
@@ -182,7 +180,7 @@ async function criarContaCliente(event) {
             senha
         });
 
-        alert('Cliente cadastrado com sucesso!');
+        mostrarAlertaBootstrap("Cliente cadastrado com sucesso!", "success", 3000);
         console.log('Cliente criado:', resposta.data);
 
         document.getElementById('formDadosCriarCliente').reset();
@@ -194,7 +192,7 @@ async function criarContaCliente(event) {
         toggleModalCriarContaCliente();
     } catch (erro) {
         console.error('Erro ao criar conta do cliente:', erro);
-        alert('Erro ao criar conta. Verifique os dados e tente novamente.');
+       mostrarAlertaBootstrap("Erro ao criar conta, verifique os dados e tente novamente.", "danger", 3000);
     }
 }
 
@@ -217,38 +215,39 @@ function toggleDia(header) {
 async function salvarDados(event) {
     event.preventDefault();
 
+    const form = event.target; // form que disparou o submit
+
     // DADOS BÁSICOS DO FUNCIONÁRIO
     const novoFuncionario = {
-        nome: document.getElementById("nome-funcionario")?.value.trim() || '',
-        data_nascimento: document.getElementById("data-nascimento-funcionario")?.value || '',
-        telefone: document.getElementById("telefone-funcionario")?.value.trim() || '',
-        email: document.getElementById("email-funcionario")?.value.trim() || '',
-        senha: document.getElementById("password-funcionario")?.value.trim() || '',
+        nome: form.querySelector('[id$="nome-funcionario"]').value.trim() || '',
+        data_nascimento: form.querySelector('[id$="data-nascimento-funcionario"]').value || '',
+        telefone: form.querySelector('[id$="telefone-funcionario"]').value.trim() || '',
+        email: form.querySelector('[id$="email-funcionario"]').value.trim() || '',
+        senha: form.querySelector('[id$="password-funcionario"]').value.trim() || '',
         escala: {},
         servicos: []
     };
 
     // Validação básica de campos obrigatórios
-    
     if (!novoFuncionario.nome || !novoFuncionario.data_nascimento || !novoFuncionario.telefone ||
         !novoFuncionario.email || !novoFuncionario.senha) {
-        alert("Preencha todos os campos obrigatórios!");
+        mostrarAlertaBootstrap("Preencha todos os campos obrigatórios!", "danger", 3000);
         return;
     }
 
     // Monta a escala
-    document.querySelectorAll(".check-dia").forEach(chk => {
-        const dia = chk.dataset.dia;
+    form.querySelectorAll(".check-dia").forEach(chk => {
+        const dia = chk.dataset.dia || chk.dataset.diaEditar;
         if (chk.checked && dia) { // garante que dia exista
-            const unidade = document.querySelector(`.unidade-dia[data-dia="${dia}"]`)?.value.trim() || '';
-            const inicio = document.querySelector(`.hora-inicio[data-dia="${dia}"]`)?.value || '';
-            const fim = document.querySelector(`.hora-fim[data-dia="${dia}"]`)?.value || '';
-            const inicioAlmoco = document.querySelector(`.almoco-inicio[data-dia="${dia}"]`)?.value || null;
-            const fimAlmoco = document.querySelector(`.almoco-fim[data-dia="${dia}"]`)?.value || null;
+            const unidade = form.querySelector(`.unidade-dia[data-dia="${dia}"], .unidade-dia[data-dia-editar="${dia}"]`)?.value.trim() || '';
+            const inicio = form.querySelector(`.hora-inicio[data-dia="${dia}"], .hora-inicio[data-dia-editar="${dia}"]`)?.value || '';
+            const fim = form.querySelector(`.hora-fim[data-dia="${dia}"], .hora-fim[data-dia-editar="${dia}"]`)?.value || '';
+            const inicioAlmoco = form.querySelector(`.almoco-inicio[data-dia="${dia}"], .almoco-inicio[data-dia-editar="${dia}"]`)?.value || null;
+            const fimAlmoco = form.querySelector(`.almoco-fim[data-dia="${dia}"], .almoco-fim[data-dia-editar="${dia}"]`)?.value || null;
 
             // valida campos obrigatórios da escala
             if (!unidade || !inicio || !fim) {
-                alert(`Preencha unidade, início e fim para o dia ${dia}`);
+                mostrarAlertaBootstrap(`Preencha unidade, início e fim para o dia ${dia}`, "warning", 3000);
                 return;
             }
 
@@ -264,20 +263,26 @@ async function salvarDados(event) {
 
     // Verifica se pelo menos um dia foi selecionado
     if (Object.keys(novoFuncionario.escala).length === 0) {
-        alert("Selecione pelo menos um dia de trabalho.");
+        mostrarAlertaBootstrap("Selecione pelo menos um dia de trabalho.", "warning", 3000);
         return;
     }
 
     // Coleta os serviços selecionados
     novoFuncionario.servicos = Array.from(
-        document.querySelectorAll(".servicos-dashboard input:checked")
+        form.querySelectorAll("input[type='checkbox']:checked")
     ).map(cb => Number(cb.value));
 
     console.log("JSON que será enviado para o backend:", JSON.stringify(novoFuncionario, null, 2));
 
     try {
-        const resp = await fetch("http://localhost:3000/cadastro-funcionario", {
-            method: "POST",
+        const url = form.id === "formCriarFuncionario"
+            ? "http://localhost:3000/cadastro-funcionario"
+            : "http://localhost:3000/editar-funcionario"; // adapte a rota de edição
+
+        const method = form.id === "formCriarFuncionario" ? "POST" : "PATCH";
+
+        const resp = await fetch(url, {
+            method: method,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novoFuncionario)
         });
@@ -285,18 +290,29 @@ async function salvarDados(event) {
         const data = await resp.json();
 
         if (!resp.ok) {
-            alert("Erro ao criar funcionário: " + (data.erro || "Desconhecido"));
+            mostrarAlertaBootstrap("Erro: " + (data.erro || "Desconhecido"), "danger", 3000);
             return;
         }
 
-        alert("Funcionário criado com sucesso!");
-        toggleModalCriarContaFuncionario();
-        document.getElementById("formCriarFuncionario")?.reset();
+        mostrarAlertaBootstrap(
+            form.id === "formCriarFuncionario"
+                ? "Funcionário criado com sucesso!"
+                : "Funcionário atualizado com sucesso!",
+            "success",
+            3000
+        );
+
+        // Fecha modal correspondente
+        if (form.id === "formCriarFuncionario") toggleModalCriarContaFuncionario();
+        else toggleModalEditarFuncionario();
+
+        form.reset();
 
     } catch (erro) {
         console.error("Erro:", erro);
-        alert("Erro ao conectar com o servidor.");
+        mostrarAlertaBootstrap("Erro ao conectar com o servidor.", "danger", 3000);
     }
 }
+
 
 

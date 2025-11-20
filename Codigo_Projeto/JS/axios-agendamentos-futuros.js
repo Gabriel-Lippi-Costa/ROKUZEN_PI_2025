@@ -134,12 +134,12 @@ document.addEventListener('click', async (event) => {
                 const response = await axios.patch(url);
 
                 if (response.status === 200) {
-                    alert('Agendamento cancelado com sucesso!');
-                    carregarAgendamentosFuturos(); // atualiza lista
+                    mostrarAlertaBootstrap('Agendamento cancelado com sucesso!', 'success', 3000);
+                    carregarAgendamentosFuturos();
                 }
             } catch (erro) {
                 console.error('Erro ao cancelar o agendamento:', erro);
-                alert('Erro ao cancelar o agendamento. Tente novamente.');
+                mostrarAlertaBootstrap('Erro ao cancelar o agendamento. Tente novamente.', 'danger', 3000);
             }
         }
     }

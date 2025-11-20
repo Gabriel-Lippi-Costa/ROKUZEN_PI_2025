@@ -30,15 +30,15 @@ async function preencherCamposUsuario() {
 
         document.getElementById('telefone').value = dados.telefone_cliente || '';
         document.getElementById('email').value = dados.email_cliente || '';
-        document.getElementById('password').value =  '';
+        document.getElementById('password').value = '';
     } catch (err) {
         console.error(err);
     }
 }
-
+// Função que atualiza os dados do usuário
 async function atualizarDadosUsuario() {
-    const usuario = JSON.parse(localStorage.getItem('usuario'))
-    const id = usuario.id_cliente
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const id = usuario.id_cliente;
 
     const nome = document.getElementById('nome').value;
     const data_nascimento = document.getElementById('data-nascimento').value;
@@ -58,15 +58,23 @@ async function atualizarDadosUsuario() {
         );
 
         localStorage.setItem('usuario', JSON.stringify(resp.data.usuario));
-        preencherCamposUsuario();
-        alert('Dados atualizados com sucesso!');
+        preencherCamposUsuario(); // atualiza os campos na tela
+        mostrarAlertaBootstrap("Dados atualizados com sucesso!", "success", 3000);
+        toggleModal();
     } catch (err) {
         console.error(err);
         console.error('Erro ao atualizar os dados do usuário:', err.response?.data || err);
         console.log({ nome, data_nascimento, telefone, email, senha });
-        alert('Erro ao atualizar os dados do usuário!');
+
+        mostrarAlertaBootstrap("Erro ao atualizar os dados do usuário!", "danger", 3000);
     }
 }
+const formDados = document.getElementById('formDados');
+
+formDados.addEventListener('submit', function(event) {
+    event.preventDefault();
+    atualizarDadosUsuario();
+});
 
 document.getElementById('modalEditarFuncionario').addEventListener('click', function (e) {
     if (e.target === this) toggleModalEditarFuncionario();
