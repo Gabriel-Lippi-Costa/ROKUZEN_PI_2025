@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function clicarBotaoServico(botao) {
 
-        // 🔒 Verifica login antes de qualquer coisa
         const token = localStorage.getItem("token");
         const tipo = localStorage.getItem("tipoUsuario");
 
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const dadosServico = await resposta.json();
             console.log("Dados recebidos do backend:", dadosServico);
 
-            // Salva o JSON no localStorage
             localStorage.setItem('servicoSelecionado', JSON.stringify(dadosServico));
 
             window.location.href = 'agendar.html';

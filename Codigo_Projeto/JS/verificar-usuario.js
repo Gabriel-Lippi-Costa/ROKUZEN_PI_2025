@@ -14,12 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const tipoUsuario = localStorage.getItem("tipoUsuario");
 
             if (!token) {
-                // Ninguém logado → vai pra login
                 window.location.href = "autenticacao.html";
                 return;
             }
 
-            // Redirecionamento correto:
             if (tipoUsuario === "cliente") {
                 window.location.href = "minha-conta.html";
             } 
@@ -27,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "funcionario.html"; 
             } 
             else {
-                // Caso de segurança (não deveria acontecer)
                 window.location.href = "autenticacao.html";
             }
         });

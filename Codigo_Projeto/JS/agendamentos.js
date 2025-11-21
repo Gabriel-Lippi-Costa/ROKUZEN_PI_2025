@@ -1,4 +1,3 @@
-// 🔹 Esconde o container de funcionários no início
 document.addEventListener('DOMContentLoaded', () => {
     const containerFuncionarios = document.getElementById('funcionarios-container');
     if (containerFuncionarios) {
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('unidadeSelecionada', idUnidade);
             console.log("Unidade selecionada:", idUnidade);
 
-            // Mostra o container de duração apenas depois de clicar
             if (containerDura) containerDura.style.display = 'block';
         });
     });
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Exemplo: dados que você salvou no localStorage após clicar no botão
     const dadosServico = JSON.parse(localStorage.getItem('servicoSelecionado'));
     const idCliente = localStorage.getItem('usuarioId');
     if (!dadosServico) return;
@@ -33,9 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.duration-group');
     if (!container) return;
 
-    container.innerHTML = ''; // limpa caso haja algo
+    container.innerHTML = ''; 
 
-    // Se o JSON for um array
     const precos = Array.isArray(dadosServico) ? dadosServico : [dadosServico];
 
     precos.forEach(item => {
@@ -51,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         label.setAttribute('for', `dur${item.duracao}`);
         label.textContent = `${item.duracao} min - R$ ${parseFloat(item.valor).toFixed(2)}`;
         radio.addEventListener('change', () => {
-            // desabilita todos os outros radios imediatamente
             precos.forEach(otherItem => {
                 const otherRadio = document.getElementById(`dur${otherItem.duracao}`);
                 const otherLabel = document.querySelector(`label[for='dur${otherItem.duracao}']`);
@@ -62,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // mostra calendário e container pai
+
             const calendario = document.getElementById('form-calendario');
             if (calendario) calendario.style.display = 'block';
 
@@ -70,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (containerPai) containerPai.style.display = 'block';
         });
 
-        // Adiciona os elementos ao container
         container.appendChild(radio);
         container.appendChild(label);
     });
@@ -105,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             msg.textContent = 'Não é possível selecionar uma data passada.';
             containerFuncionarios.appendChild(msg);
             requestAnimationFrame(() => msg.classList.add('show'));
-            return; // sai do listener, não busca funcionários
+            return; 
         }
 
         const diaSemana = new Date(dataSelecionada).getDay();
@@ -157,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     div.appendChild(nome);
 
                     div.addEventListener('click', async () => {
-                        if (div.classList.contains('selecionado')) return; // não permite mudar após selecionar
+                        if (div.classList.contains('selecionado')) return;
 
                         document.querySelectorAll('.funcionario-item')
                             .forEach(f => f.classList.remove('selecionado'));
@@ -167,16 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         document.querySelectorAll('.funcionario-item').forEach(f => {
                             if (f !== div) {
-                                f.style.pointerEvents = 'none';   // não clicável
-                                f.style.opacity = '0.6';          // efeito visual de desativado
+                                f.style.pointerEvents = 'none';  
+                                f.style.opacity = '0.6';         
                             }
                         });
 
-                        // 🔹 Desabilita o input de data
                         const inputData = document.getElementById('data-agendamento');
                         if (inputData) {
                             inputData.disabled = true;
-                            inputData.style.opacity = '0.6'; // efeito visual opcional
+                            inputData.style.opacity = '0.6'; 
                         }
 
                         document.querySelectorAll('.unidade-card').forEach(card => {
@@ -210,9 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (horarios.length === 0) {
                                 const msg = document.createElement('div');
                                 msg.textContent = 'Nenhum horário disponível nesse dia.';
-                                msg.classList.add('sem-horarios-msg'); // nova classe
+                                msg.classList.add('sem-horarios-msg'); 
                                 containerHorarios.appendChild(msg);
-                                requestAnimationFrame(() => msg.classList.add('show')); // animação
+                                requestAnimationFrame(() => msg.classList.add('show')); 
                             } else {
                                 horarios.forEach(h => {
                                     const btn = document.createElement('button');
@@ -252,12 +245,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// Botão Agendar
 document.getElementById('btn-agendar').addEventListener('click', async () => {
     const servico = JSON.parse(localStorage.getItem('servicoSelecionado'));
     const unidade = localStorage.getItem('unidadeSelecionada');
     const horario = localStorage.getItem('horarioSelecionado');
-    const idFuncionario = localStorage.getItem('funcionarioSelecionado'); // salvar ao clicar no funcionário
+    const idFuncionario = localStorage.getItem('funcionarioSelecionado'); 
     const data = document.getElementById('data-agendamento').value;
     const idCliente = localStorage.getItem('idClienteLogado');
     const duracaoSelecionada = document.querySelector('input[name="duracao"]:checked')?.value;
@@ -273,12 +265,12 @@ document.getElementById('btn-agendar').addEventListener('click', async () => {
     }
 
     const agendamentoData = {
-        id_cliente: idCliente, // pega do localStorage ou sessão
+        id_cliente: idCliente, 
         id_servico: Array.isArray(servico) ? servico[0].id_servico : servico.id_servico,
         id_unidade: unidade,
         id_funcionario: idFuncionario,
         data_agendamento: data,
-        duracao: duracaoSelecionada,  // em HH:MM:SS
+        duracao: duracaoSelecionada,  
         horario
     };
 
@@ -318,18 +310,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const servico = servicosSelecionados[0];
         const containerNomeServico = document.querySelector('.nome-servico');
 
-        // Cria o H2 com o nome do serviço
         const h2 = document.createElement('h2');
         h2.textContent = servico.nome_servico;
-        h2.classList.add('titulo-servico'); // ✅ adiciona classe
+        h2.classList.add('titulo-servico'); 
         containerNomeServico.appendChild(h2);
 
-        // Cria a imagem do serviço
         const img = document.createElement('img');
         const nomeImagem = servico.nome_servico.toLowerCase().replace(/\s+/g, '-') + '.jpg';
         img.src = `../assets/Serviços/${nomeImagem}`;
         img.alt = servico.nome_servico;
-        img.classList.add('imagem-servico'); // ✅ adiciona classe
+        img.classList.add('imagem-servico'); 
         containerNomeServico.appendChild(img);
     } else {
         console.error('Nenhum serviço encontrado no localStorage:', servicosSelecionados);

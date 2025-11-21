@@ -271,69 +271,69 @@
   box-shadow: 0 0 15px rgba(126, 0, 0, 0.5);
   transform: translateY(-3px);
 }
-/* Layout geral dos serviços */
+
 .servicos-dashboard-editar {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 12px;
 }
 
-/* Caixinha */
+
 .servico-item {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 8px 10px;
-    border: 1px solid #bcd6a2;          /* verde claro */
+    border: 1px solid #bcd6a2;          
     border-radius: 8px;
-    background: #f5faf1;                /* fundo verde suuuper claro */
+    background: #f5faf1;               
     transition: 0.2s;
 }
 
-/* Hover */
+
 .servico-item:hover {
-    background: #e8f5dd;                /* verde mais forte no hover */
-    border-color: #79b05a;              /* verde médio */
+    background: #e8f5dd;               
+    border-color: #79b05a;              
 }
 
-/* Checkbox */
+
 .servico-item input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #79b05a;              /* deixa checkbox verdinho */
+    accent-color: #79b05a;              
     cursor: pointer;
 }
 
 
-/* Cada dia como card */
+
 .dia-item {
-    margin-bottom: 20px;           /* distância entre os dias */
-    padding: 10px;                 /* padding interno do card */
-    border: 1px solid #bcd6a2;     /* borda verde clara */
-    border-radius: 8px;            /* cantos arredondados */
-    background: #ffffff;           /* fundo branco */
+    margin-bottom: 20px;           
+    padding: 10px;                
+    border: 1px solid #bcd6a2;     
+    border-radius: 8px;            
+    background: #ffffff;           
 }
 
-/* Header do dia */
+
 .dia-item header {
     display: flex;
     align-items: center;
     gap: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #bcd6a2; /* linha separadora dentro do card */
+    border-bottom: 1px solid #bcd6a2;
 }
 
-/* Checkbox sempre primeiro */
+
 header[onclick="toggleDia(this)"] .check-dia {
     order: 1;
     width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: #79b05a; /* verde */
+    accent-color: #79b05a;
 }
 
-/* Texto */
+
 header[onclick="toggleDia(this)"] h4 {
     order: 2;
     margin: 0;
@@ -342,14 +342,13 @@ header[onclick="toggleDia(this)"] h4 {
     white-space: nowrap;
 }
 
-/* Remove fundo e sombras */
+
 header[onclick="toggleDia(this)"] {
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
 }
 
-/* Selects e inputs dentro do card */
 .unidade-dia {
     border: 1px solid #bcd6a2;   
     border-radius: 6px;
@@ -369,22 +368,19 @@ header[onclick="toggleDia(this)"] {
     outline: none;
 }
 
-/* Conteúdo dentro do card (inputs, selects, labels) */
 .dia-item .conteudo-dia {
     display: flex;
-    flex-direction: column; /* empilha verticalmente */
-    gap: 12px;              /* espaçamento entre cada label/input */
-    margin-top: 10px;       /* dá uma leve distância do header */
+    flex-direction: column; 
+    gap: 12px;              
+    margin-top: 10px;       
 }
 
-/* Se quiser aumentar ainda mais o gap entre label e input */
 .dia-item .conteudo-dia label {
-    margin-bottom: 4px; /* pequeno espaçamento entre label e campo */
+    margin-bottom: 4px; 
 }
 
-/* Espaçamento extra antes do primeiro dia (Segunda-feira) */
 .dia-item:first-child {
-    margin-top: 20px; /* ajusta o valor como quiser */
+    margin-top: 20px; 
 }
 
 header[onclick="toggleDia(this)"] h4 {
@@ -393,12 +389,11 @@ header[onclick="toggleDia(this)"] h4 {
 
 .titulo-escala {
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;  /* opcional, deixa um pouco mais forte */
+    font-weight: 600;  
     font-size: 22px; 
-    color: #7e0000;   /* ajusta o tamanho se quiser */
+    color: #7e0000;   
 }
 
-/* Título Serviços do Funcionário */
 .titulo-servicos {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
@@ -408,6 +403,6 @@ header[onclick="toggleDia(this)"] h4 {
 .servicos-dashboard {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px; /* espaço entre cada checkbox + label */
-    margin-top: 10px; /* opcional, distância do título */
+    gap: 12px;
+    margin-top: 10px; 
 }

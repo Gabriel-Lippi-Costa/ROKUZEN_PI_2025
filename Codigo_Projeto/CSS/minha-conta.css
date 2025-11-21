@@ -241,8 +241,8 @@
 .card-agendamento {
   display: flex;
   align-items: center;
-  width: 400px; /* ou 100% se quiser que ocupe toda a área do container */
-  min-width: 350px; /* opcional */
+  width: 400px;
+  min-width: 350px; 
   max-width: 100%;
   background-color: #fff;
   border-radius: 12px;
@@ -320,9 +320,9 @@
 .meu-historico .cards .card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* força o alinhamento à esquerda */
+  align-items: flex-start; 
   gap: 5px;
-  text-align: left; /* garante que o texto fique à esquerda */
+  text-align: left;
 }
 
 .cards {
@@ -331,23 +331,23 @@
   gap: 20px;
   margin-top: 20px;
   margin-left: 20px;
-  margin-bottom: 30px; /* <-- margem extra no final */
+  margin-bottom: 30px; 
 }
 .mensagem-vazia {
   font-family: "Poppins", sans-serif;
   font-size: 22px;
   font-weight: 600;
-  color: #000000; /* cor preta */
+  color: #000000; 
   text-align: center;
   padding: 20px;
   border-radius: 12px;
-  width: 90%; /* ocupa a maior parte do container */
-  margin: 20px auto; /* centraliza horizontalmente e dá margem superior/inferior */
+  width: 90%; 
+  margin: 20px auto; 
 }
 
 .img-servico {
-    width: 250px;      /* largura maior */
-    height: 250px;     /* altura maior */
-    object-fit: cover; /* mantém proporção e corta partes se necessário */
-    border-radius: 8px; /* cantos arredondados */
+    width: 250px;     
+    height: 250px;    
+    object-fit: cover;
+    border-radius: 8px; 
 }

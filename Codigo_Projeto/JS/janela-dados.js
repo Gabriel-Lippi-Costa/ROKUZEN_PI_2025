@@ -35,7 +35,6 @@ async function preencherCamposUsuario() {
         console.error(err);
     }
 }
-// Função que atualiza os dados do usuário
 async function atualizarDadosUsuario() {
     const usuario = JSON.parse(localStorage.getItem('usuario'));
     const id = usuario.id_cliente;
@@ -58,7 +57,7 @@ async function atualizarDadosUsuario() {
         );
 
         localStorage.setItem('usuario', JSON.stringify(resp.data.usuario));
-        preencherCamposUsuario(); // atualiza os campos na tela
+        preencherCamposUsuario(); 
         mostrarAlertaBootstrap("Dados atualizados com sucesso!", "success", 3000);
         toggleModal();
     } catch (err) {
@@ -84,7 +83,6 @@ function toggleModalEditarFuncionario() {
     const modal = document.getElementById('modalEditarFuncionario');
     modal.classList.toggle('show');
 
-    // Só chama se estiver abrindo o modal
     if (modal.classList.contains('show')) {
         preencherCamposFuncionario();
     }

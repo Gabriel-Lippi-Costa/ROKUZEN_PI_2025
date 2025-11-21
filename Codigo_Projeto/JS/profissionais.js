@@ -1,4 +1,3 @@
-// Função para renderizar os cards de profissionais
 function renderizarCardsProfissionais(profissionais) {
     console.log('renderizarCardsProfissionais chamado');
     console.log('Profissionais recebidos:', profissionais);
@@ -9,7 +8,7 @@ function renderizarCardsProfissionais(profissionais) {
         return;
     }
 
-    container.innerHTML = ''; // limpa qualquer conteúdo existente
+    container.innerHTML = ''; 
 
     if (!profissionais || profissionais.length === 0) {
         console.log('Nenhum profissional encontrado para renderizar');
@@ -39,11 +38,10 @@ function renderizarCardsProfissionais(profissionais) {
     console.log('Todos os profissionais foram renderizados');
 }
 
-// Função para buscar os profissionais do backend
 async function carregarProfissionais() {
     console.log('carregarProfissionais chamado');
     try {
-        const response = await axios.get('http://localhost:3000/listar-profissionais'); // rota que retorna todos os profissionais
+        const response = await axios.get('http://localhost:3000/listar-profissionais');
         console.log('Resposta do backend:', response.data);
 
         renderizarCardsProfissionais(response.data);
@@ -52,7 +50,6 @@ async function carregarProfissionais() {
     }
 }
 
-// Chamada quando a página carrega
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM carregado, iniciando carregamento de profissionais');
     carregarProfissionais();

@@ -434,7 +434,7 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Estilo geral dos alerts e confirmações */
+
 .alert-custom {
     background: #fff;
     padding: 15px 20px;
@@ -442,14 +442,14 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     font-size: 14px;
     color: #333;
-    font-weight: 600; /* fonte mais forte */
+    font-weight: 600; 
     position: relative;
     opacity: 0;
     transform: translateY(-10px);
     animation: slideIn 0.3s forwards;
 }
 
-/* Tipos de alert */
+
 .alert-custom.alert-success {
     background-color: #e6f4ea;
     border-left: 5px solid #34a853;
@@ -465,7 +465,7 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     border-left: 5px solid #1a73e8;
 }
 
-/* Botão de fechar */
+
 .close-alert {
     position: absolute;
     top: 8px;
@@ -480,18 +480,18 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     color: #000;
 }
 
-/* Animação de entrada */
+
 @keyframes slideIn {
     from { opacity: 0; transform: translateY(-10px);}
     to { opacity: 1; transform: translateY(0);}
 }
 
-/* Botões de confirmação */
+
 .alert-custom button {
     border: none;
     border-radius: 6px;
     padding: 6px 14px;
-    font-weight: 700; /* botões mais fortes */
+    font-weight: 700; 
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     transition: background 0.2s;
@@ -515,13 +515,38 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
     background-color: #b22a1f;
 }
 
-/* Texto da mensagem da confirmação */
+
 .alert-custom div:first-child {
     margin-bottom: 10px;
-    font-weight: 700; /* texto mais forte */
+    font-weight: 700; 
 }
 .alert-custom.alert-warning {
-    background-color: #fff4e5; /* amarelo bem suave */
-    border-left: 5px solid #fbbc04; /* borda amarela mais intensa */
-    color: #665c00; /* texto mais escuro para contraste */
+    background-color: #fff4e5; 
+    border-left: 5px solid #fbbc04;
+    color: #665c00;
+}
+.barra-de-pesquisa {
+  position: relative;
+  display: flex;
+  justify-content: center;  
+}
+
+.lista-resultados {
+  position: absolute;
+  width: 240px;      
+  top: 278px; 
+}
+
+
+@media (max-width: 1024px) {
+  .lista-resultados {
+    top: 221px;
+  }
+}
+.lista-resultados {
+    font-family: 'Poppins', sans-serif;
+}
+
+.lista-resultados li:hover {
+    color: #a8be7c;
 }

@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarAgendamentosHistoricos();
 });
 
-// ===============================
-// FUNÇÃO PRINCIPAL DE RENDERIZAÇÃO
-// ===============================
+
 function renderizarCards(agendamentos, containerSelector, tipo = 'futuro') {
     const container = document.querySelector(containerSelector);
 
@@ -26,7 +24,6 @@ function renderizarCards(agendamentos, containerSelector, tipo = 'futuro') {
 
     agendamentos.forEach(ag => {
 
-        // ---- FORMATAR DATA ----
         const data = new Date(ag.data_agendamento);
         const dataFormatada = data.toLocaleDateString('pt-BR', {
             day: '2-digit',
@@ -34,32 +31,27 @@ function renderizarCards(agendamentos, containerSelector, tipo = 'futuro') {
             year: 'numeric'
         });
 
-        // ---- FORMATAR HORA ----
         const horaFormatada = data.toLocaleTimeString('pt-BR', {
             hour: '2-digit',
             minute: '2-digit'
         });
 
-        // ---- FORMATAR DURAÇÃO ----
         let duracaoFormatada = ag.duracao;
         if (typeof ag.duracao === 'string' && ag.duracao.includes(':')) {
             const [h, m] = ag.duracao.split(':').map(Number);
             duracaoFormatada = h * 60 + m;
         }
 
-        // ---- CAMPOS ----
         const nomeServico = ag.nome_servico || ag.tipo_servico;
         const nomeProfissional = ag.nome_colaborador || ag.nome_profissional;
         const valor = ag.valor || ag.preco;
 
-        // ---- GERAR NOME DO ARQUIVO DO SERVIÇO ----
         let nomeArquivoServico = nomeServico.toLowerCase()
-            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove acentos
-            .replace(/\s+/g, "-"); // substitui espaços por hífen
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
+            .replace(/\s+/g, "-");
 
         let imagemServico = `../assets/serviços/${nomeArquivoServico}.jpg`;
 
-        // ---- CARD HTML ----
         const card = document.createElement('div');
         card.classList.add('card-agendamento');
 
@@ -81,9 +73,7 @@ function renderizarCards(agendamentos, containerSelector, tipo = 'futuro') {
     });
 }
 
-// ===================================================
-// FUTUROS
-// ===================================================
+
 async function carregarAgendamentosFuturos() {
     const idCliente = localStorage.getItem('idClienteLogado');
 
@@ -106,9 +96,7 @@ async function carregarAgendamentosFuturos() {
     }
 }
 
-// ===================================================
-// HISTÓRICO
-// ===================================================
+
 async function carregarAgendamentosHistoricos() {
     const idCliente = localStorage.getItem('idClienteLogado');
 
@@ -130,25 +118,22 @@ async function carregarAgendamentosHistoricos() {
             '<p>Erro ao carregar históricos.</p>';
     }
 }
-// ===================================================
-// CANCELAR AGENDAMENTO
-// ===================================================
+
 document.addEventListener('click', async (event) => {
     if (event.target.classList.contains('btn-cancelar')) {
 
         const idAgendamento = event.target.getAttribute('data-id');
 
-        // Substituindo o confirm nativo por nossa função customizada
         mostrarConfirmacao(
             "Tem certeza que deseja cancelar este agendamento?",
-            async () => { // callback "Sim"
+            async () => { 
                 try {
                     const url = `http://localhost:3000/agendamento/${idAgendamento}/cancelar`;
                     const response = await axios.patch(url);
 
                     if (response.status === 200) {
                         mostrarAlertaBootstrap("Agendamento cancelado!", "success", 3000);
-                        carregarAgendamentosFuturos(); // atualiza lista
+                        carregarAgendamentosFuturos(); 
                     }
                 } catch (erro) {
                     mostrarAlertaBootstrap("Erro ao cancelar o agendamento.", "danger", 3000);

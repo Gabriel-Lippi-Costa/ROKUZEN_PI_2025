@@ -91,24 +91,24 @@
   background-color: #7e0000;
   color: white;
   font-weight: 550;
-  border: none; /* 🔹 tira a borda preta que destoava */
+  border: none; 
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
-  border-radius: 8px; /* 🔘 cantos arredondados */
+  border-radius: 8px; 
   transition: all 0.3s ease;
 }
 
 .conteiner .informacoes-usuario .informacoes-cadastro form button:hover {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-              0 0 10px rgba(126, 0, 0, 0.7); /* ✨ brilho duplo */
-  transform: translateY(-3px); /* 🪶 leve elevação */
-  background-color: #7e0000; /* mantém o fundo vermelho */
+              0 0 10px rgba(126, 0, 0, 0.7); 
+  transform: translateY(-3px); 
+  background-color: #7e0000; 
   color: white;
 }
 
 .conteiner .informacoes-usuario .informacoes-cadastro form button:active {
-  transform: translateY(0); /* 🖱️ volta ao normal ao clicar */
+  transform: translateY(0); 
   box-shadow: 0 0 8px rgba(126, 0, 0, 0.5);
 }
 
@@ -207,14 +207,14 @@
   border-bottom-right-radius: 10px;
 }
 
-/* Hover com brilho */
+
 .escolha-autenticacao button:hover {
   background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
   box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
   transform: translateY(-2px);
 }
 
-/* Botão ativo (pode ser trocado com JS) */
+
 .escolha-autenticacao button.ativo {
   background: white;
   color: #7e0000;

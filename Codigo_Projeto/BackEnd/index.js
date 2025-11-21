@@ -242,13 +242,11 @@ app.post('/agendamentos', (req, res) => {
         horario
     } = req.body;
 
-    // Validação básica
     if (!id_cliente || !id_servico || !id_unidade || !id_funcionario || !data_agendamento || !duracao || !horario) {
         console.error("❌ Dados faltando:", req.body);
         return res.status(400).json({ erro: 'Faltam dados para criar agendamento!', dadosRecebidos: req.body });
     }
 
-    // Combina data + horário
     const dataHora = `${data_agendamento} ${horario}`;
 
     const sql = `
@@ -299,7 +297,6 @@ app.get('/profissionais', async (req, res) => {
               AND f.funcionario_ativo = 1
         `;
 
-        // ⚠️ Usando 'conexao' ao invés de 'pool'
         const [rows] = await conexao.promise().query(sql, [id_servico, id_unidade, diaSemana]);
         console.log("🔹 Rows retornadas do banco:", rows);
 
@@ -314,7 +311,6 @@ app.get('/profissionais', async (req, res) => {
 app.get('/horarios', async (req, res) => {
     const { funcionario, data, diaSemana, duracao } = req.query;
 
-    // Log para verificar os dados recebidos
     console.log("📥 Dados recebidos no backend:", { funcionario, data, diaSemana, duracao });
 
     if (!funcionario || !data || !diaSemana || !duracao) {
@@ -322,7 +318,6 @@ app.get('/horarios', async (req, res) => {
     }
 
     try {
-        // 1️⃣ Busca a escala do funcionário para aquele dia da semana
         const sqlEscala = `
             SELECT hora_inicio, hora_fim, hora_inicio_almoco, hora_fim_almoco
             FROM escalas
@@ -333,10 +328,9 @@ app.get('/horarios', async (req, res) => {
         console.log("🔹 Escalas retornadas:", escalas);
 
         if (escalas.length === 0) {
-            return res.json([]); // Sem escala, sem horários
+            return res.json([]); 
         }
 
-        // 2️⃣ Busca agendamentos existentes para o funcionário nessa data
         const sqlAgendamentos = `
             SELECT TIME(data_agendamento) AS inicio, duracao
             FROM agendamentos
@@ -350,14 +344,12 @@ app.get('/horarios', async (req, res) => {
 
         const horariosDisponiveis = [];
 
-        // 3️⃣ Para cada escala, criar blocos disponíveis
         escalas.forEach(escala => {
             let inicioSegundos = parseInt(escala.hora_inicio.split(':')[0]) * 3600
                 + parseInt(escala.hora_inicio.split(':')[1]) * 60;
             const fimSegundos = parseInt(escala.hora_fim.split(':')[0]) * 3600
                 + parseInt(escala.hora_fim.split(':')[1]) * 60;
 
-            // horário de almoço (pode ser null)
             const inicioAlmocoSeg = escala.hora_inicio_almoco
                 ? parseInt(escala.hora_inicio_almoco.split(':')[0]) * 3600 + parseInt(escala.hora_inicio_almoco.split(':')[1]) * 60
                 : null;
@@ -375,16 +367,14 @@ app.get('/horarios', async (req, res) => {
                 const fimMM = String(Math.floor((fimBlocoSeg % 3600) / 60)).padStart(2, '0');
                 const blocoFim = `${fimHH}:${fimMM}`;
 
-                // Verifica se esse bloco bate com algum agendamento
                 const ocupado = agendamentos.some(a => {
                     const agInicio = parseInt(a.inicio.split(':')[0]) * 3600
                         + parseInt(a.inicio.split(':')[1]) * 60;
                     const agFim = agInicio + (parseInt(a.duracao.split(':')[0]) * 3600
                         + parseInt(a.duracao.split(':')[1]) * 60);
-                    return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim); // conflito
+                    return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim); 
                 });
 
-                // Verifica se o bloco cai no horário de almoço
                 const duranteAlmoco = inicioAlmocoSeg !== null && fimAlmocoSeg !== null &&
                                       !(fimBlocoSeg <= inicioAlmocoSeg || inicioSegundos >= fimAlmocoSeg);
 
@@ -392,7 +382,6 @@ app.get('/horarios', async (req, res) => {
                     horariosDisponiveis.push({ inicio: blocoInicio, fim: blocoFim });
                 }
 
-                // Avança o bloco em 30 min
                 inicioSegundos += 30 * 60;
             }
         });
@@ -406,7 +395,6 @@ app.get('/horarios', async (req, res) => {
     }
 });
 
-//ATÉ AQUI
 app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     const idCliente = req.params.id;
     console.log('ID do cliente recebido:', idCliente);
@@ -551,7 +539,6 @@ app.get('/funcionario/:id', autenticarToken, (req, res) => {
                 };
             });
 
-            // Agora buscamos os serviços do funcionário
             const sqlServicos = `
                 SELECT id_servico
                 FROM servicos_funcionarios
@@ -566,7 +553,6 @@ app.get('/funcionario/:id', autenticarToken, (req, res) => {
 
                 const servicos = resultadoServicos.map(item => item.id_servico);
 
-                // Monta o JSON final
                 const resposta = {
                     funcionario: { ...funcionario, escala, servicos }
                 };
@@ -656,7 +642,6 @@ app.patch('/funcionario/:id', (req, res) => {
             return res.status(500).json({ erro: 'Erro ao gerar hash da senha' });
         }
 
-        // Atualiza dados do funcionário
         const sqlFuncionario = `
             UPDATE funcionarios
             SET nome_funcionario = ?, data_nascimento_funcionario = ?, telefone_funcionario = ?, email_funcionario = ?, senha_funcionario = ?
@@ -668,7 +653,6 @@ app.patch('/funcionario/:id', (req, res) => {
                 return res.status(500).json({ erro: 'Erro ao atualizar funcionário' });
             }
 
-            // Atualizar escala
             if (Array.isArray(escala)) {
                 const sqlDeleteEscala = `DELETE FROM escalas WHERE id_funcionario = ?;`;
                 conexao.query(sqlDeleteEscala, [id], (erroDelete) => {
@@ -699,7 +683,6 @@ app.patch('/funcionario/:id', (req, res) => {
                 });
             }
 
-            // Atualizar serviços
             if (Array.isArray(servicos)) {
                 const sqlDeleteServicos = `DELETE FROM servicos_funcionarios WHERE id_funcionario = ?;`;
                 conexao.query(sqlDeleteServicos, [id], (erroDelete) => {
@@ -719,7 +702,6 @@ app.patch('/funcionario/:id', (req, res) => {
                 });
             }
 
-            // Resposta final apenas no final do fluxo
             console.log('Funcionário atualizado com sucesso:', { id, nome, email, telefone, data_nascimento });
             res.status(200).json({
                 mensagem: 'Funcionário atualizado com sucesso!',
@@ -763,7 +745,6 @@ app.post('/cadastro-funcionario', async (req, res) => {
             VALUES (?, ?, ?, ?, ?)
         `;
 
-        // 1️⃣ Criar funcionário
         conexao.query(sqlFuncionario, [nome, data_nascimento, telefone, email, senhaHash], (erro, resultado) => {
             if (erro) {
                 console.error('Erro ao cadastrar funcionário:', erro);
@@ -772,7 +753,6 @@ app.post('/cadastro-funcionario', async (req, res) => {
 
             const idFuncionario = resultado.insertId;
 
-            // 2️⃣ Inserir escala
             const valoresEscala = [];
             for (const dia of Object.keys(escala)) {
                 const dado = escala[dia];
@@ -801,7 +781,6 @@ app.post('/cadastro-funcionario', async (req, res) => {
                     return res.status(500).json({ erro: 'Erro ao salvar escala do funcionário' });
                 }
 
-                // 3️⃣ Inserir serviços
                 const valoresServicos = servicos.map(idServico => [idFuncionario, idServico]);
                 const sqlServicos = `
                     INSERT INTO servicos_funcionarios
@@ -815,7 +794,6 @@ app.post('/cadastro-funcionario', async (req, res) => {
                         return res.status(500).json({ erro: 'Erro ao salvar serviços do funcionário' });
                     }
 
-                    // ✅ Tudo certo, resposta final
                     return res.status(201).json({
                         mensagem: 'Funcionário, escala e serviços cadastrados com sucesso!',
                         funcionario_id: idFuncionario
@@ -832,7 +810,6 @@ app.post('/cadastro-funcionario', async (req, res) => {
 
 
 
-//GRAFICOS
 
 app.use(express.static(__dirname + '/../../html'));
 
@@ -967,7 +944,6 @@ app.get('/servico/:id', (req, res) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao buscar serviço' });
         if (resultado.length === 0) return res.status(404).json({ erro: 'Serviço não encontrado' });
 
-        // retorna todas as opções de duração e preço
         res.json(resultado);
     });
 });

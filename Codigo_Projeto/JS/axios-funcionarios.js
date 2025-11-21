@@ -27,16 +27,15 @@ async function preencherCamposFuncionario() {
 
         const dados = resp.data.funcionario;
 
-        // Campos básicos
+      
         document.getElementById('nome-funcionario-editar').value = dados.nome_funcionario || '';
         document.getElementById('data-nascimento-funcionario-editar').value = dados.data_nascimento_funcionario
             ? new Date(dados.data_nascimento_funcionario).toISOString().split('T')[0]
             : '';
         document.getElementById('telefone-funcionario-editar').value = dados.telefone_funcionario || '';
         document.getElementById('email-funcionario-editar').value = dados.email_funcionario || '';
-        document.getElementById('password-funcionario-editar').value = ''; // senha nunca deve ser preenchida
+        document.getElementById('password-funcionario-editar').value = ''; 
 
-        // Preencher a escala do modal de edição
         if (dados.escala && typeof dados.escala === 'object') {
             Object.entries(dados.escala).forEach(([dia, item]) => {
                 const unidadeInput = document.querySelector(`.unidade-dia[data-dia-editar="${dia}"]`);
@@ -51,13 +50,11 @@ async function preencherCamposFuncionario() {
                 if (fimInput) fimInput.value = item.fim || '';
                 if (inicioAlmocoInput) inicioAlmocoInput.value = item.inicio_almoco || '';
                 if (fimAlmocoInput) fimAlmocoInput.value = item.fim_almoco || '';
-                if (checkDia) checkDia.checked = true; // marca o checkbox do dia
+                if (checkDia) checkDia.checked = true; 
             });
         }
 
-        // Preencher os serviços do funcionário
         if (Array.isArray(dados.servicos)) {
-            // desmarca todos os checkboxes primeiro
             document.querySelectorAll('.servico-editar').forEach(input => input.checked = false);
 
             dados.servicos.forEach(idServico => {
@@ -84,14 +81,12 @@ async function atualizarDadosFuncionario() {
 
     const id = funcionario.id_funcionario;
 
-    // Campos básicos
     const nome = document.getElementById('nome-funcionario-editar').value;
     const data_nascimento = document.getElementById('data-nascimento-funcionario-editar').value;
     const telefone = document.getElementById('telefone-funcionario-editar').value;
     const email = document.getElementById('email-funcionario-editar').value;
     const senha = document.getElementById('password-funcionario-editar').value;
 
-    // Monta a escala
     const escala = [];
     document.querySelectorAll('.check-dia').forEach(check => {
         const dia = check.dataset.diaEditar;
@@ -107,7 +102,7 @@ async function atualizarDadosFuncionario() {
         }
     });
 const servicos = Array.from(
-    document.querySelectorAll(".servico-editar:checked") // pega os checkboxes marcados
+    document.querySelectorAll(".servico-editar:checked") 
 ).map(cb => Number(cb.value));
 
     try {
@@ -138,11 +133,10 @@ const servicos = Array.from(
     }
 }
 
-// Form vinculado ao submit
 const formEditarFuncionario = document.getElementById('formEditarFuncionario');
 if (formEditarFuncionario) {
     formEditarFuncionario.addEventListener('submit', (event) => {
-        event.preventDefault(); // previne reload da página
+        event.preventDefault();
         atualizarDadosFuncionario();
     });
 }
@@ -158,7 +152,7 @@ document.getElementById('modalEditarFuncionario').addEventListener('click', func
 
 
 async function criarContaCliente(event) {
-    event.preventDefault(); // impede o recarregamento da página
+    event.preventDefault(); 
 
     const nome = document.getElementById('nome-cliente').value.trim();
     const data_nascimento = document.getElementById('data-nascimento-cliente').value;
@@ -215,9 +209,8 @@ function toggleDia(header) {
 async function salvarDados(event) {
     event.preventDefault();
 
-    const form = event.target; // form que disparou o submit
+    const form = event.target; 
 
-    // DADOS BÁSICOS DO FUNCIONÁRIO
     const novoFuncionario = {
         nome: form.querySelector('[id$="nome-funcionario"]').value.trim() || '',
         data_nascimento: form.querySelector('[id$="data-nascimento-funcionario"]').value || '',
@@ -228,24 +221,21 @@ async function salvarDados(event) {
         servicos: []
     };
 
-    // Validação básica de campos obrigatórios
     if (!novoFuncionario.nome || !novoFuncionario.data_nascimento || !novoFuncionario.telefone ||
         !novoFuncionario.email || !novoFuncionario.senha) {
         mostrarAlertaBootstrap("Preencha todos os campos obrigatórios!", "danger", 3000);
         return;
     }
 
-    // Monta a escala
     form.querySelectorAll(".check-dia").forEach(chk => {
         const dia = chk.dataset.dia || chk.dataset.diaEditar;
-        if (chk.checked && dia) { // garante que dia exista
+        if (chk.checked && dia) { 
             const unidade = form.querySelector(`.unidade-dia[data-dia="${dia}"], .unidade-dia[data-dia-editar="${dia}"]`)?.value.trim() || '';
             const inicio = form.querySelector(`.hora-inicio[data-dia="${dia}"], .hora-inicio[data-dia-editar="${dia}"]`)?.value || '';
             const fim = form.querySelector(`.hora-fim[data-dia="${dia}"], .hora-fim[data-dia-editar="${dia}"]`)?.value || '';
             const inicioAlmoco = form.querySelector(`.almoco-inicio[data-dia="${dia}"], .almoco-inicio[data-dia-editar="${dia}"]`)?.value || null;
             const fimAlmoco = form.querySelector(`.almoco-fim[data-dia="${dia}"], .almoco-fim[data-dia-editar="${dia}"]`)?.value || null;
 
-            // valida campos obrigatórios da escala
             if (!unidade || !inicio || !fim) {
                 mostrarAlertaBootstrap(`Preencha unidade, início e fim para o dia ${dia}`, "warning", 3000);
                 return;
@@ -261,13 +251,12 @@ async function salvarDados(event) {
         }
     });
 
-    // Verifica se pelo menos um dia foi selecionado
     if (Object.keys(novoFuncionario.escala).length === 0) {
         mostrarAlertaBootstrap("Selecione pelo menos um dia de trabalho.", "warning", 3000);
         return;
     }
 
-    // Coleta os serviços selecionados
+  
     novoFuncionario.servicos = Array.from(
         form.querySelectorAll("input[type='checkbox']:checked")
     ).map(cb => Number(cb.value));
@@ -277,7 +266,7 @@ async function salvarDados(event) {
     try {
         const url = form.id === "formCriarFuncionario"
             ? "http://localhost:3000/cadastro-funcionario"
-            : "http://localhost:3000/editar-funcionario"; // adapte a rota de edição
+            : "http://localhost:3000/editar-funcionario"; 
 
         const method = form.id === "formCriarFuncionario" ? "POST" : "PATCH";
 
@@ -302,7 +291,6 @@ async function salvarDados(event) {
             3000
         );
 
-        // Fecha modal correspondente
         if (form.id === "formCriarFuncionario") toggleModalCriarContaFuncionario();
         else toggleModalEditarFuncionario();
 

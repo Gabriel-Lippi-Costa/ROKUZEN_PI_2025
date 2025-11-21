@@ -1,8 +1,8 @@
-
 const searchBar = document.getElementById('searchBar');
 const resultsList = document.getElementById('results');
 
 let debounceTimer;
+
 function redirecionar(url) {
   if (
     url.startsWith('http://') || 
@@ -14,6 +14,7 @@ function redirecionar(url) {
     console.warn('Ação desconhecida:', url);
   }
 }
+
 function selecionar(opcao, acao) {
   searchBar.value = opcao;    
   resultsList.innerHTML = ''; 
@@ -40,4 +41,11 @@ searchBar.addEventListener('input', () => {
       console.error('Erro ao buscar sugestões:', err);
     }
   }, 300); 
+});
+
+searchBar.addEventListener('blur', () => {
+  setTimeout(() => {
+    searchBar.value = '';
+    resultsList.innerHTML = '';
+  }, 150);
 });

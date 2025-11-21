@@ -1,8 +1,6 @@
-// deletar-conta.js
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ======== APAGAR CONTA ========
     const botaoApagar = document.getElementById("botao-apagar-conta");
     if (botaoApagar) {
         botaoApagar.addEventListener("click", () => {
@@ -28,35 +26,33 @@ document.addEventListener("DOMContentLoaded", () => {
                         localStorage.clear();
                         setTimeout(() => {
                             window.location.href = "index.html";
-                        }, 1000); // dá tempo do alerta aparecer
+                        }, 1000);
                     } catch (erro) {
                         console.error("Erro ao apagar conta:", erro);
                         mostrarAlertaBootstrap("Erro ao apagar conta.", "danger", 3000);
                     }
                 },
                 () => {
-                    // Cancelou, não faz nada
+                   
                 }
             );
         });
     }
 
-    // ======== SAIR DA CONTA ========
     const botaoSair = document.getElementById("botao-sair");
     if (botaoSair) {
         botaoSair.addEventListener("click", () => {
             mostrarConfirmacao(
                 "Deseja realmente sair da conta?",
                 () => { 
-                    localStorage.clear(); // limpa dados
+                    localStorage.clear();
                     mostrarAlertaBootstrap("Você saiu da sua conta.", "success", 3000);
 
                     setTimeout(() => {
                         window.location.href = "index.html";
-                    }, 1000); // dá tempo do alerta aparecer
+                    }, 1000); 
                 },
                 () => {
-                    // Cancelou, não faz nada
                 }
             );
         });

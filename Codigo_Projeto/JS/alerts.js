@@ -13,7 +13,6 @@ function mostrarAlertaBootstrap(mensagem, tipo = "danger", tempo = 3000) {
 
     container.insertAdjacentHTML("beforeend", alertaHTML);
 
-    // Remove após tempo
     setTimeout(() => {
         const alerta = document.getElementById(id);
         if (alerta) alerta.remove();
