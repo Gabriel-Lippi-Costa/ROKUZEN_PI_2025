@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-  background-color: #a8be7c;
+  background-color: #9ab946;
   overflow: hidden;
 }
 
@@ -379,12 +379,12 @@
   font-family: "Poppins", sans-serif;
   font-size: 22px;
   font-weight: 600;
-  color: #7e0000; /* cor preta */
+  color: #7e0000;
   text-align: center;
   padding: 20px;
   border-radius: 12px;
-  width: 90%; /* ocupa a maior parte do container */
-  margin: 20px auto; /* centraliza horizontalmente e dá margem superior/inferior */
+  width: 90%; 
+  margin: 20px auto; 
 }
 .unidades-grid {
     display: flex;                
@@ -402,9 +402,9 @@
     border-radius: 8px;           
     padding: 10px;
     transition: transform 0.2s;
-    cursor: pointer;               /* torna o card clicável */
-    font-family: 'Poppins', sans-serif; /* aplica a fonte Poppins */
-    margin: 15px 0;               /* margem superior e inferior */
+    cursor: pointer;             
+    font-family: 'Poppins', sans-serif; 
+    margin: 15px 0;            
 }
 
 .unidade-card:hover {
@@ -419,7 +419,7 @@
 }
 
 .unidade-card:hover {
-    border-color: #00b33c; /* verde do hover */
+    border-color: #9ab946; /* verde do hover */
     transform: scale(1.05);
 }
 
@@ -652,6 +652,7 @@
 .selecionar-profissional {
     font-size: 35px;
     font-weight: 600;
+    font-family: "Poppins", sans-serif;
     color: #7e0000;
     margin-bottom: 15px;
 }
@@ -743,10 +744,9 @@
 .selecionar-horario {
     font-size: 35px;
     font-weight: 600;
+    font-family: "Poppins", sans-serif;
     color: #7e0000;
     margin-bottom: 15px;
-    width: 100%;
-    text-align: center;
 }
 
 #horarios-container {
@@ -768,7 +768,8 @@
   display: block;                  /* permite usar margin auto */
   margin: 20px auto 40px auto;     /* topo 20px, horizontal auto, bottom 40px */
   padding: 12px 24px;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 600;
   border: none;
@@ -781,8 +782,8 @@
 }
 
 #btn-agendar:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 15px rgba(126, 0, 0, 0.5);
+  background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-3px);
 }
 

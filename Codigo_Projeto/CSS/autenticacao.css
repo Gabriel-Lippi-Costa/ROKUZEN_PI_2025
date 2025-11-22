@@ -76,7 +76,7 @@
 }
 
 .conteiner .informacoes-usuario .informacoes-cadastro form input:focus {
-  border: 3px solid #9db668;
+  border: 3px solid #9ab946;
   outline: none;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   transition: all 0.3s ease;

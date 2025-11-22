@@ -550,3 +550,7 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
 .lista-resultados li:hover {
     color: #a8be7c;
 }
+
+.parte-do-meio ul li a {
+    font-family: "Poppins", sans-serif;
+}

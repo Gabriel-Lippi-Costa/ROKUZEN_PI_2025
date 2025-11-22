@@ -291,3 +291,7 @@ body {
     position: relative;
     left: 40;
 }
+
+.faq-wrapper {
+    font-family: "Poppins", sans-serif;
+}

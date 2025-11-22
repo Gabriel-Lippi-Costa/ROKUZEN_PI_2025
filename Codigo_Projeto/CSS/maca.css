@@ -20,7 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 240px;
-  background: linear-gradient(120deg, #a8be7c, #9db668);
+  background: #9ab946;
   text-align: center;
   color: #404040;
   overflow: hidden;
@@ -94,7 +94,7 @@ body {
   border-radius: 2px;
   width: 30px;
   height: 2px;
-  background-color: #9db668;
+  background-color: #9ab946;
   opacity: 0.6;
 }
 
