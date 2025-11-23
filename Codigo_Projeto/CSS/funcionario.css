@@ -40,7 +40,8 @@
 
 .editar-dados button {
   padding: 12px 24px;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 600;
   border: none;
@@ -52,8 +53,8 @@
 }
 
 .editar-dados button:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 15px rgba(126, 0, 0, 0.5);
+background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-3px);
 }
 
@@ -113,7 +114,7 @@
 }
 
 .conteiner h2 {
-  color: #7e0000;
+color: #500596;
   font-family: "Poppins", sans-serif;
   margin-bottom: 20px;
   font-size: 1.8rem;
@@ -168,10 +169,10 @@
   font-size: 16px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
-  border: 2px solid #7e0000;
+  border: 2px solid #500596;
   border-radius: 8px;
   background-color: white;
-  color: #7e0000;
+color: #500596;
   padding: 12px 0;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -219,7 +220,8 @@
 }
 
 .conteiner::-webkit-scrollbar-thumb {
-  background: #7e0000;
+  background: #500596;
+
   border-radius: 10px;
 }
 
@@ -235,7 +237,8 @@
 
 .criar-conta-cliente button {
   padding: 12px 24px;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 600;
   border: none;
@@ -247,8 +250,8 @@
 }
 
 .criar-conta-cliente button:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 15px rgba(126, 0, 0, 0.5);
+background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-3px);
 }
 
@@ -396,7 +399,7 @@ header[onclick="toggleDia(this)"] h4 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 22px;
-  color: #7e0000;
+color: #500596;
 }
 
 .titulo-servicos {

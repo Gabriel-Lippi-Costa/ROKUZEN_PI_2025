@@ -257,9 +257,12 @@ async function salvarDados(event) {
     }
 
   
-    novoFuncionario.servicos = Array.from(
-        form.querySelectorAll("input[type='checkbox']:checked")
-    ).map(cb => Number(cb.value));
+novoFuncionario.servicos = Array.from(
+    form.querySelectorAll("input[type='checkbox']:checked")
+)
+.map(cb => Number(cb.value))
+.filter(v => !isNaN(v)); // remove valores que não são número
+
 
     console.log("JSON que será enviado para o backend:", JSON.stringify(novoFuncionario, null, 2));
 

@@ -76,7 +76,7 @@
   font-family: "Poppins", sans-serif;
   font-size: 1.3em;
   font-weight: 700;
-  color: #b30000;
+  color: #850596;
   margin-bottom: 10px;
 }
 
@@ -98,7 +98,8 @@
   display: block;
   text-align: center;
   padding: 12px 25px;
-  background-color: #7e0000;
+  background-color: #500596;
+
   color: white;
   font-weight: 550;
   font-size: 18px;
@@ -108,8 +109,7 @@
 }
 
 .card-bottom a.agendamento:hover {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-              0 0 10px rgba(126, 0, 0, 0.7);
+box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-3px);
 }
 .card {

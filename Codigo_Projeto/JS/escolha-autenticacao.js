@@ -4,7 +4,7 @@ const btnCadastro = document.querySelector(".escolha-autenticacao .cadastro-btn 
 const formLogin = document.querySelector(".informacoes-login form");
 const formCadastro = document.querySelector(".informacoes-cadastro form");
 
-const gradienteAtivo = "linear-gradient(90deg, #7e0000 0%, #a80000 100%)";
+const gradienteAtivo = "linear-gradient(90deg, #6a07c4 0%, #500596 100%)";
 const gradienteInativo = "linear-gradient(90deg, #c4c4c4 0%, #e0e0e0 100%)";
 const corTextoAtivo = "white";
 const corTextoInativo = "#333";

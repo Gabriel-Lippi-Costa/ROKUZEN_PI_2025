@@ -88,7 +88,8 @@
 .conteiner .informacoes-usuario .informacoes-cadastro form button {
   margin-top: 15px;
   height: 40px;
-  background-color: #7e0000;
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 550;
   border: none; 
@@ -100,16 +101,15 @@
 }
 
 .conteiner .informacoes-usuario .informacoes-cadastro form button:hover {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-              0 0 10px rgba(126, 0, 0, 0.7); 
+box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-3px); 
-  background-color: #7e0000; 
+  background-color: #500596;
   color: white;
 }
 
 .conteiner .informacoes-usuario .informacoes-cadastro form button:active {
   transform: translateY(0); 
-  box-shadow: 0 0 8px rgba(126, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
 }
 
 
@@ -141,7 +141,8 @@
 .conteiner .informacoes-usuario .informacoes-login form button {
   margin-top: 15px;
   height: 35px;
-  background-color: #7e0000;
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 550;
   font-size: 18px;
@@ -163,15 +164,16 @@
 .conteiner button {
   border: none;
   border-radius: 8px;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 600;
   transition: all 0.3s ease;
 }
 
 .conteiner button:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 10px rgba(126, 0, 0, 0.6);
+background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-2px);
 }
 
@@ -193,7 +195,8 @@
   border: none;
   outline: none;
   color: white;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   transition: all 0.3s ease;
 }
 
@@ -209,14 +212,14 @@
 
 
 .escolha-autenticacao button:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
+background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-2px);
 }
 
 
 .escolha-autenticacao button.ativo {
   background: white;
-  color: #7e0000;
-  box-shadow: 0 0 10px rgba(126, 0, 0, 0.5);
+  color: #500596;
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
 }

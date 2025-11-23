@@ -180,7 +180,8 @@ body {
   padding: 10px 18px;
   border-radius: 10px;
   text-decoration: none;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -192,15 +193,16 @@ body {
 }
 
 .faq-cta .btn-cta:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
+  background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-2px);
   color: white;
 }
 
 .faq-cta .btn-cta:active {
   transform: translateY(0);
-  box-shadow: 0 0 6px rgba(126, 0, 0, 0.5);
+    background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
 }
 
 .faq-cta .btn-cta.outline {

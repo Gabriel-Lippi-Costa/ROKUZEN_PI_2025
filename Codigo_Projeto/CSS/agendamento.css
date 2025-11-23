@@ -285,7 +285,8 @@
   margin-top: 15px;
   width: 260px;
   height: 45px;
-  background: linear-gradient(90deg, #7e0000 0%, #a80000 100%);
+    background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
+  background-color: #500596;
   color: white;
   font-weight: 550;
   border: none;
@@ -296,8 +297,8 @@
 }
 
 .confirmar-servico button:hover {
-  background: linear-gradient(90deg, #a80000 0%, #7e0000 100%);
-  box-shadow: 0 0 12px rgba(126, 0, 0, 0.6);
+ background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-2px);
   color: white;
 }
@@ -379,7 +380,7 @@
   font-family: "Poppins", sans-serif;
   font-size: 22px;
   font-weight: 600;
-  color: #7e0000;
+color: #500596;
   text-align: center;
   padding: 20px;
   border-radius: 12px;
@@ -473,7 +474,7 @@
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 16px;
-    color: #7e0000;
+color: #500596;
     text-align: center;
     font-family: "Poppins", sans-serif;
 }
@@ -548,8 +549,8 @@
 .selecionar-data h2 {
     font-size: 35px;
     font-weight: 600;
-    color: #7e0000;
-    margin-bottom: 15px;
+  color: #500596;
+  margin-bottom: 15px;
 }
 
 /* Input date estilizado */
@@ -653,7 +654,7 @@
     font-size: 35px;
     font-weight: 600;
     font-family: "Poppins", sans-serif;
-    color: #7e0000;
+    color: #500596;
     margin-bottom: 15px;
 }
 
@@ -745,7 +746,7 @@
     font-size: 35px;
     font-weight: 600;
     font-family: "Poppins", sans-serif;
-    color: #7e0000;
+    color: #500596;
     margin-bottom: 15px;
 }
 
@@ -821,7 +822,7 @@
 .titulo-servico {
     font-size: 3rem; /* aumentei de 2rem para 3rem */
     font-weight: 600;
-    color: #7e0000;
+    color: #500596;
     margin-bottom: 30px;
 }
 
@@ -837,8 +838,32 @@
 .selecionar-unidade {
     font-size: 3rem; /* aumentei de 2rem para 3rem */
     font-weight: 600;
-    color: #7e0000;
+    color: #500596;
     margin-bottom: 30px;
     text-align: center;
     font-family: 'Poppins', sans-serif;
+}
+
+
+.modal-promo {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.conteudo-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
 }

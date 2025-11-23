@@ -328,7 +328,7 @@ app.get('/horarios', async (req, res) => {
         console.log("🔹 Escalas retornadas:", escalas);
 
         if (escalas.length === 0) {
-            return res.json([]); 
+            return res.json([]);
         }
 
         const sqlAgendamentos = `
@@ -372,11 +372,11 @@ app.get('/horarios', async (req, res) => {
                         + parseInt(a.inicio.split(':')[1]) * 60;
                     const agFim = agInicio + (parseInt(a.duracao.split(':')[0]) * 3600
                         + parseInt(a.duracao.split(':')[1]) * 60);
-                    return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim); 
+                    return !(fimBlocoSeg <= agInicio || inicioSegundos >= agFim);
                 });
 
                 const duranteAlmoco = inicioAlmocoSeg !== null && fimAlmocoSeg !== null &&
-                                      !(fimBlocoSeg <= inicioAlmocoSeg || inicioSegundos >= fimAlmocoSeg);
+                    !(fimBlocoSeg <= inicioAlmocoSeg || inicioSegundos >= fimAlmocoSeg);
 
                 if (!ocupado && !duranteAlmoco) {
                     horariosDisponiveis.push({ inicio: blocoInicio, fim: blocoFim });
@@ -937,7 +937,7 @@ app.get('/servico/:id', (req, res) => {
             p.valor
         FROM servicos_precos p
         JOIN servicos s ON p.id_servico = s.id_servico
-        WHERE p.id_servico = ?
+        WHERE p.id_servico = ? AND p.promocao = 0
     `;
 
     conexao.query(sql, [id], (erro, resultado) => {
@@ -1091,4 +1091,80 @@ app.get('/listar-profissionais', (req, res) => {
         console.log('Resultados encontrados:', resultados.length);
         res.json(resultados);
     });
+});
+app.get('/promocao', async (req, res) => {
+    const { funcionario, diaSemana, inicio, duracao } = req.query;
+
+    if (!funcionario || diaSemana === undefined || !inicio || !duracao) {
+        console.log("❌ Parâmetros ausentes:", { funcionario, diaSemana, inicio, duracao });
+        return res.status(400).json({ erro: "Parâmetros ausentes" });
+    }
+
+    try {
+        console.log("📌 Verificando promoção para:", { funcionario, diaSemana, inicio, duracao });
+
+        // 1. Pega escala do dia da semana
+        const [escala] = await conexao.promise().query(`
+            SELECT hora_inicio, hora_fim
+            FROM escalas
+            WHERE id_funcionario = ?
+              AND dia_semana = ?
+        `, [funcionario, diaSemana]);
+
+        if (escala.length === 0) {
+            console.log("⚠️ Nenhuma escala encontrada para o funcionário nesse dia.");
+            return res.json({ promocao: false });
+        }
+
+        const fimEscala = escala[0].hora_fim;
+
+        // helpers
+        const toMin = t => {
+            const [h, m] = t.split(':').map(Number);
+            return h * 60 + m;
+        };
+
+        const inicioMin = toMin(inicio);
+        const durMin = Number(duracao);
+        const fimMin = inicioMin + durMin;
+        const limiteMin = fimMin + 20;
+        const fimEscalaMin = toMin(fimEscala);
+
+        console.log("⏱️ Horários em minutos:", { inicioMin, durMin, fimMin, limiteMin, fimEscalaMin });
+
+        // 2. Se passar do fim da escala, não tem promoção
+        if (limiteMin > fimEscalaMin) {
+            console.log("⛔ Intervalo com promoção ultrapassa o fim da escala.");
+            return res.json({ promocao: false });
+        }
+
+        // 3. Verifica se algum agendamento ocupa o intervalo extra
+        const [agendamentos] = await conexao.promise().query(`
+            SELECT TIME(data_agendamento) AS inicio, duracao
+            FROM agendamentos
+            WHERE id_funcionario = ?
+              AND DATE(data_agendamento) = CURDATE()
+        `, [funcionario]);
+
+        console.log("📋 Agendamentos existentes:", agendamentos);
+
+        const conflito = agendamentos.some(a => {
+            const aInicioMin = toMin(a.inicio);
+            const aFimMin = aInicioMin + Number(a.duracao);
+            console.log(`🔹 Agendamento: ${a.inicio} (${aInicioMin}-${aFimMin})`);
+
+            const overlap = !(aFimMin <= fimMin || aInicioMin >= limiteMin);
+            if (overlap) console.log("⚠️ Conflito detectado com agendamento existente!");
+            return overlap;
+        });
+
+        if (conflito) return res.json({ promocao: false });
+
+        console.log("✅ Promoção disponível!");
+        return res.json({ promocao: true });
+
+    } catch (erro) {
+        console.error("Erro ao verificar promoção:", erro);
+        res.status(500).json({ erro: "Erro ao verificar promoção" });
+    }
 });
