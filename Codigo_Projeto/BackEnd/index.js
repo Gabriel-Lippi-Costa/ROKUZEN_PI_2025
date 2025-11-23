@@ -286,16 +286,22 @@ app.get('/profissionais', async (req, res) => {
     }
 
     try {
-        const sql = `
-            SELECT f.id_funcionario, f.nome_funcionario
-            FROM funcionarios f
-            JOIN escalas e ON f.id_funcionario = e.id_funcionario
-            JOIN servicos_funcionarios sf ON f.id_funcionario = sf.id_funcionario
-            WHERE sf.id_servico = ?
-              AND e.id_unidade = ?
-              AND e.dia_semana = ?
-              AND f.funcionario_ativo = 1
-        `;
+     const sql = `
+    SELECT f.id_funcionario, f.nome_funcionario
+    FROM funcionarios f
+    JOIN escalas e ON f.id_funcionario = e.id_funcionario
+    JOIN servicos_funcionarios sf ON f.id_funcionario = sf.id_funcionario
+    WHERE 
+        CASE 
+            WHEN ? = 5 THEN 3
+            WHEN ? = 6 THEN 4
+            ELSE ?
+        END = sf.id_servico
+        AND e.id_unidade = ?
+        AND e.dia_semana = ?
+        AND f.funcionario_ativo = 1
+`;
+
 
         const [rows] = await conexao.promise().query(sql, [id_servico, id_unidade, diaSemana]);
         console.log("🔹 Rows retornadas do banco:", rows);

@@ -105,24 +105,75 @@
 
 
 
-    
-<div id="divisao-servico" style="display: flex; flex-direction: column; gap: 10px;">
+<div id="divisao-servico" style="display:none" flex-direction: column; gap: 10px;">
   <h3>Divida a duração entre os dois serviços</h3>
 
-  <div style="display: flex; gap: 10px; align-items: center;">
-    <div>
-      <label for="parte1">Serviço 1 (min):</label>
-      <input type="number" id="parte1" min="15" max="35" step="5" value="15">
+  <div style="display: flex; gap: 40px; align-items: center;">
+
+    <!-- SERVIÇO 1 -->
+    <div class="spinner">
+      <label>Serviço 1 (min):</label>
+
+      <div class="controle">
+        <button class="btn-up" data-target="s1">▲</button>
+        <div id="s1" class="valor">15</div>
+        <button class="btn-down" data-target="s1">▼</button>
+      </div>
     </div>
 
-    <div>
-      <label for="parte2">Serviço 2 (min):</label>
-      <input type="number" id="parte2" min="0" step="5" value="0">
+    <!-- SERVIÇO 2 -->
+    <div class="spinner">
+      <label>Serviço 2 (min):</label>
+
+      <div class="controle">
+        <button class="btn-up" data-target="s2">▲</button>
+        <div id="s2" class="valor">0</div>
+        <button class="btn-down" data-target="s2">▼</button>
+      </div>
     </div>
 
-    <p id="tempo-restante" style="margin-top: 10px;">Tempo restante: 0 min</p>
+    <p id="tempo-restante" style="margin-left: 20px;">Tempo restante: 0 min</p>
+
   </div>
 </div>
+
+
+
+
+
+
+<div id="divisao-servico2" style="display:none" flex-direction: column; gap: 10px;">
+  <h3>Divida a duração entre os dois serviços</h3>
+
+  <div style="display: flex; gap: 40px; align-items: center;">
+
+    <!-- SERVIÇO 1 -->
+    <div class="spinner">
+      <label>Serviço 1 (min):</label>
+
+      <div class="controle">
+        <button class="btn-up" data-target="s3">▲</button>
+        <div id="s3" class="valor">15</div>
+        <button class="btn-down" data-target="s3">▼</button>
+      </div>
+    </div>
+
+    <!-- SERVIÇO 2 -->
+    <div class="spinner">
+      <label>Serviço 2 (min):</label>
+
+      <div class="controle">
+        <button class="btn-up" data-target="s4">▲</button>
+        <div id="s4" class="valor">0</div>
+        <button class="btn-down" data-target="s4">▼</button>
+      </div>
+    </div>
+
+    <p id="tempo-restante2" style="margin-left: 20px;">Tempo restante: 0 min</p>
+
+  </div>
+</div>
+
 
 
     <section class="selecionar-data" style="display:none;" id="form-calendario">

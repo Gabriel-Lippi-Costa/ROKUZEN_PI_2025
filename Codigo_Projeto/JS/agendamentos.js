@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     let radiosDuracao;
-    let duracaoSelecionada;
+    let hora;
     // ---------- Inicializa containers ----------
     const containerFuncionarios = document.getElementById('funcionarios-container');
     if (containerFuncionarios) containerFuncionarios.style.display = 'none';
@@ -81,28 +81,71 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (idServico === 2) {
                     const divisao = document.getElementById('divisao-servico');
                     const radioSelecionado = document.querySelector('input[name="duracao"]:checked');
+
                     if (radioSelecionado) {
                         const label = document.querySelector(`label[for='${radioSelecionado.id}']`);
                         if (label) {
                             const texto = label.textContent;
                             console.log("Label text:", texto);
 
-                            // Extrai o tempo em HH:MM:SS
                             const match = texto.match(/(\d{2}):(\d{2}):(\d{2})/);
                             if (match) {
                                 const horas = parseInt(match[1], 10);
                                 const minutos = parseInt(match[2], 10);
                                 const duracaoEmMinutos = horas * 60 + minutos;
                                 console.log("⏱ Duração via label (minutos):", duracaoEmMinutos);
-                                duracaoSelecionada = duracaoEmMinutos;
+                                hora = duracaoEmMinutos;
                             }
                         }
                     }
 
-                    // Atualiza a divisão para refletir a nova duração
+                    // MOSTRA a divisão
                     if (divisao) divisao.style.display = 'flex';
+
+                    // INICIA a lógica da divisão (SÓ quando id=2)
+                    iniciarDivisao(hora);
+
+                } else {
+                    // ESCONDE caso não seja serviço 2
+                    const divisao = document.getElementById('divisao-servico');
+                    if (divisao) divisao.style.display = 'none';
                 }
-                atualizarDivisao();
+                if (idServico === 3) {
+                    const divisao = document.getElementById('divisao-servico2');
+                    const radioSelecionado = document.querySelector('input[name="duracao"]:checked');
+
+                    if (radioSelecionado) {
+                        const label = document.querySelector(`label[for='${radioSelecionado.id}']`);
+                        if (label) {
+                            const texto = label.textContent;
+                            console.log("Label text:", texto);
+
+                            const match = texto.match(/(\d{2}):(\d{2}):(\d{2})/);
+                            if (match) {
+                                const horas = parseInt(match[1], 10);
+                                const minutos = parseInt(match[2], 10);
+                                const duracaoEmMinutos = horas * 60 + minutos;
+                                console.log("⏱ Duração via label (minutos):", duracaoEmMinutos);
+                                hora = duracaoEmMinutos;
+                            }
+                        }
+                    }
+
+                    // MOSTRA a divisão
+                    if (divisao) divisao.style.display = 'flex';
+
+                    // INICIA a lógica da divisão (SÓ quando id=2)
+                    iniciarDivisao2(hora);
+
+                }else {
+                    // ESCONDE caso não seja serviço 2
+                    const divisao = document.getElementById('divisao-servico2');
+                    if (divisao) divisao.style.display = 'none';
+                }
+
+                console.log("⏱ 2", hora);
+
+                // atualizarLimitador(hora);
             });
 
             containerDuracao.appendChild(radio);
@@ -110,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         radiosDuracao = document.querySelectorAll('input[name="duracao"]');
         console.log("⏱ Duração selecionada:", radiosDuracao);
+
+
 
     }
     const input1 = document.getElementById('parte1');
@@ -592,4 +637,164 @@ async function verificarEMostrarPromocao(funcionario, data, inicio, duracao) {
     } else {
         console.log("Sem promoção disponível.");
     }
+}
+function iniciarDivisao(hora) {
+
+    const bloco = document.getElementById("divisao-servico"); // bloco 1
+    const s1 = bloco.querySelector("#s1");
+    const s2 = bloco.querySelector("#s2");
+    const restante = bloco.querySelector("#tempo-restante");
+
+    const btnUpList = bloco.querySelectorAll(".btn-up");
+    const btnDownList = bloco.querySelectorAll(".btn-down");
+
+    const MIN_S1 = 15;
+    const MAX_S1 = 35;
+    const MIN_S2 = 0;
+
+    function atualizar() {
+        const v1 = parseInt(s1.textContent);
+        const v2 = parseInt(s2.textContent);
+        const soma = v1 + v2;
+
+        restante.textContent = `Tempo restante: ${hora - soma} min`;
+
+        // ---- UP ----
+        btnUpList.forEach(btn => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            const isS1 = btn.dataset.target === "s1";
+            const valorAtual = parseInt(alvo.textContent);
+
+            if (soma + 5 > hora) {
+                btn.disabled = true;
+                return;
+            }
+
+            if (isS1 && valorAtual >= MAX_S1) {
+                btn.disabled = true;
+                return;
+            }
+
+            btn.disabled = false;
+        });
+
+        // ---- DOWN ----
+        btnDownList.forEach(btn => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            const isS1 = btn.dataset.target === "s1";
+            const valorAtual = parseInt(alvo.textContent);
+
+            if (isS1 && valorAtual <= MIN_S1) {
+                btn.disabled = true;
+                return;
+            }
+
+            if (!isS1 && valorAtual <= MIN_S2) {
+                btn.disabled = true;
+                return;
+            }
+
+            btn.disabled = false;
+        });
+    }
+
+    // Eventos exclusivos do bloco 1
+    btnUpList.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            alvo.textContent = parseInt(alvo.textContent) + 5;
+            atualizar();
+        });
+    });
+
+    btnDownList.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            alvo.textContent = parseInt(alvo.textContent) - 5;
+            atualizar();
+        });
+    });
+
+    atualizar();
+}
+
+
+function iniciarDivisao2(hora) {
+
+    const bloco = document.getElementById("divisao-servico2"); // bloco 2
+    const s1 = bloco.querySelector("#s3");
+    const s2 = bloco.querySelector("#s4");
+    const restante = bloco.querySelector("#tempo-restante2");
+
+    const btnUpList = bloco.querySelectorAll(".btn-up");
+    const btnDownList = bloco.querySelectorAll(".btn-down");
+
+    const MIN_S1 = 15;
+    const MAX_S1 = 35;
+    const MIN_S2 = 0;
+
+    function atualizar() {
+        const v1 = parseInt(s1.textContent);
+        const v2 = parseInt(s2.textContent);
+        const soma = v1 + v2;
+
+        restante.textContent = `Tempo restante: ${hora - soma} min`;
+
+        // ---- UP ----
+        btnUpList.forEach(btn => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            const isS1 = btn.dataset.target === "s3";
+            const valorAtual = parseInt(alvo.textContent);
+
+            if (soma + 5 > hora) {
+                btn.disabled = true;
+                return;
+            }
+
+            if (isS1 && valorAtual >= MAX_S1) {
+                btn.disabled = true;
+                return;
+            }
+
+            btn.disabled = false;
+        });
+
+        // ---- DOWN ----
+        btnDownList.forEach(btn => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            const isS1 = btn.dataset.target === "s3";
+            const valorAtual = parseInt(alvo.textContent);
+
+            if (isS1 && valorAtual <= MIN_S1) {
+                btn.disabled = true;
+                return;
+            }
+
+            if (!isS1 && valorAtual <= MIN_S2) {
+                btn.disabled = true;
+                return;
+            }
+
+            btn.disabled = false;
+        });
+    }
+
+    // Eventos exclusivos do bloco 2
+    btnUpList.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            alvo.textContent = parseInt(alvo.textContent) + 5;
+            atualizar();
+        });
+    });
+
+    btnDownList.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const alvo = bloco.querySelector(`#${btn.dataset.target}`);
+            alvo.textContent = parseInt(alvo.textContent) - 5;
+            atualizar();
+        });
+    });
+
+    atualizar();
 }

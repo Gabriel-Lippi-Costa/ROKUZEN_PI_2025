@@ -1000,5 +1000,226 @@ color: #500596;
 #divisao-servico #tempo-restante {
     margin-top: 10px;
     font-weight: bold;
-    color: #7e0000;
+    color: #2A1D35;
+}
+
+
+
+/* Importa Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Container principal */
+#divisao-servico {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    font-family: "Poppins", sans-serif;
+    background: #F3ECFF;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #C8B4E3;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Título */
+#divisao-servico h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #5A2D82;
+    margin-bottom: 5px;
+}
+
+/* Layout interno */
+.spinners-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Cada bloco de serviço */
+.spinner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16px;
+    color: #2A1D35;
+}
+
+.spinner label {
+    font-weight: 500;
+}
+
+/* Controle com botões e valor */
+.controle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+/* O valor exibido */
+.valor {
+    width: 50px;
+    height: 40px;
+    background: white;
+    border: 2px solid #5A2D82;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #5A2D82;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botões */
+.btn-up,
+.btn-down {
+    width: 50px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: #5A2D82;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: "Poppins", sans-serif;
+    user-select: none;
+}
+
+.btn-up:hover,
+.btn-down:hover {
+    background: #7E4DB3;
+}
+
+/* Botão desativado */
+.btn-up:disabled,
+.btn-down:disabled {
+    background: #C8B4E3;
+    cursor: not-allowed;
+}
+
+/* Tempo restante */
+#tempo-restante {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2A1D35;
+}
+
+/* Animação */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* ----------------------------
+   ESTILO IGUAL AO divísao-servico
+   PARA O BLOCO divisao-servico2
+-----------------------------*/
+
+#divisao-servico2 {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    font-family: "Poppins", sans-serif;
+    background: #F3ECFF;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #C8B4E3;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Título */
+#divisao-servico2 h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #5A2D82;
+    margin-bottom: 5px;
+}
+
+/* Layout interno */
+#divisao-servico2 .spinners-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Cada spinner */
+#divisao-servico2 .spinner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16px;
+    color: #2A1D35;
+}
+
+#divisao-servico2 .spinner label {
+    font-weight: 500;
+}
+
+/* Controle (botões + valor) */
+#divisao-servico2 .controle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Valor */
+#divisao-servico2 .valor {
+    width: 50px;
+    height: 40px;
+    background: white;
+    border: 2px solid #5A2D82;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #5A2D82;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botões ↑ ↓ */
+#divisao-servico2 .btn-up,
+#divisao-servico2 .btn-down {
+    width: 50px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: #5A2D82;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: "Poppins", sans-serif;
+    user-select: none;
+}
+
+#divisao-servico2 .btn-up:hover,
+#divisao-servico2 .btn-down:hover {
+    background: #7E4DB3;
+}
+
+/* Botões desativados */
+#divisao-servico2 .btn-up:disabled,
+#divisao-servico2 .btn-down:disabled {
+    background: #C8B4E3;
+    cursor: not-allowed;
+}
+
+/* Tempo restante */
+#tempo-restante2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2A1D35;
+}
+
+/* Mantém a animação */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
