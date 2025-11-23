@@ -400,29 +400,33 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     console.log('ID do cliente recebido:', idCliente);
 
     const sql = `
-        SELECT 
-            A.id_agendamento,
-            A.data_agendamento,
-            A.duracao,
-            C.nome_funcionario AS nome_profissional,
-            S.nome_servico AS tipo_servico,
-            U.nome_unidade AS unidade,
-            SP.valor AS preco
-        FROM agendamentos A
-        JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
-        JOIN servicos S ON A.id_servico = S.id_servico
-        JOIN unidades U ON A.id_unidade = U.id_unidade
-        LEFT JOIN servicos_precos SP 
-            ON SP.id_servico = A.id_servico 
-            AND SP.ativo = TRUE
-            AND SP.valor = (
-                SELECT MAX(valor)
-                FROM servicos_precos
-                WHERE id_servico = A.id_servico AND ativo = TRUE
-            )
-        WHERE A.id_cliente = ?
-        AND A.data_agendamento > NOW()
-        ORDER BY A.data_agendamento DESC;
+       SELECT 
+    A.id_agendamento,
+    A.data_agendamento,
+    A.duracao,
+    C.nome_funcionario AS nome_profissional,
+    S.nome_servico AS tipo_servico,
+    U.nome_unidade AS unidade,
+        CASE 
+        WHEN A.id_servico = 4 THEN 48.00 
+        ELSE SP.valor
+    END AS preco
+FROM agendamentos A
+JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
+JOIN servicos S ON A.id_servico = S.id_servico
+JOIN unidades U ON A.id_unidade = U.id_unidade
+LEFT JOIN servicos_precos SP 
+    ON SP.id_servico = A.id_servico 
+    AND SP.ativo = TRUE
+    AND SP.valor = (
+        SELECT MAX(valor)
+        FROM servicos_precos
+        WHERE id_servico = A.id_servico AND ativo = TRUE
+    )
+WHERE A.id_cliente = ?
+AND A.data_agendamento > NOW()
+ORDER BY A.data_agendamento DESC;
+
     `;
 
     conexao.query(sql, [idCliente], (erro, resultados) => {

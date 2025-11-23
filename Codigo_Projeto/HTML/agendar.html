@@ -15,7 +15,7 @@
 
     <header>
         <nav>
-             <section class="parte-de-cima">
+            <section class="parte-de-cima">
                 <section class="logo">
                     <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
                 </section>
@@ -56,11 +56,12 @@
 
             <section class="parte-de-baixo">
                 <section class="barra-de-pesquisa">
-                    <input type="text" id="searchBar" placeholder="Pesquisar" aria-label="Pesquisar" autocomplete="off" />
+                    <input type="text" id="searchBar" placeholder="Pesquisar" aria-label="Pesquisar"
+                        autocomplete="off" />
                     <i class="bi bi-search"></i>
-                  </section>
-                  <ul id="results" class="lista-resultados"></ul>
                 </section>
+                <ul id="results" class="lista-resultados"></ul>
+            </section>
         </nav>
     </header>
 
@@ -69,51 +70,76 @@
         <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
     </section>
 
-        <div class="nome-servico">
-</div>
-<h2 class = "selecionar-unidade">Selecione uma unidade</h2>
-<section class="unidades-grid">
-    <div class="unidade-card" data-id="1">
-        <img class="thumb" src="../assets/Unidades/ribeirao.jpg" alt="Unidade Santo André" />
-        <h3 class="nome">Santo André</h3>
+    <div class="nome-servico">
     </div>
+    <h2 class="selecionar-unidade">Selecione uma unidade</h2>
+    <section class="unidades-grid">
+        <div class="unidade-card" data-id="1">
+            <img class="thumb" src="../assets/Unidades/ribeirao.jpg" alt="Unidade Santo André" />
+            <h3 class="nome">Santo André</h3>
+        </div>
 
-    <div class="unidade-card" data-id="2">
-        <img class="thumb" src="../assets/Unidades/golden.jpg" alt="Unidade São Bernardo do Campo" />
-        <h3 class="nome">São Bernardo do Campo</h3>
-    </div>
+        <div class="unidade-card" data-id="2">
+            <img class="thumb" src="../assets/Unidades/golden.jpg" alt="Unidade São Bernardo do Campo" />
+            <h3 class="nome">São Bernardo do Campo</h3>
+        </div>
 
-    <div class="unidade-card" data-id="3">
-        <img class="thumb" src="../assets/Unidades/west3.jpg" alt="Unidade Mooca Plaza Shopping" />
-        <h3 class="nome">West Plaza Shopping</h3>
-    </div>
+        <div class="unidade-card" data-id="3">
+            <img class="thumb" src="../assets/Unidades/west3.jpg" alt="Unidade Mooca Plaza Shopping" />
+            <h3 class="nome">West Plaza Shopping</h3>
+        </div>
 
-    <div class="unidade-card" data-id="4">
-        <img class="thumb" src="../assets/Unidades/mooca.jpg" alt="Unidade West Plaza Shopping" />
-        <h3 class="nome">Mooca Plaza Shopping</h3>
-    </div>
-</section>
+        <div class="unidade-card" data-id="4">
+            <img class="thumb" src="../assets/Unidades/mooca.jpg" alt="Unidade West Plaza Shopping" />
+            <h3 class="nome">Mooca Plaza Shopping</h3>
+        </div>
+    </section>
 
 
     <div id="conteudo-selecionado" style="display: none;">
-    <h2 class="titulo-duracao">Escolha a duração do serviço</h2>
-    <div class="duration-group">
+        <h2 class="titulo-duracao">Escolha a duração do serviço</h2>
+        <div class="duration-group">
+        </div>
     </div>
+
+
+
+
+    
+<div id="divisao-servico" style="display: flex; flex-direction: column; gap: 10px;">
+  <h3>Divida a duração entre os dois serviços</h3>
+
+  <div style="display: flex; gap: 10px; align-items: center;">
+    <div>
+      <label for="parte1">Serviço 1 (min):</label>
+      <input type="number" id="parte1" min="15" max="35" step="5" value="15">
+    </div>
+
+    <div>
+      <label for="parte2">Serviço 2 (min):</label>
+      <input type="number" id="parte2" min="0" step="5" value="0">
+    </div>
+
+    <p id="tempo-restante" style="margin-top: 10px;">Tempo restante: 0 min</p>
+  </div>
 </div>
 
-   <section class="selecionar-data" style="display:none;" id="form-calendario">
-    <h2>Escolha a data:</h2>
-    <input type="date" id="data-agendamento">
-</section>
 
-<section id="funcionarios-container" class="funcionarios-grid">
+    <section class="selecionar-data" style="display:none;" id="form-calendario">
+        <h2>Escolha a data:</h2>
+        <input type="date" id="data-agendamento">
     </section>
-<div id="horarios-container"></div>
-<button id="btn-agendar" style="display: none;">Agendar</button>
+    
+    <section id="funcionarios-container" class="funcionarios-grid">
+    </section>
 
-<div id="alert-container" class="container mt-3"></div>
 
-
+    <div id="horarios-container"></div>
+    <button id="btn-agendar" style="display: none;">Agendar</button>
+    
+    <div id="alert-container" class="container mt-3"></div>
+    
+    
     <footer class="roda-pe">
         <section class="info-rokuzen">
             <p><a href="#">Contato</a></p>
@@ -135,7 +161,7 @@
         </section>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
@@ -149,13 +175,15 @@
     <script src="../JS/verificar-usuario.js"></script>
     <script src="../JS/agendamentos.js"></script>
     <script src="../JS/alerts.js"></script>
-<div id="modal-promocao" class="modal-promo">
-    <div class="conteudo-modal">
-        <h2>Pausa disponível!</h2>
-        <p id="promo-texto"></p>
-        <button id="btn-promo-ok">Ver serviços rápidos</button>
+    <div id="modal-promocao" class="modal-promo">
+        <div class="conteudo-modal">
+            <h2>Deseja adicionar uma auriculoterapia em seguida por apenas R$48,00??</h2>
+            <p id="promo-texto"></p>
+            <button id="btn-promo-cancel">Não, obrigado</button>
+            <button id="btn-promo-ok">Confirmar</button>
+
+        </div>
     </div>
-</div>
 </body>
 
 </html>

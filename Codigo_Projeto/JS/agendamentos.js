@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-
+    let radiosDuracao;
+    let duracaoSelecionada;
     // ---------- Inicializa containers ----------
     const containerFuncionarios = document.getElementById('funcionarios-container');
     if (containerFuncionarios) containerFuncionarios.style.display = 'none';
@@ -75,12 +76,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const containerPai = document.getElementById('conteudo-selecionado');
                 if (containerPai) containerPai.style.display = 'block';
+                const idServico = Array.isArray(servicosSelecionados) ? servicosSelecionados[0].id_servico : servicosSelecionados.id_servico
+
+                if (idServico === 2) {
+                    const divisao = document.getElementById('divisao-servico');
+                    const radioSelecionado = document.querySelector('input[name="duracao"]:checked');
+                    if (radioSelecionado) {
+                        const label = document.querySelector(`label[for='${radioSelecionado.id}']`);
+                        if (label) {
+                            const texto = label.textContent;
+                            console.log("Label text:", texto);
+
+                            // Extrai o tempo em HH:MM:SS
+                            const match = texto.match(/(\d{2}):(\d{2}):(\d{2})/);
+                            if (match) {
+                                const horas = parseInt(match[1], 10);
+                                const minutos = parseInt(match[2], 10);
+                                const duracaoEmMinutos = horas * 60 + minutos;
+                                console.log("⏱ Duração via label (minutos):", duracaoEmMinutos);
+                                duracaoSelecionada = duracaoEmMinutos;
+                            }
+                        }
+                    }
+
+                    // Atualiza a divisão para refletir a nova duração
+                    if (divisao) divisao.style.display = 'flex';
+                }
+                atualizarDivisao();
             });
 
             containerDuracao.appendChild(radio);
             containerDuracao.appendChild(label);
         });
+        radiosDuracao = document.querySelectorAll('input[name="duracao"]');
+        console.log("⏱ Duração selecionada:", radiosDuracao);
+
     }
+    const input1 = document.getElementById('parte1');
+    const input2 = document.getElementById('parte2');
+    const tempoRestante = document.getElementById('tempo-restante');
+
+    // Função que verifica o tempo restante e trava inputs/radios se necessário
+    function verificarTempoRestante() {
+        const valor1 = parseInt(input1.value) || 0;
+        const valor2 = parseInt(input2.value) || 0;
+        const restante = duracaoSelecionada - (valor1 + valor2);
+
+        // Atualiza display
+        tempoRestante.textContent = `Tempo restante: ${restante} min`;
+
+        if (restante <= 0) {
+            // Trava inputs
+            input1.disabled = true;
+            input2.disabled = true;
+
+            // Trava os radios que não estão selecionados
+            radiosDuracao.forEach(radio => {
+                if (!radio.checked) {
+                    radio.disabled = true;
+                    const label = document.querySelector(`label[for='${radio.id}']`);
+                    if (label) {
+                        label.style.pointerEvents = 'none';
+                        label.style.opacity = '0.6';
+                    }
+                }
+            });
+        } else {
+            // Libera inputs
+            input1.disabled = false;
+            input2.disabled = false;
+
+            // Libera radios
+            radiosDuracao.forEach(radio => {
+                if (!radio.checked) {
+                    radio.disabled = false;
+                    const label = document.querySelector(`label[for='${radio.id}']`);
+                    if (label) {
+                        label.style.pointerEvents = 'auto';
+                        label.style.opacity = '1';
+                    }
+                }
+            });
+        }
+    }
+
+
+    function atualizarDivisao() {
+        atualizarDuracaoSelecionada(); // atualiza a duração antes de calcular
+
+        let valor1 = parseInt(input1.value) || 0;
+        let valor2 = parseInt(input2.value) || 0;
+
+        if (valor1 < 15) valor1 = 15;
+        if (valor1 > 35) valor1 = 35;
+
+        const maxValor2 = duracaoSelecionada - valor1;
+        if (valor2 > maxValor2) valor2 = maxValor2;
+        if (valor2 < 0) valor2 = 0;
+
+        input1.value = valor1;
+        input2.value = valor2;
+
+        // Chama a função para atualizar tempo restante e travar radios se necessário
+        verificarTempoRestante();
+    }
+
+    function atualizarDuracaoSelecionada() {
+        const radioSelecionado = document.querySelector('input[name="duracao"]:checked');
+        if (radioSelecionado) {
+            duracaoSelecionada = parseInt(radioSelecionado.value, 10);
+        } else {
+            duracaoSelecionada = 0;
+        }
+    }
+    //APENAS MODIFICAR AQUI!!!!
 
     // ---------- Seleção de data ----------
     const inputData = document.getElementById('data-agendamento');
@@ -110,8 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const unidadeSelecionada = localStorage.getItem('unidadeSelecionada');
             if (!servicosSelecionados || !unidadeSelecionada) return;
 
-            const idServico = Array.isArray(servicosSelecionados) ? servicosSelecionados[0].id_servico : servicosSelecionados.id_servico;
-
+            const idServico = Array.isArray(servicosSelecionados) ? servicosSelecionados[0].id_servico : servicosSelecionados.id_servico
             try {
                 const resposta = await fetch(`http://localhost:3000/profissionais?id_servico=${idServico}&id_unidade=${encodeURIComponent(unidadeSelecionada)}&diaSemana=${diaSemana}`);
                 const funcionarios = await resposta.json();
@@ -286,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         abrirModalPromocao(); // função do modal
                     } else {
                         console.log("Sem promoção disponível.");
+                        window.location.href = "minha-conta.html";
                     }
                 } catch (e) {
                     console.error("Erro ao verificar promoção:", e);
@@ -400,21 +509,71 @@ function duracaoParaMinutos(duracao) {
     }
     return Number(duracao);
 }
-
-
-// Abre o modal de promoção
-function abrirModalPromocao(texto) {
-    const modal = document.getElementById('modal-promocao');
+function abrirModalPromocao() {
+    const modal = document.getElementById('modal-promocao'); // container do modal
     const p = document.getElementById('promo-texto');
-    if (!modal || !p) return;
+    const btnFechar = document.getElementById('btn-promo-cancel'); // botão "Não, obrigado"
+    const btnConfirmar = document.getElementById('btn-promo-ok'); // botão "Confirmar"
 
-    p.textContent = texto || "Aproveite a pausa!";
+    if (!modal || !p || !btnFechar || !btnConfirmar) return;
+
+    // Atualiza o texto do modal
+    p.textContent = "Deseja adicionar uma auriculoterapia em seguida por apenas R$48,00??";
+
+    // Exibe o modal
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
-    const btnOk = document.getElementById('btn-promo-ok');
-    btnOk.onclick = () => fecharModalPromocao();
+    // Fecha ao clicar no botão de cancelar
+    btnFechar.onclick = () => fecharModalPromocao();
+
+    // Lógica do botão de confirmar
+    btnConfirmar.onclick = async () => {
+        const idCliente = localStorage.getItem('idClienteLogado');
+        const unidade = localStorage.getItem('unidadeSelecionada');
+        const funcionario = localStorage.getItem('funcionarioSelecionado');
+        const data = document.getElementById('data-agendamento').value;
+        const horario = localStorage.getItem('horarioSelecionado');
+
+        if (!idCliente || !unidade || !funcionario || !data || !horario) {
+            alert("Faltam dados para agendamento.");
+            return;
+        }
+
+        const agendamento = {
+            id_cliente: idCliente,
+            id_servico: 4, // ID fixo do serviço da promoção
+            id_unidade: unidade,
+            id_funcionario: funcionario,
+            data_agendamento: data,
+            duracao: "00:20:00", // 20 minutos fixos
+            horario: horario
+        };
+
+        try {
+            const resposta = await fetch('http://localhost:3000/agendamentos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(agendamento)
+            });
+
+            if (!resposta.ok) throw new Error("Erro ao enviar agendamento");
+
+            const resultado = await resposta.json();
+            console.log("Agendamento criado via promoção:", resultado);
+
+            mostrarAlertaBootstrap("Agendamento promocional confirmado!", "success", 3000);
+            setTimeout(() => {
+                window.location.href = "minha-conta.html";
+            }, 1000);
+        } catch (erro) {
+            console.error("Erro no POST de agendamento:", erro);
+            alert("Erro ao confirmar agendamento promocional.");
+        }
+    };
 }
+
+
 
 // Fecha o modal de promoção
 function fecharModalPromocao() {
@@ -422,13 +581,14 @@ function fecharModalPromocao() {
     if (!modal) return;
     modal.style.display = 'none';
     document.body.style.overflow = '';
+    window.location.href = "minha-conta.html";
 }
 
 // Exemplo de como chamar após verificar promoção
 async function verificarEMostrarPromocao(funcionario, data, inicio, duracao) {
     const promocao = await verificarPromocao(funcionario, data, inicio, duracao);
     if (promocao) {
-        abrirModalPromocao("Promoção disponível! Aproveite serviços rápidos!");
+        abrirModalPromocao();
     } else {
         console.log("Sem promoção disponível.");
     }
