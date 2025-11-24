@@ -12,42 +12,40 @@
   height: 220px;
   background: #9ab946;
   overflow: hidden;
+  padding: 0 20px;
 }
 
 .banner-sobre-nos h1 {
-  font-size: 2.6em;
+  font-size: 2.4rem;
+  text-align: center;
   color: #2b2b2b;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   z-index: 2;
-  animation: fadeInDown 1s ease;
 }
 
 .banner-sobre-nos img {
   position: absolute;
   opacity: 0.25;
-  width: 320px;
-  height: auto;
+  width: 220px;
+  right: 5%;
   z-index: 1;
-  right: 12%;
 }
-
 
 .imagem-texto {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
   flex-wrap: wrap;
-  padding: 60px 8%;
+  padding: 40px 6%;
   background-color: #fafafa;
 }
 
 .imagem-texto .texto {
+  width: 100%;
   max-width: 700px;
-  background-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.75);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   font-family: "Poppins", sans-serif;
   font-size: 17px;
   line-height: 1.8;
@@ -62,8 +60,52 @@
 }
 
 .imagem-texto img {
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   border-radius: 14px;
   object-fit: cover;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+@media (max-width: 768px) {
+  .banner-sobre-nos h1 {
+    font-size: 1.9rem;
+  }
+
+  .banner-sobre-nos img {
+    width: 170px;
+    right: 0;
+  }
+
+  .imagem-texto {
+    padding: 30px 5%;
+    gap: 25px;
+  }
+
+  .imagem-texto img {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-sobre-nos {
+    height: 180px;
+  }
+
+  .banner-sobre-nos h1 {
+    font-size: 1.6rem;
+  }
+
+  .banner-sobre-nos img {
+    width: 140px;
+  }
+
+  .imagem-texto .texto {
+    padding: 22px 20px;
+    font-size: 15px;
+  }
+
+  .imagem-texto img {
+    max-width: 240px;
+  }
 }

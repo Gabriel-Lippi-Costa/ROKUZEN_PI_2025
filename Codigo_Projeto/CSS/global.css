@@ -23,6 +23,26 @@ header nav .parte-de-cima .logo {
 
 header nav .logo img {
   width: 300px;
+  height: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  header nav .logo img {
+    width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  header nav .logo img {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  header nav .logo img {
+    width: 150px;
+  }
 }
 
 header nav .parte-de-cima .menu-desktop {
@@ -182,9 +202,7 @@ header nav .parte-do-meio ul li a:hover {
   color: white;
   transition: color 0.3s;
   font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 550;
-  font-style: normal;
 }
 
 .roda-pe .info-rokuzen p a:hover {
@@ -216,9 +234,7 @@ header nav .parte-do-meio ul li a:hover {
   text-align: center;
   opacity: 0.8;
   font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 550;
-  font-style: normal;
 }
 
 @media (max-width: 1024px) {
@@ -273,15 +289,12 @@ header nav .parte-do-meio ul li a:hover {
     position: absolute;
     top: 20px;
     right: 30px;
-    width: auto;
-    margin: 0;
   }
 
   header nav .parte-do-meio ul .close-btn {
     font-size: 32px;
     color: white;
     cursor: pointer;
-    transition: color 0.3s;
   }
 
   header nav .parte-do-meio ul .close-btn:hover {
@@ -312,9 +325,7 @@ header nav .parte-do-meio ul li a:hover {
   }
 
   header nav .parte-de-cima i {
-    text-decoration: none;
     color: white;
-    display: inline-block;
     transition: color 0.3s, transform 0.2s;
   }
 
@@ -331,9 +342,7 @@ header nav .parte-do-meio ul li a:hover {
   header nav .parte-de-cima .menu-desktop li {
     list-style: none;
     font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
     font-weight: 550;
-    font-style: normal;
   }
 
   header nav .parte-de-cima .menu-desktop li a {
@@ -363,33 +372,8 @@ header nav .parte-do-meio ul li a:hover {
   header nav .parte-de-baixo .barra-de-pesquisa i {
     font-size: 32px;
   }
-
-  .roda-pe .info-rokuzen p a {
-    font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 550;
-    font-style: normal;
-  }
-
-  .roda-pe .redes-sociais button a {
-    color: white;
-    font-size: 32px;
-    transition: color 0.3s;
-  }
-
-  .roda-pe .direito-de-imagem {
-    text-align: center;
-    opacity: 0.8;
-    font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 550;
-    font-style: normal;
-  }
-
-  .roda-pe .redes-sociais button a {
-    font-size: 20px;
-  }
 }
+
 html, body { height: 100%; }
 .ajuda-page .faq-wrapper { min-height: calc(100vh - 200px - 60px); }
 
@@ -400,6 +384,7 @@ header nav .parte-de-baixo .barra-de-pesquisa input::placeholder {
 header nav .parte-de-baixo .barra-de-pesquisa i {
   font-size: 16px;
 }
+
 .lista-resultados {
   margin-top: 8px;
   list-style: none;
@@ -412,6 +397,7 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
   overflow-y: auto;
   position: absolute;
   z-index: 100;
+  font-family: "Poppins", sans-serif;
 }
 
 .lista-resultados li {
@@ -421,136 +407,125 @@ header nav .parte-de-baixo .barra-de-pesquisa i {
 
 .lista-resultados li:hover {
   background-color: #f2f2f2;
-}
-#alert-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 350px;
-    font-family: 'Poppins', sans-serif;
+  color: #a8be7c;
 }
 
+#alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  font-family: 'Poppins', sans-serif;
+}
 
 .alert-custom {
-    background: #fff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    font-size: 14px;
-    color: #333;
-    font-weight: 600; 
-    position: relative;
-    opacity: 0;
-    transform: translateY(-10px);
-    animation: slideIn 0.3s forwards;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+  position: relative;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideIn 0.3s forwards;
 }
 
-
 .alert-custom.alert-success {
-    background-color: #e6f4ea;
-    border-left: 5px solid #34a853;
+  background-color: #e6f4ea;
+  border-left: 5px solid #34a853;
 }
 
 .alert-custom.alert-danger {
-    background-color: #fdecea;
-    border-left: 5px solid #d93025;
+  background-color: #fdecea;
+  border-left: 5px solid #d93025;
 }
 
 .alert-custom.alert-info {
-    background-color: #e8f0fe;
-    border-left: 5px solid #1a73e8;
+  background-color: #e8f0fe;
+  border-left: 5px solid #1a73e8;
 }
 
-
 .close-alert {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #555;
-    transition: color 0.2s;
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
 }
 
 .close-alert:hover {
-    color: #000;
+  color: #000;
 }
-
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-10px);}
-    to { opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
-
 .alert-custom button {
-    border: none;
-    border-radius: 6px;
-    padding: 6px 14px;
-    font-weight: 700; 
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    transition: background 0.2s;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.2s;
 }
 
 .alert-custom button#sim {
-    background-color: #34a853;
-    color: #fff;
+  background-color: #34a853;
+  color: #fff;
 }
 
 .alert-custom button#sim:hover {
-    background-color: #2c8c46;
+  background-color: #2c8c46;
 }
 
 .alert-custom button#nao {
-    background-color: #d93025;
-    color: #fff;
+  background-color: #d93025;
+  color: #fff;
 }
 
 .alert-custom button#nao:hover {
-    background-color: #b22a1f;
+  background-color: #b22a1f;
 }
-
 
 .alert-custom div:first-child {
-    margin-bottom: 10px;
-    font-weight: 700; 
+  margin-bottom: 10px;
+  font-weight: 700;
 }
+
 .alert-custom.alert-warning {
-    background-color: #fff4e5; 
-    border-left: 5px solid #fbbc04;
-    color: #665c00;
+  background-color: #fff4e5;
+  border-left: 5px solid #fbbc04;
+  color: #665c00;
 }
+
 .barra-de-pesquisa {
   position: relative;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .lista-resultados {
   position: absolute;
-  width: 240px;      
-  top: 278px; 
+  width: 240px;
+  top: 278px;
 }
-
 
 @media (max-width: 1024px) {
   .lista-resultados {
     top: 221px;
   }
 }
-.lista-resultados {
-    font-family: 'Poppins', sans-serif;
-}
-
-.lista-resultados li:hover {
-    color: #a8be7c;
-}
 
 .parte-do-meio ul li a {
-    font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
 }

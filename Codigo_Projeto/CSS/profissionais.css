@@ -1,6 +1,6 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .cards .card .nome-profissional {
-  font-family: "Poppins", sans-serif; 
+  font-family: "Poppins", sans-serif;
   font-size: 1.5em;
   text-align: center;
   font-weight: 600;
@@ -77,7 +77,6 @@
 
 .nav-button:hover {
   background-color: #500596;
-
   color: white;
 }
 
@@ -125,12 +124,10 @@
   .banner-mobile img {
     display: none;
   }
-
   .banner-desktop img {
     display: block;
     width: 100%;
   }
-
   .secao-promocoes h2 {
     font-size: 2.7em;
   }
@@ -159,5 +156,35 @@
 @media (max-width: 600px) {
   .secao-sobre-nos {
     flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 780px) {
+  .banner-profissionais {
+    height: 160px;
+    padding: 0 20px;
+  }
+  .banner-profissionais h1 {
+    font-size: 1.9em;
+    text-align: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .banner-profissionais {
+    height: 140px;
+    padding: 0 10px;
+  }
+  .banner-profissionais h1 {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 380px) {
+  .banner-profissionais {
+    height: 120px;
+  }
+  .banner-profissionais h1 {
+    font-size: 1.4em;
   }
 }

@@ -99,7 +99,6 @@
   text-align: center;
   padding: 12px 25px;
   background-color: #500596;
-
   color: white;
   font-weight: 550;
   font-size: 18px;
@@ -109,9 +108,10 @@
 }
 
 .card-bottom a.agendamento:hover {
-box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
+  box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
   transform: translateY(-3px);
 }
+
 .card {
   background-color: #fff;
   border-radius: 10px;
@@ -122,10 +122,9 @@ box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
 }
 
 .card:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
-
 
 @media (max-width: 1024px) {
   .cards {
@@ -134,6 +133,51 @@ box-shadow: 0 0 15px rgba(80, 5, 150, 0.5);
 
   .cards .card {
     width: 45%;
+  }
+}
+
+@media (max-width: 900px) {
+  .banner-servicos {
+    height: 170px;
+  }
+
+  .banner-servicos h1 {
+    font-size: 2.1em;
+  }
+
+  .banner-servicos img {
+    width: 260px;
+    margin-right: 250px;
+  }
+}
+
+@media (max-width: 700px) {
+  .banner-servicos {
+    height: 150px;
+  }
+
+  .banner-servicos h1 {
+    font-size: 1.9em;
+  }
+
+  .banner-servicos img {
+    width: 220px;
+    margin-right: 220px;
+  }
+}
+
+@media (max-width: 500px) {
+  .banner-servicos {
+    height: 130px;
+  }
+
+  .banner-servicos h1 {
+    font-size: 1.6em;
+  }
+
+  .banner-servicos img {
+    width: 170px;
+    margin-right: 180px;
   }
 }
 
