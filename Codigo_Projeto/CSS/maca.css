@@ -174,3 +174,58 @@ ul {
     font-size: 15px;
   }
 }
+
+
+
+
+
+.banner-sobre-nos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  background-color: #9ab946;
+  padding: 0 20px;
+}
+
+.bloco-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.bloco-titulo img {
+  width: 150px;
+  height: auto;
+  opacity: 0.25;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.bloco-titulo h1 {
+  font-family: "Times New Roman", serif;
+  font-size: 3rem;
+  color: #404040;
+  margin-left: -60px; 
+  flex-shrink: 0;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+
+
+@media (max-width: 768px) {
+  .bloco-titulo img { width: 120px; }
+  .bloco-titulo h1 { 
+    font-size: 2.2rem; 
+    margin-left: -47px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .bloco-titulo img { width: 90px; }
+  .bloco-titulo h1 { 
+    font-size: 1.8rem; 
+  margin-left: -37px;}
+}

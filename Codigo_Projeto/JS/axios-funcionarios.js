@@ -129,7 +129,7 @@ const servicos = Array.from(
         mostrarAlertaBootstrap("Dados atualizados com sucesso!", "success", 3000);
     } catch (err) {
         console.error('Erro ao atualizar os dados do funcionário:', err);
-        alert('Erro ao atualizar os dados do funcionário!');
+        mostrarAlertaBootstrap('Preencha os campos obrigatórios!', "warning", 3000);
     }
 }
 
@@ -261,7 +261,7 @@ novoFuncionario.servicos = Array.from(
     form.querySelectorAll("input[type='checkbox']:checked")
 )
 .map(cb => Number(cb.value))
-.filter(v => !isNaN(v)); // remove valores que não são número
+.filter(v => !isNaN(v)); 
 
 
     console.log("JSON que será enviado para o backend:", JSON.stringify(novoFuncionario, null, 2));

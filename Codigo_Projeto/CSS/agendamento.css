@@ -414,13 +414,13 @@ color: #500596;
 
 
 .unidade-card {
-    border: 2px solid #ccc; /* aumentei de 1px para 2px */
+    border: 2px solid #ccc;
     border-radius: 8px;
     transition: transform 0.2s, border-color 0.2s;
 }
 
 .unidade-card:hover {
-    border-color: #9ab946; /* verde do hover */
+    border-color: #9ab946; 
     transform: scale(1.05);
 }
 
@@ -432,7 +432,7 @@ color: #500596;
 
 
 #conteudo-selecionado {
-    display: none; /* ou visibility: hidden; */
+    display: none; 
 }
 #funcionarios-container {
     display: grid;
@@ -469,7 +469,7 @@ color: #500596;
     margin: 0;
     color: #333;
 }
-/* Título "Escolha a duração do serviço" */
+
 .titulo-duracao {
     font-size: 30px;
     font-weight: 600;
@@ -479,20 +479,17 @@ color: #500596;
     font-family: "Poppins", sans-serif;
 }
 
-/* Esconde o radio padrão */
 .radio-duracao {
     display: none;
 }
 
-/* Botão de duração (chip) */
-/* Chip (opção de duração) */
 .chip {
     padding: 10px 18px;
     border-radius: 10px;
     border: 2px solid #ccc;
     cursor: pointer;
     font-family: "Poppins", sans-serif;
-    font-weight: 700;       /* ← letra mais grossa */
+    font-weight: 700;   
     transition: all .25s ease;
     display: inline-block;
     margin: 6px 0;
@@ -500,35 +497,31 @@ color: #500596;
     text-align: center;
 }
 
-/* Chip selecionado = estilo verde */
 .radio-duracao:checked + .chip {
-    border-color: #22a331;          /* verde */
-    background-color: #e3ffe8;      /* verde bem claro */
-    color: #0e6b1a;                 /* texto verde */
+    border-color: #22a331;        
+    background-color: #e3ffe8;   
+    color: #0e6b1a;              
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(34, 163, 49, 0.4);
 }
 
 
-/* Container centralizado */
 #conteudo-selecionado {
     text-align: center;
     font-family: "Poppins", sans-serif;
 }
 
-/* Centraliza as opções */
 .duration-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-/* Efeito de card selecionado */
 .unidade-card.ativo {
-    border: 2px solid #00c851;     /* verde mais forte */
-    background-color: #eaffea;     /* verde bem claro */
-    font-weight: 600;              /* deixa o texto mais grosso */
-    transform: scale(1.05);        /* mantém o efeito de destaque */
+    border: 2px solid #00c851;    
+    background-color: #eaffea;     
+    font-weight: 600;           
+    transform: scale(1.05);    
 }
 
 
@@ -537,7 +530,6 @@ color: #500596;
     border-color: #00b33c; 
 }
 
-/* Container da seleção de data */
 .selecionar-data {
     font-family: "Poppins", sans-serif;
     text-align: center;
@@ -545,7 +537,6 @@ color: #500596;
     padding: 20px;
 }
 
-/* Título */
 .selecionar-data h2 {
     font-size: 35px;
     font-weight: 600;
@@ -553,7 +544,6 @@ color: #500596;
   margin-bottom: 15px;
 }
 
-/* Input date estilizado */
 #data-agendamento {
     padding: 12px 18px;
     font-size: 20px;
@@ -565,36 +555,34 @@ color: #500596;
     outline: none;
 }
 
-/* Hover mais bonito */
 #data-agendamento:hover {
     border-color: #00c851;
 }
 
-/* Quando clicado */
 #data-agendamento:focus {
     border-color: #00c851;
     background-color: #eaffea;
     box-shadow: 0 0 8px rgba(0, 200, 81, 0.4);
 }
 .sem-funcionarios-msg {
-    background: #fff4d6;               /* amarelo suave */
-    border: 1px solid #f1c96a;         /* borda compatível */
+    background: #fff4d6;          
+    border: 1px solid #f1c96a;      
     padding: 12px 16px;
     border-radius: 10px;
-    color: #8a6d1c;                    /* texto marrom/amarelo escuro */
+    color: #8a6d1c;                
     font-weight: 600;
     text-align: center;
     font-size: 15px;
 
-    margin: 15px auto;                 /* centraliza */
-    width: fit-content;                /* caixa no tamanho do texto */
+    margin: 15px auto;                
+    width: fit-content;              
 
     opacity: 0;
     transform: translateY(-5px);
     transition: .25s ease;
 
-    grid-column: 1 / -1;               /* ocupa linha inteira no grid */
-    justify-self: center;              /* centraliza no grid */
+    grid-column: 1 / -1;              
+    justify-self: center;           
 }
 
 .sem-funcionarios-msg.show {
@@ -612,8 +600,8 @@ color: #500596;
 }
 
 .funcionario-item {
-    width: 210px;                 /* AUMENTADO */
-    padding: 18px;                /* mais espaço interno */
+    width: 210px;                
+    padding: 18px;             
     border: 1px solid #ccc;
     border-radius: 14px;
     background: #fff;
@@ -621,7 +609,6 @@ color: #500596;
     transition: .25s ease;
     font-family: "Poppins", sans-serif;
 
-    /* efeito mais moderno */
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
@@ -638,14 +625,14 @@ color: #500596;
 
 .thumb-funcionario {
     width: 100%;
-    height: 150px;               /* imagem maior e uniforme */
-    object-fit: cover;           /* corta e mantém proporção */
+    height: 150px;            
+    object-fit: cover;          
     border-radius: 10px;
     margin-bottom: 12px;
 }
 
 .funcionario-item h3 {
-    font-size: 18px;              /* nome maior */
+    font-size: 18px;             
     font-weight: 600;
     margin-top: 8px;
 }
@@ -660,7 +647,7 @@ color: #500596;
 
 .funcionarios-grid {
     display: flex;
-    flex-direction: column;   /* 👈 IMPORTANTE */
+    flex-direction: column; 
     gap: 20px;
     width: 100%;
 }
@@ -668,8 +655,8 @@ color: #500596;
 .funcionarios-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;  /* 👈 CENTRALIZA NA HORIZONTAL */
-    align-items: center;       /* 👈 CENTRALIZA NA VERTICAL (linhas menores) */
+    justify-content: center;
+    align-items: center;      
     gap: 20px;
     width: 100%;
 }
@@ -690,11 +677,10 @@ color: #500596;
     transform: scale(1.03);
 }
 
-/* 🌿 ESTILO DE SELEÇÃO - mesmo verde dos chips */
 .funcionario-item.selecionado {
-    background: #e3ffe8;      /* verde bem claro, igual ao chip */
-    border-color: #22a331;    /* verde igual ao chip */
-    color: #0e6b1a;           /* texto verde igual ao chip */
+    background: #e3ffe8;     
+    border-color: #22a331; 
+    color: #0e6b1a;         
     box-shadow: 0 0 10px rgba(34, 163, 49, 0.4); 
     transform: scale(1.05);
 }
@@ -712,8 +698,8 @@ color: #500596;
 }
 
 .btn-horario:hover {
-    border-color: #22a331;          /* verde do chip */
-    background-color: #e3ffe8;      /* verde bem claro */
+    border-color: #22a331;        
+    background-color: #e3ffe8;    
 }
 
 .btn-horario.selecionado {
@@ -724,11 +710,11 @@ color: #500596;
 }
 
 #horarios-container {
-    display: flex;           /* deixa os botões em linha */
-    flex-wrap: wrap;         /* se não couber, quebra linha */
-    justify-content: center; /* centraliza horizontalmente */
-    gap: 12px;               /* espaço entre os botões */
-    margin-top: 20px;        /* espaço acima de todo o grupo */
+    display: flex;        
+    flex-wrap: wrap;         
+    justify-content: center; 
+    gap: 12px;              
+    margin-top: 20px;       
 }
 
 .btn-horario {
@@ -752,22 +738,22 @@ color: #500596;
 
 #horarios-container {
     display: flex;
-    flex-direction: column; /* título em cima, botões abaixo */
-    align-items: center;    /* centraliza horizontalmente todo conteúdo */
+    flex-direction: column;
+    align-items: center;    
     width: 100%;
 }
 
 .botoes-horarios {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* centraliza os botões */
+    justify-content: center; 
     gap: 12px;
     margin-top: 15px;
-    width: 100%;             /* ocupa toda a largura disponível */
+    width: 100%;           
 }
 #btn-agendar {
-  display: block;                  /* permite usar margin auto */
-  margin: 20px auto 40px auto;     /* topo 20px, horizontal auto, bottom 40px */
+  display: block;              
+  margin: 20px auto 40px auto;    
   padding: 12px 24px;
     background: linear-gradient(90deg, #6a07c4 0%, #500596 100%);
   background-color: #500596;
@@ -779,7 +765,7 @@ color: #500596;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 10px;
-  text-align: center;              /* garante que o texto fique centralizado */
+  text-align: center;            
 }
 
 #btn-agendar:hover {
@@ -789,23 +775,23 @@ color: #500596;
 }
 
 .sem-horarios-msg {
-    background: #fff4d6;               /* amarelo suave */
-    border: 1px solid #f1c96a;         /* borda compatível */
+    background: #fff4d6;              
+    border: 1px solid #f1c96a;      
     padding: 12px 16px;
     border-radius: 10px;
-    color: #8a6d1c;                    /* texto marrom/amarelo escuro */
+    color: #8a6d1c;                   
     font-weight: 600;
     text-align: center;
     font-size: 15px;
-    margin: 15px auto;                 /* centraliza */
-    width: fit-content;                /* caixa no tamanho do texto */
+    margin: 15px auto;            
+    width: fit-content;              
 
     opacity: 0;
     transform: translateY(-5px);
     transition: .25s ease;
 
-    grid-column: 1 / -1;               /* ocupa linha inteira no grid */
-    justify-self: center;              /* centraliza no grid */
+    grid-column: 1 / -1;              
+    justify-self: center;              
 }
 
 .sem-horarios-msg.show {
@@ -814,13 +800,13 @@ color: #500596;
 }
 
 .nome-servico {
-    text-align: center; /* centraliza o conteúdo */
+    text-align: center;
     margin: 30px 0;
-    font-family: 'Poppins', sans-serif; /* aplica a fonte */
+    font-family: 'Poppins', sans-serif; 
 }
 
 .titulo-servico {
-    font-size: 3rem; /* aumentei de 2rem para 3rem */
+    font-size: 3rem; 
     font-weight: 600;
     color: #500596;
     margin-bottom: 30px;
@@ -831,12 +817,12 @@ color: #500596;
     height: auto;
     border-radius: 10px;
     display: block;
-    margin: 0 auto 50px auto; /* top 0, horizontal auto, bottom 30px */
+    margin: 0 auto 50px auto;
 }
 
 
 .selecionar-unidade {
-    font-size: 3rem; /* aumentei de 2rem para 3rem */
+    font-size: 3rem; 
     font-weight: 600;
     color: #500596;
     margin-bottom: 30px;
@@ -869,21 +855,19 @@ color: #500596;
 }
 
 
-/* Estilo do modal (fundo) */
 .modal-promo {
-    display: none; /* inicialmente escondido */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* fundo semi-transparente */
+    background-color: rgba(0, 0, 0, 0.5); 
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* sempre acima de outros elementos */
+    z-index: 1000;
 }
 
-/* Conteúdo do modal */
 .conteudo-modal {
     background-color: #fff;
     padding: 30px 40px;
@@ -895,7 +879,6 @@ color: #500596;
     animation: aparecer 0.3s ease-out;
 }
 
-/* Animação do modal */
 @keyframes aparecer {
     from {
         opacity: 0;
@@ -907,7 +890,6 @@ color: #500596;
     }
 }
 
-/* Título do modal */
 .conteudo-modal h2 {
     font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
@@ -915,14 +897,12 @@ color: #500596;
     color: #500596;
 }
 
-/* Texto adicional */
 #promo-texto {
     font-size: 1rem;
     margin-bottom: 25px;
     color: #333;
 }
 
-/* Botão */
 #btn-promo-ok {
     padding: 12px 25px;
       background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
@@ -960,12 +940,12 @@ color: #500596;
 
 
 #divisao-servico {
-    display: none; /* começa escondido */
+    display: none; 
     margin-top: 20px;
     padding: 20px;
-    border: 2px solid #7e0000; /* borda da cor do seu tema */
+    border: 2px solid #7e0000; 
     border-radius: 10px;
-    background-color: #fff4f4; /* fundo suave */
+    background-color: #fff4f4;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -1005,10 +985,8 @@ color: #500596;
 
 
 
-/* Importa Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-/* Container principal */
 #divisao-servico {
     display: none;
     flex-direction: column;
@@ -1021,7 +999,6 @@ color: #500596;
     animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Título */
 #divisao-servico h3 {
     font-size: 20px;
     font-weight: 600;
@@ -1029,14 +1006,12 @@ color: #500596;
     margin-bottom: 5px;
 }
 
-/* Layout interno */
 .spinners-wrapper {
     display: flex;
     gap: 40px;
     align-items: center;
 }
 
-/* Cada bloco de serviço */
 .spinner {
     display: flex;
     flex-direction: column;
@@ -1049,7 +1024,6 @@ color: #500596;
     font-weight: 500;
 }
 
-/* Controle com botões e valor */
 .controle {
     display: flex;
     flex-direction: column;
@@ -1057,7 +1031,6 @@ color: #500596;
     gap: 6px;
 }
 
-/* O valor exibido */
 .valor {
     width: 50px;
     height: 40px;
@@ -1072,7 +1045,6 @@ color: #500596;
     justify-content: center;
 }
 
-/* Botões */
 .btn-up,
 .btn-down {
     width: 50px;
@@ -1093,32 +1065,23 @@ color: #500596;
     background: #7E4DB3;
 }
 
-/* Botão desativado */
 .btn-up:disabled,
 .btn-down:disabled {
     background: #C8B4E3;
     cursor: not-allowed;
 }
 
-/* Tempo restante */
 #tempo-restante {
     font-size: 16px;
     font-weight: 500;
     color: #2A1D35;
 }
 
-/* Animação */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-
-
-/* ----------------------------
-   ESTILO IGUAL AO divísao-servico
-   PARA O BLOCO divisao-servico2
------------------------------*/
 
 #divisao-servico2 {
     display: none;
@@ -1132,7 +1095,6 @@ color: #500596;
     animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Título */
 #divisao-servico2 h3 {
     font-size: 20px;
     font-weight: 600;
@@ -1140,14 +1102,12 @@ color: #500596;
     margin-bottom: 5px;
 }
 
-/* Layout interno */
 #divisao-servico2 .spinners-wrapper {
     display: flex;
     gap: 40px;
     align-items: center;
 }
 
-/* Cada spinner */
 #divisao-servico2 .spinner {
     display: flex;
     flex-direction: column;
@@ -1160,7 +1120,6 @@ color: #500596;
     font-weight: 500;
 }
 
-/* Controle (botões + valor) */
 #divisao-servico2 .controle {
     display: flex;
     flex-direction: column;
@@ -1168,7 +1127,6 @@ color: #500596;
     gap: 6px;
 }
 
-/* Valor */
 #divisao-servico2 .valor {
     width: 50px;
     height: 40px;
@@ -1183,7 +1141,6 @@ color: #500596;
     justify-content: center;
 }
 
-/* Botões ↑ ↓ */
 #divisao-servico2 .btn-up,
 #divisao-servico2 .btn-down {
     width: 50px;
@@ -1204,22 +1161,104 @@ color: #500596;
     background: #7E4DB3;
 }
 
-/* Botões desativados */
 #divisao-servico2 .btn-up:disabled,
 #divisao-servico2 .btn-down:disabled {
     background: #C8B4E3;
     cursor: not-allowed;
 }
 
-/* Tempo restante */
 #tempo-restante2 {
     font-size: 16px;
     font-weight: 500;
     color: #2A1D35;
 }
 
-/* Mantém a animação */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.banner-sobre-nos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  background-color: #9ab946;
+  padding: 0 20px;
+}
+
+.bloco-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.bloco-titulo img {
+  width: 150px;
+  height: auto;
+  opacity: 0.25;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.bloco-titulo h1 {
+  font-family: "Times New Roman", serif;
+  font-size: 3rem;
+  color: #404040;
+  margin-left: -60px; 
+  flex-shrink: 0;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+
+
+@media (max-width: 768px) {
+  .bloco-titulo img { width: 120px; }
+  .bloco-titulo h1 { 
+    font-size: 2.2rem; 
+    margin-left: -47px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .bloco-titulo img { width: 90px; }
+  .bloco-titulo h1 { 
+    font-size: 1.8rem; 
+  margin-left: -37px;}
+}
+
+
+.unidades-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+  padding: 20px;
+}
+
+.unidade-card .thumb {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.unidade-card .nome {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .unidades-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .unidades-grid {
+    grid-template-columns: 1fr;
+  }
 }

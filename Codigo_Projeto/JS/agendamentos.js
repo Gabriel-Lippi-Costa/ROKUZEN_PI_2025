@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     let radiosDuracao;
     let hora;
-    // ---------- Inicializa containers ----------
     const containerFuncionarios = document.getElementById('funcionarios-container');
     if (containerFuncionarios) containerFuncionarios.style.display = 'none';
 
-    // ---------- Seleção de unidade ----------
+    
     const unidades = document.querySelectorAll('.unidade-card');
     const containerDura = document.getElementById('conteudo-selecionado');
 
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ---------- Mostra serviço selecionado ----------
     const servicosSelecionados = JSON.parse(localStorage.getItem('servicoSelecionado'));
     if (servicosSelecionados && servicosSelecionados.length > 0) {
         const servico = servicosSelecionados[0];
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         containerNomeServico.appendChild(img);
     }
 
-    // ---------- Seleção de duração ----------
     const containerDuracao = document.querySelector('.duration-group');
     if (containerDuracao && servicosSelecionados) {
         containerDuracao.innerHTML = '';
@@ -76,15 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const containerPai = document.getElementById('conteudo-selecionado');
                 if (containerPai) containerPai.style.display = 'block';
-                // Pega do localStorage
                 let servicosSelecionados = localStorage.getItem('servicoSelecionado');
 
-                // Converte de JSON para array ou objeto
                 if (servicosSelecionados) {
                     servicosSelecionados = JSON.parse(servicosSelecionados);
                 }
 
-                // Agora pega o id do serviço corretamente
                 let idServico = Array.isArray(servicosSelecionados)
                     ? servicosSelecionados[0].id_servico
                     : servicosSelecionados.id_servico;
@@ -111,14 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
-                    // MOSTRA a divisão
                     if (divisao) divisao.style.display = 'flex';
 
-                    // INICIA a lógica da divisão (SÓ quando id=2)
                     iniciarDivisao(hora);
 
                 } else {
-                    // ESCONDE caso não seja serviço 2
                     const divisao = document.getElementById('divisao-servico');
                     if (divisao) divisao.style.display = 'none';
                 }
@@ -143,21 +134,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
-                    // MOSTRA a divisão
                     if (divisao) divisao.style.display = 'flex';
 
-                    // INICIA a lógica da divisão (SÓ quando id=2)
                     iniciarDivisao2(hora);
 
                 } else {
-                    // ESCONDE caso não seja serviço 2
                     const divisao = document.getElementById('divisao-servico2');
                     if (divisao) divisao.style.display = 'none';
                 }
 
                 console.log("⏱ 2", hora);
 
-                // atualizarLimitador(hora);
             });
 
             containerDuracao.appendChild(radio);
@@ -173,21 +160,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const input2 = document.getElementById('parte2');
     const tempoRestante = document.getElementById('tempo-restante');
 
-    // Função que verifica o tempo restante e trava inputs/radios se necessário
     function verificarTempoRestante() {
         const valor1 = parseInt(input1.value) || 0;
         const valor2 = parseInt(input2.value) || 0;
         const restante = duracaoSelecionada - (valor1 + valor2);
 
-        // Atualiza display
         tempoRestante.textContent = `Tempo restante: ${restante} min`;
 
         if (restante <= 0) {
-            // Trava inputs
             input1.disabled = true;
             input2.disabled = true;
 
-            // Trava os radios que não estão selecionados
             radiosDuracao.forEach(radio => {
                 if (!radio.checked) {
                     radio.disabled = true;
@@ -199,11 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         } else {
-            // Libera inputs
             input1.disabled = false;
             input2.disabled = false;
 
-            // Libera radios
             radiosDuracao.forEach(radio => {
                 if (!radio.checked) {
                     radio.disabled = false;
@@ -219,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function atualizarDivisao() {
-        atualizarDuracaoSelecionada(); // atualiza a duração antes de calcular
+        atualizarDuracaoSelecionada(); 
 
         let valor1 = parseInt(input1.value) || 0;
         let valor2 = parseInt(input2.value) || 0;
@@ -234,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
         input1.value = valor1;
         input2.value = valor2;
 
-        // Chama a função para atualizar tempo restante e travar radios se necessário
         verificarTempoRestante();
     }
 
@@ -246,9 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             duracaoSelecionada = 0;
         }
     }
-    //APENAS MODIFICAR AQUI!!!!
 
-    // ---------- Seleção de data ----------
     const inputData = document.getElementById('data-agendamento');
     if (inputData) {
         inputData.addEventListener('change', async () => {
@@ -399,7 +377,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------- Botão agendar ----------
     const btnAgendar = document.getElementById('btn-agendar');
     if (btnAgendar) {
         btnAgendar.addEventListener('click', async () => {
@@ -410,6 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = document.getElementById('data-agendamento').value;
             const idCliente = localStorage.getItem('idClienteLogado');
             const duracaoSelecionada = document.querySelector('input[name="duracao"]:checked')?.value;
+            if (duracaoSelecionada) {
+    localStorage.setItem('duracaoSelecionada', duracaoSelecionada);
+}
 
             if (!servico || !unidade || !horario || !idFuncionario || !data || !duracaoSelecionada) {
                 mostrarAlertaBootstrap("Faltam dados para agendar!", "danger", 3000);
@@ -441,14 +421,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("Agendamento criado:", resultado);
                 mostrarAlertaBootstrap("Agendamento realizado com sucesso!", "success", 3000);
 
-                // ---------- Verificação de promoção ----------
                 try {
                     const duracaoMin = duracaoParaMinutos(duracaoSelecionada);
                     const temPromo = await verificarPromocao(idFuncionario, data, horario, duracaoMin);
 
                     if (temPromo) {
                         console.log("🎉 Promoção disponível!");
-                        abrirModalPromocao(); // função do modal
+                        abrirModalPromocao(); 
                     } else {
                         console.log("Sem promoção disponível.");
                         window.location.href = "minha-conta.html";
@@ -465,24 +444,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// ---------- Funções auxiliares ----------
 
 async function verificarPromocao(funcionario, data, inicio, duracao) {
-    // Log dos parâmetros recebidos
     console.log("🔹 verificarPromocao chamada com:");
     console.log("   Funcionário:", funcionario);
     console.log("   Data:", data);
     console.log("   Início:", inicio);
     console.log("   Duração em minutos:", duracao);
 
-    // Monta a URL e log
     const url = `http://localhost:3000/promocao?funcionario=${funcionario}&data=${data}&inicio=${inicio}&duracao=${duracao}`;
     console.log("🔗 URL chamada:", url);
 
     try {
         const resp = await fetch(url);
 
-        // Log do status HTTP
         console.log("📤 Status da resposta:", resp.status);
 
         if (!resp.ok) {
@@ -492,10 +467,8 @@ async function verificarPromocao(funcionario, data, inicio, duracao) {
 
         const json = await resp.json();
 
-        // Log da resposta completa do backend
         console.log("📥 Resposta JSON da promoção:", json);
 
-        // Log do valor que será retornado
         console.log("✅ Promoção disponível?", json.promocao === true);
 
         return json.promocao === true;
@@ -511,31 +484,27 @@ function duracaoParaMinutos(duracao) {
         const [h, m] = duracao.split(':').map(Number);
         return h * 60 + m;
     }
-    return Number(duracao); // já é minutos
+    return Number(duracao); 
 }
 
 async function verificarPromocao(funcionario, data, inicio, duracao) {
-    // Log dos parâmetros recebidos
     console.log("🔹 verificarPromocao chamada com:");
     console.log("   Funcionário:", funcionario);
     console.log("   Data:", data);
     console.log("   Início:", inicio);
     console.log("   Duração em minutos:", duracao);
 
-    // Converte a data para dia da semana (0=domingo, 1=segunda, ...)
     const dataObj = new Date(data);
     const diaSemana = dataObj.getDay() + 1;
     if (diaSemana == 8) { diaSemana = 0; }
     console.log("📅 Dia da semana calculado:", diaSemana);
 
-    // Monta a URL e log
     const url = `http://localhost:3000/promocao?funcionario=${funcionario}&diaSemana=${diaSemana}&inicio=${inicio}&duracao=${duracao}`;
     console.log("🔗 URL chamada:", url);
 
     try {
         const resp = await fetch(url);
 
-        // Log do status HTTP
         console.log("📤 Status da resposta:", resp.status);
 
         if (!resp.ok) {
@@ -545,10 +514,8 @@ async function verificarPromocao(funcionario, data, inicio, duracao) {
 
         const json = await resp.json();
 
-        // Log da resposta completa do backend
         console.log("📥 Resposta JSON da promoção:", json);
 
-        // Log do valor que será retornado
         console.log("✅ Promoção disponível?", json.promocao === true);
 
         return json.promocao === true;
@@ -567,44 +534,41 @@ function duracaoParaMinutos(duracao) {
     return Number(duracao);
 }
 function abrirModalPromocao() {
-    const modal = document.getElementById('modal-promocao'); // container do modal
+    const modal = document.getElementById('modal-promocao');
     const p = document.getElementById('promo-texto');
-    const btnFechar = document.getElementById('btn-promo-cancel'); // botão "Não, obrigado"
-    const btnConfirmar = document.getElementById('btn-promo-ok'); // botão "Confirmar"
+    const btnFechar = document.getElementById('btn-promo-cancel'); 
+    const btnConfirmar = document.getElementById('btn-promo-ok'); 
 
     if (!modal || !p || !btnFechar || !btnConfirmar) return;
 
-    // Atualiza o texto do modal
     p.textContent = "Deseja adicionar uma auriculoterapia em seguida por apenas R$48,00??";
 
-    // Exibe o modal
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
-    // Fecha ao clicar no botão de cancelar
     btnFechar.onclick = () => fecharModalPromocao();
 
-    // Lógica do botão de confirmar
     btnConfirmar.onclick = async () => {
         const idCliente = localStorage.getItem('idClienteLogado');
         const unidade = localStorage.getItem('unidadeSelecionada');
         const funcionario = localStorage.getItem('funcionarioSelecionado');
         const data = document.getElementById('data-agendamento').value;
         const horario = localStorage.getItem('horarioSelecionado');
+        const duracaoAnterior = localStorage.getItem('duracaoSelecionada');
 
         if (!idCliente || !unidade || !funcionario || !data || !horario) {
             alert("Faltam dados para agendamento.");
             return;
         }
-
+const novoHorario = somarHorarioComDuracao(horario, duracaoAnterior);
         const agendamento = {
             id_cliente: idCliente,
-            id_servico: 4, // ID fixo do serviço da promoção
+            id_servico: 1, 
             id_unidade: unidade,
             id_funcionario: funcionario,
             data_agendamento: data,
-            duracao: "00:20:00", // 20 minutos fixos
-            horario: horario
+            duracao: "00:20:00", 
+            horario: novoHorario
         };
 
         try {
@@ -632,7 +596,6 @@ function abrirModalPromocao() {
 
 
 
-// Fecha o modal de promoção
 function fecharModalPromocao() {
     const modal = document.getElementById('modal-promocao');
     if (!modal) return;
@@ -641,7 +604,6 @@ function fecharModalPromocao() {
     window.location.href = "minha-conta.html";
 }
 
-// Exemplo de como chamar após verificar promoção
 async function verificarEMostrarPromocao(funcionario, data, inicio, duracao) {
     const promocao = await verificarPromocao(funcionario, data, inicio, duracao);
     if (promocao) {
@@ -652,7 +614,7 @@ async function verificarEMostrarPromocao(funcionario, data, inicio, duracao) {
 }
 function iniciarDivisao(hora) {
 
-    const bloco = document.getElementById("divisao-servico"); // bloco 1
+    const bloco = document.getElementById("divisao-servico"); 
     const s1 = bloco.querySelector("#s1");
     const s2 = bloco.querySelector("#s2");
     const restante = bloco.querySelector("#tempo-restante");
@@ -671,7 +633,6 @@ function iniciarDivisao(hora) {
 
         restante.textContent = `Tempo restante: ${hora - soma} min`;
 
-        // ---- UP ----
         btnUpList.forEach(btn => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
             const isS1 = btn.dataset.target === "s1";
@@ -690,7 +651,6 @@ function iniciarDivisao(hora) {
             btn.disabled = false;
         });
 
-        // ---- DOWN ----
         btnDownList.forEach(btn => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
             const isS1 = btn.dataset.target === "s1";
@@ -710,7 +670,6 @@ function iniciarDivisao(hora) {
         });
     }
 
-    // Eventos exclusivos do bloco 1
     btnUpList.forEach(btn => {
         btn.addEventListener("click", () => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
@@ -733,7 +692,7 @@ function iniciarDivisao(hora) {
 
 function iniciarDivisao2(hora) {
 
-    const bloco = document.getElementById("divisao-servico2"); // bloco 2
+    const bloco = document.getElementById("divisao-servico2"); 
     const s1 = bloco.querySelector("#s3");
     const s2 = bloco.querySelector("#s4");
     const restante = bloco.querySelector("#tempo-restante2");
@@ -752,7 +711,6 @@ function iniciarDivisao2(hora) {
 
         restante.textContent = `Tempo restante: ${hora - soma} min`;
 
-        // ---- UP ----
         btnUpList.forEach(btn => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
             const isS1 = btn.dataset.target === "s3";
@@ -771,7 +729,6 @@ function iniciarDivisao2(hora) {
             btn.disabled = false;
         });
 
-        // ---- DOWN ----
         btnDownList.forEach(btn => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
             const isS1 = btn.dataset.target === "s3";
@@ -791,7 +748,6 @@ function iniciarDivisao2(hora) {
         });
     }
 
-    // Eventos exclusivos do bloco 2
     btnUpList.forEach(btn => {
         btn.addEventListener("click", () => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
@@ -810,3 +766,18 @@ function iniciarDivisao2(hora) {
 
     atualizar();
 }
+
+
+function somarHorarioComDuracao(horario, duracao) {
+    const [hHor, mHor] = horario.split(':').map(Number);
+    const [hDur, mDur, sDur] = duracao.split(':').map(Number);
+
+
+    let totalMinutos = hHor * 60 + mHor + hDur * 60 + mDur;
+
+
+    const horasFinais = Math.floor(totalMinutos / 60);
+    const minutosFinais = totalMinutos % 60;
+
+    return `${String(horasFinais).padStart(2,'0')}:${String(minutosFinais).padStart(2,'0')}`;
+};

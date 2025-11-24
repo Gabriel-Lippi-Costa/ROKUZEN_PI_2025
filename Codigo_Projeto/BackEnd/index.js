@@ -410,12 +410,13 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     S.nome_servico AS tipo_servico,
     U.nome_unidade AS unidade,
     CASE 
-        WHEN A.id_servico = 4 THEN 48.00 
+        WHEN A.id_servico = 1 THEN 48.00 
         ELSE (
             SELECT SP.valor
             FROM servicos_precos SP
-            WHERE SP.id_servico = A.id_servico AND SP.ativo = TRUE
-            ORDER BY SP.valor DESC
+            WHERE SP.id_servico = A.id_servico
+              AND SP.duracao = A.duracao
+              AND SP.ativo = TRUE
             LIMIT 1
         )
     END AS preco
@@ -574,29 +575,31 @@ app.get('/cliente/:id/agendamentos-historicos', (req, res) => {
     console.log('ID do cliente recebido:', idCliente);
 
     const sql = `
-        SELECT 
-            A.id_agendamento,
-            A.data_agendamento,
-            A.duracao,
-            C.nome_funcionario AS nome_profissional,
-            S.nome_servico AS tipo_servico,
-            U.nome_unidade AS unidade,
-            SP.valor AS preco
-        FROM agendamentos A
-        JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
-        JOIN servicos S ON A.id_servico = S.id_servico
-        JOIN unidades U ON A.id_unidade = U.id_unidade
-        LEFT JOIN servicos_precos SP 
-            ON SP.id_servico = A.id_servico 
-            AND SP.ativo = TRUE
-            AND SP.valor = (
-                SELECT MAX(valor)
-                FROM servicos_precos
-                WHERE id_servico = A.id_servico AND ativo = TRUE
-            )
-        WHERE A.id_cliente = ? 
-        AND A.data_agendamento < NOW()
-        ORDER BY A.data_agendamento DESC;
+       SELECT 
+    A.id_agendamento,
+    A.data_agendamento,
+    A.duracao,
+    C.nome_funcionario AS nome_profissional,
+    S.nome_servico AS tipo_servico,
+    U.nome_unidade AS unidade,
+    CASE 
+        WHEN A.id_servico = 1 THEN 48.00 
+        ELSE (
+            SELECT SP.valor
+            FROM servicos_precos SP
+            WHERE SP.id_servico = A.id_servico
+              AND SP.duracao = A.duracao
+              AND SP.ativo = TRUE
+            LIMIT 1
+        )
+    END AS preco
+FROM agendamentos A
+JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
+JOIN servicos S ON A.id_servico = S.id_servico
+JOIN unidades U ON A.id_unidade = U.id_unidade
+WHERE A.id_cliente = ?
+  AND A.data_agendamento < NOW()
+ORDER BY A.data_agendamento DESC;
     `;
 
     conexao.query(sql, [idCliente], (erro, resultados) => {
@@ -1108,7 +1111,6 @@ app.get('/promocao', async (req, res) => {
     try {
         console.log("📌 Verificando promoção para:", { funcionario, diaSemana, inicio, duracao });
 
-        // 1. Pega escala do dia da semana
         const [escala] = await conexao.promise().query(`
             SELECT hora_inicio, hora_fim
             FROM escalas
@@ -1123,7 +1125,6 @@ app.get('/promocao', async (req, res) => {
 
         const fimEscala = escala[0].hora_fim;
 
-        // helpers
         const toMin = t => {
             const [h, m] = t.split(':').map(Number);
             return h * 60 + m;
@@ -1137,13 +1138,11 @@ app.get('/promocao', async (req, res) => {
 
         console.log("⏱️ Horários em minutos:", { inicioMin, durMin, fimMin, limiteMin, fimEscalaMin });
 
-        // 2. Se passar do fim da escala, não tem promoção
         if (limiteMin > fimEscalaMin) {
             console.log("⛔ Intervalo com promoção ultrapassa o fim da escala.");
             return res.json({ promocao: false });
         }
 
-        // 3. Verifica se algum agendamento ocupa o intervalo extra
         const [agendamentos] = await conexao.promise().query(`
             SELECT TIME(data_agendamento) AS inicio, duracao
             FROM agendamentos

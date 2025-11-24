@@ -4,31 +4,6 @@
   box-sizing: border-box;
 }
 
-.banner-sobre-nos {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 220px;
-  background: #9ab946;
-  overflow: hidden;
-  padding: 0 20px;
-}
-
-.banner-sobre-nos h1 {
-  font-size: 2.4rem;
-  text-align: center;
-  color: #2b2b2b;
-  z-index: 2;
-}
-
-.banner-sobre-nos img {
-  position: absolute;
-  opacity: 0.25;
-  width: 220px;
-  right: 5%;
-  z-index: 1;
-}
 
 .imagem-texto {
   display: flex;
@@ -108,4 +83,56 @@
   .imagem-texto img {
     max-width: 240px;
   }
+}
+
+
+
+.banner-sobre-nos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  background-color: #9ab946;
+  padding: 0 20px;
+}
+
+.bloco-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.bloco-titulo img {
+  width: 150px;
+  height: auto;
+  opacity: 0.25;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.bloco-titulo h1 {
+  font-size: 3rem;
+  color: #404040;
+  margin-left: -60px; 
+  flex-shrink: 0;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+
+
+@media (max-width: 768px) {
+  .bloco-titulo img { width: 120px; }
+  .bloco-titulo h1 { 
+    font-size: 2.2rem; 
+    margin-left: -47px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .bloco-titulo img { width: 90px; }
+  .bloco-titulo h1 { 
+    font-size: 1.8rem; 
+  margin-left: -37px;}
 }
