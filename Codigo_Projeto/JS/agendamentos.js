@@ -76,9 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const containerPai = document.getElementById('conteudo-selecionado');
                 if (containerPai) containerPai.style.display = 'block';
-                const idServico = Array.isArray(servicosSelecionados) ? servicosSelecionados[0].id_servico : servicosSelecionados.id_servico
+                // Pega do localStorage
+                let servicosSelecionados = localStorage.getItem('servicoSelecionado');
 
-                if (idServico === 2) {
+                // Converte de JSON para array ou objeto
+                if (servicosSelecionados) {
+                    servicosSelecionados = JSON.parse(servicosSelecionados);
+                }
+
+                // Agora pega o id do serviço corretamente
+                let idServico = Array.isArray(servicosSelecionados)
+                    ? servicosSelecionados[0].id_servico
+                    : servicosSelecionados.id_servico;
+
+
+                if (idServico === 5) {
                     const divisao = document.getElementById('divisao-servico');
                     const radioSelecionado = document.querySelector('input[name="duracao"]:checked');
 
@@ -110,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const divisao = document.getElementById('divisao-servico');
                     if (divisao) divisao.style.display = 'none';
                 }
-                if (idServico === 3) {
+                if (idServico === 6) {
                     const divisao = document.getElementById('divisao-servico2');
                     const radioSelecionado = document.querySelector('input[name="duracao"]:checked');
 
@@ -137,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // INICIA a lógica da divisão (SÓ quando id=2)
                     iniciarDivisao2(hora);
 
-                }else {
+                } else {
                     // ESCONDE caso não seja serviço 2
                     const divisao = document.getElementById('divisao-servico2');
                     if (divisao) divisao.style.display = 'none';
@@ -258,13 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const diaSemana = dataInput.getDay() + 1;
+            let diaSemana = dataInput.getDay() + 1;
             if (diaSemana == 8) { diaSemana = 0; }
             console.log(diaSemana)
             const unidadeSelecionada = localStorage.getItem('unidadeSelecionada');
             if (!servicosSelecionados || !unidadeSelecionada) return;
 
-            const idServico = Array.isArray(servicosSelecionados) ? servicosSelecionados[0].id_servico : servicosSelecionados.id_servico
+            let idServico = Array.isArray(servicosSelecionados) ? servicosSelecionados[0].id_servico : servicosSelecionados.id_servico
             try {
                 const resposta = await fetch(`http://localhost:3000/profissionais?id_servico=${idServico}&id_unidade=${encodeURIComponent(unidadeSelecionada)}&diaSemana=${diaSemana}`);
                 const funcionarios = await resposta.json();
@@ -729,8 +741,8 @@ function iniciarDivisao2(hora) {
     const btnUpList = bloco.querySelectorAll(".btn-up");
     const btnDownList = bloco.querySelectorAll(".btn-down");
 
-    const MIN_S1 = 15;
-    const MAX_S1 = 35;
+    const MIN_S1 = 30;
+    const MAX_S1 = 100;
     const MIN_S2 = 0;
 
     function atualizar() {
@@ -746,7 +758,7 @@ function iniciarDivisao2(hora) {
             const isS1 = btn.dataset.target === "s3";
             const valorAtual = parseInt(alvo.textContent);
 
-            if (soma + 5 > hora) {
+            if (soma + 10 > hora) {
                 btn.disabled = true;
                 return;
             }
@@ -783,7 +795,7 @@ function iniciarDivisao2(hora) {
     btnUpList.forEach(btn => {
         btn.addEventListener("click", () => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
-            alvo.textContent = parseInt(alvo.textContent) + 5;
+            alvo.textContent = parseInt(alvo.textContent) + 10;
             atualizar();
         });
     });
@@ -791,7 +803,7 @@ function iniciarDivisao2(hora) {
     btnDownList.forEach(btn => {
         btn.addEventListener("click", () => {
             const alvo = bloco.querySelector(`#${btn.dataset.target}`);
-            alvo.textContent = parseInt(alvo.textContent) - 5;
+            alvo.textContent = parseInt(alvo.textContent) - 10;
             atualizar();
         });
     });

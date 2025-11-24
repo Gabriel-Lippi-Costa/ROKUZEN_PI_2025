@@ -279,27 +279,23 @@ app.post('/agendamentos', (req, res) => {
 
 
 app.get('/profissionais', async (req, res) => {
-    const { id_servico, id_unidade, diaSemana } = req.query;
+    let { id_servico, id_unidade, diaSemana } = req.query;
 
     if (!id_servico || !id_unidade || !diaSemana) {
         return res.status(400).json({ erro: "Parâmetros ausentes" });
     }
-
+    if (id_servico == 5) id_servico = 3;
+    else if (id_servico == 6) id_servico = 4;
     try {
-     const sql = `
+        const sql = `
     SELECT f.id_funcionario, f.nome_funcionario
     FROM funcionarios f
     JOIN escalas e ON f.id_funcionario = e.id_funcionario
     JOIN servicos_funcionarios sf ON f.id_funcionario = sf.id_funcionario
-    WHERE 
-        CASE 
-            WHEN ? = 5 THEN 3
-            WHEN ? = 6 THEN 4
-            ELSE ?
-        END = sf.id_servico
-        AND e.id_unidade = ?
-        AND e.dia_semana = ?
-        AND f.funcionario_ativo = 1
+    WHERE sf.id_servico = ?
+      AND e.id_unidade = ?
+      AND e.dia_semana = ?
+      AND f.funcionario_ativo
 `;
 
 
@@ -413,25 +409,24 @@ app.get('/cliente/:id/agendamentos-futuros', (req, res) => {
     C.nome_funcionario AS nome_profissional,
     S.nome_servico AS tipo_servico,
     U.nome_unidade AS unidade,
-        CASE 
+    CASE 
         WHEN A.id_servico = 4 THEN 48.00 
-        ELSE SP.valor
+        ELSE (
+            SELECT SP.valor
+            FROM servicos_precos SP
+            WHERE SP.id_servico = A.id_servico AND SP.ativo = TRUE
+            ORDER BY SP.valor DESC
+            LIMIT 1
+        )
     END AS preco
 FROM agendamentos A
 JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
 JOIN servicos S ON A.id_servico = S.id_servico
 JOIN unidades U ON A.id_unidade = U.id_unidade
-LEFT JOIN servicos_precos SP 
-    ON SP.id_servico = A.id_servico 
-    AND SP.ativo = TRUE
-    AND SP.valor = (
-        SELECT MAX(valor)
-        FROM servicos_precos
-        WHERE id_servico = A.id_servico AND ativo = TRUE
-    )
 WHERE A.id_cliente = ?
-AND A.data_agendamento > NOW()
+  AND A.data_agendamento > NOW()
 ORDER BY A.data_agendamento DESC;
+
 
     `;
 
@@ -947,7 +942,7 @@ app.get('/servico/:id', (req, res) => {
             p.valor
         FROM servicos_precos p
         JOIN servicos s ON p.id_servico = s.id_servico
-        WHERE p.id_servico = ? AND p.promocao = 0
+        WHERE p.id_servico = ? AND p.id_unidade = 1 AND p.promocao = 0
     `;
 
     conexao.query(sql, [id], (erro, resultado) => {

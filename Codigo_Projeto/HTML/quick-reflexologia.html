@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Quick Massage | Rokuzen</title>
+    <meta name="description"
+        content="A Quick Massage é prática, eficaz e ideal para quem busca relaxamento rápido e alívio do estresse. Conheça seus benefícios com a Rokuzen." />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" />
+    <link rel="stylesheet" href="../CSS/quick-reflexologia.css" />
+    <link rel="stylesheet" href="../CSS/global.css">
+    <link rel="icon" href="../assets/Logo/favicon.png" type="image/png" />
+
+    <meta property="og:title" content="Quick Massage - Serviços | Rokuzen" />
+    <meta property="og:description" content="Relaxe em poucos minutos com a Quick Massage da Rokuzen." />
+    <meta property="og:image" content="../assets/Logo/logo-rokuzen.png" />
+    <meta property="og:type" content="website" />
+    <link rel="shortcut icon" href="../assets/Logo/favicon-rokuzen.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <section class="parte-de-cima">
+                <section class="logo">
+                    <a href="index.html"><img src="../assets/Logo/logo-rokuzen.png" alt="Logo Rokuzen"></a>
+                </section>
+
+                <a id="botao-autenticacao-topo" href="autenticacao.html"><i class="bi bi-person"></i></a>
+
+                <ul class="menu-desktop">
+                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="unidades.html">Unidades</a></li>
+                    <li><a href="artigos.html">Artigos</a></li>
+                    <li><a href="profissionais.html">Profissionais</a></li>
+                    <li><a href="ajuda.html">Ajuda</a></li>
+                    <li><a href="sobre-nos.html">Sobre nós</a></li>
+                </ul>
+            </section>
+
+            <section class="parte-do-meio">
+                <section class="login-btn">
+                    <a id="botao-autenticacao-menu" href="autenticacao.html"><i class="bi bi-person"></i></a>
+                </section>
+
+                <section class="menu-btn">
+                    <i class="bi bi-list" onclick="menuToggle()" aria-label="Abrir menu"></i>
+                </section>
+
+                <ul id="menu-mobile">
+                    <li class="close-btn-li">
+                        <i class="bi bi-x close-btn" onclick="menuToggle()" aria-label="Fechar menu"></i>
+                    </li>
+                    <li><a href="servicos.html" class="active">Serviços</a></li>
+                    <li><a href="unidades.html">Unidades</a></li>
+                    <li><a href="#">Artigos</a></li>
+                    <li><a href="profissionais.html">Profissionais</a></li>
+                    <li><a href="#">Ajuda</a></li>
+                    <li><a href="sobre-nos.html">Sobre nós</a></li>
+                </ul>
+            </section>
+
+            <section class="parte-de-baixo">
+                <section class="barra-de-pesquisa">
+                    <input type="text" id="searchBar" placeholder="Pesquisar" aria-label="Pesquisar" autocomplete="off" />
+                    <i class="bi bi-search"></i>
+                  </section>
+                  <ul id="results" class="lista-resultados"></ul>
+                </section>
+        </nav>
+    </header>
+
+    <section class="banner-quick">
+        <h1>QUICK + REFLEXOLOGIA</h1>
+        <img src="../assets/Logo/logo-titulos.png" alt="Logo marca Rokuzen">
+    </section>
+    
+
+    <main>
+        <section class="imagem-texto">
+            <img src="../assets/Serviços/quick.jpg" alt="Quick Massage Rokuzen">
+            <img src="../assets/Serviços/reflexologia.jpg" alt="Quick Massage Rokuzen">
+            <div class="texto">
+                <p id="primeiro-topico">
+    O serviço Quick + Reflexologia combina a praticidade da Quick Massage com os benefícios terapêuticos da Reflexologia, proporcionando relaxamento profundo e alívio do estresse em uma única sessão. 
+    <strong>Importante:</strong> a duração deve ser dividida entre os dois serviços em incrementos de 5 minutos. A Quick Massage deve ter no mínimo 15 minutos e no máximo 35 minutos, e o restante do tempo será destinado à Reflexologia.
+</p>
+
+<ol>
+    <li class="subtitulos"><strong>Como funciona?</strong>
+        <p id="terceiro-topico">
+            A sessão começa com a Quick Massage, aplicando movimentos rápidos e profundos nas áreas de maior tensão muscular, seguida da Reflexologia, que atua em pontos específicos dos pés para equilibrar corpo e mente. 
+            O tempo total deve ser dividido respeitando os limites: Quick (15–35 minutos) e Reflexologia (restante em múltiplos de 5 minutos).
+        </p>
+    </li>
+
+    <li class="subtitulos"><strong>Benefícios do Quick + Reflexologia</strong>
+        <ul>
+            <li class="topicos"><strong>Redução da tensão muscular:</strong> alívio em ombros, pescoço, costas e braços.</li>
+            <li class="topicos"><strong>Equilíbrio físico e mental:</strong> a Reflexologia promove relaxamento profundo e bem-estar geral.</li>
+            <li class="topicos"><strong>Melhora da circulação:</strong> estimula o fluxo sanguíneo e a oxigenação do corpo.</li>
+            <li class="topicos"><strong>Alívio do estresse:</strong> diminui ansiedade e promove sensação de calma imediata.</li>
+            <li class="topicos" id="segundo-topico"><strong>Mais energia e concentração:</strong> combina estímulo físico e mental para maior disposição ao longo do dia.</li>
+        </ul>
+    </li>
+
+    <li class="subtitulos"><strong>Para quem é indicada?</strong>
+        <ul>
+            <li class="topicos">Pessoas com rotina corrida que buscam alívio rápido do estresse.</li>
+            <li class="topicos">Profissionais que passam muitas horas sentados ou em frente ao computador.</li>
+            <li class="topicos">Quem deseja cuidar do corpo e da mente de forma prática e eficiente.</li>
+            <li class="topicos">Empresas que valorizam o bem-estar e a produtividade dos colaboradores.</li>
+        </ul>
+    </li>
+</ol>
+
+
+            </div>
+        </section>
+    </main>
+
+   <section class="agendar-servico">
+    <button type="button" class="btn-agendar" data-id-servico="5">Agendar</button>
+</section>
+<div id="alert-container" class="container mt-3"></div>
+    <footer class="roda-pe">
+        <section class="info-rokuzen">
+            <p><a href="#">Contato</a></p>
+            <p><a href="unidades.html">Unidades</a></p>
+            <p><a href="sobre-nos.html">Sobre nós</a></p>
+        </section>
+
+        <section class="redes-sociais">
+            <button>
+                <a href="https://www.instagram.com/rokuzen.massagem" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            </button>
+            <button>
+                <a href="https://www.facebook.com/rokuzen.massagem" target="_blank" rel="noopener noreferrer"
+                    aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            </button>
+            <button>
+                <a href="mailto:contato@rokuzen.com.br" aria-label="Enviar e-mail"><i class="bi bi-envelope"></i></a>
+            </button>
+        </section>
+
+        <section class="direito-de-imagem">
+            <p><i class="bi bi-c-circle"></i> 2025 Rokuzen - Todos os direitos reservados.</p>
+        </section>
+    </footer>
+
+    <script defer>
+        function menuToggle() {
+            const ul = document.querySelector('header nav .parte-do-meio ul');
+            if (!ul) return;
+            ul.classList.toggle('open');
+        }
+    </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
+    <script src="../JS/verificar-usuario.js"></script>
+    <script src="../JS/pesquisa.js"></script>
+    <script src="../JS/salvar-servico.js"></script>
+    <script src="../JS/alerts.js"></script>
+</body>
+</html>

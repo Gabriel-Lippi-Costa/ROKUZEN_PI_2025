@@ -204,3 +204,24 @@
     font-size: 1.8em;
   }
 }
+
+.secao-servicos .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    column-gap: 10px;  /* espaço entre os cards */
+}
+
+
+
+@media (max-width: 1024px) {
+    .secao-servicos .cards {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .secao-servicos .cards {
+        grid-template-columns: 1fr; /* 1 coluna em mobile */
+    }
+}

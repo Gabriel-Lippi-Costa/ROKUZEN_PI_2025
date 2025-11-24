@@ -174,3 +174,28 @@ background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
     font-size: 15px;
   }
 }
+
+.imagem-texto {
+    display: flex !important;          /* força flex */
+    flex-direction: row !important;    /* alinhamento horizontal */
+    gap: 20px;                         /* espaço entre as imagens */
+    justify-content: center;            /* centraliza as imagens */
+    align-items: center;                /* alinhamento vertical */
+    flex-wrap: wrap;                    /* quebra linha só se for necessário */
+}
+
+.imagem-texto img {
+    flex: 1 1 30%;      /* cada imagem ocupa ~30% do container */
+    max-width: 30%;     /* garante que não ultrapasse 30% */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+@media (max-width: 600px) {
+    .imagem-texto img {
+        flex: 1 1 100%;                 /* empilha somente em telas muito pequenas */
+        max-width: 100%;
+    }
+}
