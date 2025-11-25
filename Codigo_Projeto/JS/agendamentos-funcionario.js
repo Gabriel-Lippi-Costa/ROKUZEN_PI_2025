@@ -23,7 +23,7 @@ function renderizarCardsFuncionario(agendamentos, containerSelector, tipo = 'fut
             const [h, m] = ag.duracao.split(':').map(Number);
             duracaoFormatada = h * 60 + m;
         }
-
+console.log(ag.nome_cliente)
         const nomeCliente = ag.nome_cliente || '-';
         const nomeServico = ag.nome_servico || ag.tipo_servico || '-';
         const unidade = ag.unidade || '-';

@@ -229,3 +229,16 @@ background: linear-gradient(90deg, #500596 0%, #6a07c4 100%);
     font-size: 1.8rem; 
   margin-left: -37px;}
 }
+
+#primeiro-topico,
+#primeiro-topico *,
+.subtitulos,
+.subtitulos *,
+.topicos,
+.topicos *,
+#segundo-topico,
+#terceiro-topico,
+#quarto-topico,
+#quinto-topico {
+    font-family: "Poppins", sans-serif;
+}

@@ -541,8 +541,6 @@ function abrirModalPromocao() {
 
     if (!modal || !p || !btnFechar || !btnConfirmar) return;
 
-    p.textContent = "Deseja adicionar uma auriculoterapia em seguida por apenas R$48,00??";
-
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 

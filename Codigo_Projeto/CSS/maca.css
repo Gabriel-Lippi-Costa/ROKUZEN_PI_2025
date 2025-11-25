@@ -229,3 +229,17 @@ ul {
     font-size: 1.8rem; 
   margin-left: -37px;}
 }
+
+
+#primeiro-topico,
+#primeiro-topico *,
+.subtitulos,
+.subtitulos *,
+.topicos,
+.topicos *,
+#segundo-topico,
+#terceiro-topico,
+#quarto-topico,
+#quinto-topico {
+    font-family: "Poppins", sans-serif;
+}

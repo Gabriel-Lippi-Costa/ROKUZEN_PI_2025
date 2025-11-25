@@ -982,29 +982,36 @@ app.get('/funcionario/:id/agendamentos-futuros', (req, res) => {
     const idFuncionario = req.params.id;
 
     const sql = `
-        SELECT 
-A.id_agendamento,
+SELECT 
+    A.id_agendamento,
     A.data_agendamento,
     A.duracao,
-    CL.nome_cliente AS nome_cliente, -- nome do cliente
+    C.nome_funcionario AS nome_profissional,
     S.nome_servico AS tipo_servico,
     U.nome_unidade AS unidade,
-    SP.valor AS preco
+    G.nome_cliente AS nome_cliente,
+    CASE 
+        WHEN A.id_servico = 1 THEN 48.00 
+        ELSE (
+            SELECT SP.valor
+            FROM servicos_precos SP
+            WHERE SP.id_servico = A.id_servico
+              AND SP.duracao = A.duracao
+              AND SP.ativo = TRUE
+            LIMIT 1
+        )
+    END AS preco
 FROM agendamentos A
-JOIN clientes CL ON A.id_cliente = CL.id_cliente  -- join com clientes
+JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
 JOIN servicos S ON A.id_servico = S.id_servico
 JOIN unidades U ON A.id_unidade = U.id_unidade
-LEFT JOIN servicos_precos SP 
-    ON SP.id_servico = A.id_servico 
-    AND SP.ativo = TRUE
-    AND SP.valor = (
-        SELECT MAX(valor)
-        FROM servicos_precos
-        WHERE id_servico = A.id_servico AND ativo = TRUE
-    )
-WHERE A.id_funcionario = ?
-AND A.data_agendamento > NOW()
+JOIN clientes G ON A.id_cliente = G.id_cliente
+WHERE A.id_cliente = ?
+  AND A.data_agendamento > NOW()
 ORDER BY A.data_agendamento DESC;
+
+
+
     `;
 
     conexao.query(sql, [idFuncionario], (erro, resultados) => {
@@ -1033,28 +1040,34 @@ app.get('/funcionario/:id/agendamentos-historicos', (req, res) => {
 
     const sql = `
        SELECT 
-A.id_agendamento,
+    A.id_agendamento,
     A.data_agendamento,
     A.duracao,
-    CL.nome_cliente AS nome_cliente, -- nome do cliente
+    C.nome_funcionario AS nome_profissional,
     S.nome_servico AS tipo_servico,
     U.nome_unidade AS unidade,
-    SP.valor AS preco
+    G.nome_cliente AS nome_cliente,
+    CASE 
+        WHEN A.id_servico = 1 THEN 48.00 
+        ELSE (
+            SELECT SP.valor
+            FROM servicos_precos SP
+            WHERE SP.id_servico = A.id_servico
+              AND SP.duracao = A.duracao
+              AND SP.ativo = TRUE
+            LIMIT 1
+        )
+    END AS preco
 FROM agendamentos A
-JOIN clientes CL ON A.id_cliente = CL.id_cliente  -- join com clientes
+JOIN funcionarios C ON A.id_funcionario = C.id_funcionario
 JOIN servicos S ON A.id_servico = S.id_servico
 JOIN unidades U ON A.id_unidade = U.id_unidade
-LEFT JOIN servicos_precos SP 
-    ON SP.id_servico = A.id_servico 
-    AND SP.ativo = TRUE
-    AND SP.valor = (
-        SELECT MAX(valor)
-        FROM servicos_precos
-        WHERE id_servico = A.id_servico AND ativo = TRUE
-    )
-WHERE A.id_funcionario = ?
-AND A.data_agendamento < NOW()
+JOIN clientes G ON A.id_cliente = G.id_cliente
+WHERE A.id_cliente = ?
+  AND A.data_agendamento < NOW()
 ORDER BY A.data_agendamento DESC;
+
+
     `;
 
     conexao.query(sql, [idFuncionario], (erro, resultados) => {
@@ -1063,13 +1076,15 @@ ORDER BY A.data_agendamento DESC;
             return res.status(500).json({ erro: 'Erro ao buscar agendamentos históricos.' });
         }
 
-        console.log('Agendamentos brutos encontrados (backend):', resultados);
+        console.log('Agendamentos históricos encontrados:', resultados);
 
+    
         const agendamentosFormatados = resultados.map(ag => ({
             id_agendamento: ag.id_agendamento,
             data_agendamento: ag.data_agendamento,
             duracao: ag.duracao,
-            nome_cliente: ag.nome_cliente,
+            nome_profissional: ag.nome_profissional,
+            nome_cliente: ag.cliente,
             nome_servico: ag.tipo_servico,
             unidade: ag.unidade,
             valor: `R$ ${(Number(ag.preco) || 0).toFixed(2).replace('.', ',')}`
@@ -1078,6 +1093,7 @@ ORDER BY A.data_agendamento DESC;
         res.json(agendamentosFormatados);
     });
 });
+
 
 app.get('/listar-profissionais', (req, res) => {
     console.log('Requisição para /profissionais recebida');
